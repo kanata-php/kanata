@@ -1,0 +1,27 @@
+{
+  "name": "flight-zone",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.php",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lotharthesavior/flight-zone.git"
+  },
+  "author": "Savio Resende <savio@savioresende.com.br>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lotharthesavior/flight-zone/issues"
+  },
+  "homepage": "https://github.com/lotharthesavior/flight-zone#readme",
+  "devDependencies": {
+    "laravel-mix": "^6.0.19",
+    "mix-tailwindcss": "^1.3.0",
+    "postcss": "^8.3.0",
+    "tailwindcss": "^2.1.2"
+  },
+  "dependencies": {
+    "alpinejs": "^2.8.2"
+  }
+}

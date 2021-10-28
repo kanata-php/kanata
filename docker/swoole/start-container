@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [ ! -d "/var/www/html/vendor" ]; then
+    composer install
+fi
+
+rm -f /var/www/html/http-server-pid
+
+if [ $# -gt 0 ];then
+    exec gosu $WWWUSER "$@"
+else
+    /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+fi

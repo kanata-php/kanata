@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+
+  php:
+    build:
+      context: ./docker/swoole
+    container_name: ${DOCKER_APP_NAME}-php
+    volumes:
+      - ".:/var/www/html"
+    expose:
+      - 8001
+      - 8002
+    ports:
+      - "8001:8001"
+      - "8002:8002"
+    networks:
+      masa-network:
+        ipv4_address: ${DOCKER_APP_IP}.0.2
+
+networks:
+  masa-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${DOCKER_APP_IP}.0.0/16
+          gateway: ${DOCKER_APP_IP}.0.1

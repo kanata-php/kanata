@@ -1,0 +1,86 @@
+{
+    "name": "lotharthesavior/flight-zone",
+    "description": "App Starter with Swoole.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Savio Resende",
+            "email": "savio@savioresende.com.br",
+            "homepage": "https://savioresende.com.br"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "pachico/slim-swoole",
+                "version": "0.3.1",
+                "source": {
+                    "url": "https://github.com/lotharthesavior/slim-swoole.git",
+                    "type": "git",
+                    "reference": "0.3.1"
+                },
+                "autoload": {
+                    "classmap": ["src/"]
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "voku/php-hooks",
+                "version": "0.2.12",
+                "source": {
+                    "url": "https://github.com/lotharthesavior/php-hooks.git",
+                    "type": "git",
+                    "reference": "0.2.12"
+                },
+                "autoload": {
+                    "classmap": ["src/"]
+                }
+            }
+        }
+    ],
+    "require": {
+        "slim/slim": "3.*",
+        "slim/php-view": "^2.0",
+        "monolog/monolog": "^1.17",
+        "league/flysystem": "^1.0",
+        "pachico/slim-swoole": "^0.3.0",
+        "guzzlehttp/guzzle": "^7.3",
+        "symfony/validator": "^5.1",
+        "league/pipeline": "^1.0",
+        "wordstree/socket-conveyor": "^0.2",
+        "voku/php-hooks": "^0.2",
+        "dflydev/fig-cookies": "^3.0",
+        "doctrine/annotations": "^1.13",
+        "doctrine/cache": "^1.10",
+        "ray/aop": "^2.10",
+        "psr/cache": "^2",
+        "illuminate/database": "^8.42",
+        "vlucas/phpdotenv": "^5.3",
+        "ramsey/uuid": "^4.1",
+        "phpseclib/phpseclib": "~3.0",
+        "nesbot/carbon": "^2.48"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/App",
+            "Tests\\": "tests"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.2",
+        "phpunit/phpunit": "^9.2",
+        "mockery/mockery": "^1.4",
+        "codedungeon/phpunit-result-printer": "^0.30"
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit --testsuite Safe"
+        ],
+        "post-create-project-cmd": [
+            "@php fz 10.10 fz"
+        ]
+    }
+}

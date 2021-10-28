@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "ef46f404-412a-4212-9664-74f7620025e7",
+		"name": "Slim Swoole Skeleton",
+		"description": "Slim Swoole Skeleton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Todos",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e9ca9e-133e-46e5-ad76-82e4f698d65e",
+						"exec": [
+							"pm.environment.set(\"id\", 47);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/todos/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Todos List",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cfff1eb3-39b2-4bdf-93fe-36f23534165f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/todos",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Todos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"content\": \"Some content\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Todos",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "676be11b-2a05-4a64-8c90-91ef36691937",
+						"exec": [
+							"pm.environment.set(\"id\", \"1\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"content\": \"Some other content 2\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Todos",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7a88926b-28c1-46d7-8c99-61e7d1279150",
+						"exec": [
+							"pm.environment.set(\"id\", 47);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/todos/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

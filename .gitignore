@@ -1,0 +1,10 @@
+vendor
+node_modules
+data
+.phpintel
+.idea
+.env
+supervisord.log
+supervisord.pid
+http-server-pid
+ws-server-pid
