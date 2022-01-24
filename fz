@@ -1,155 +1,19 @@
 #!/usr/bin/env php
 <?php
 
+require __DIR__.'/vendor/autoload.php';
+include_once __DIR__ . '/src/constants.php';
+include_once __DIR__ . '/src/helpers.php';
 
-// preparing cli arguments
-$ip = isset($argv[1]) ? $argv[1] : false;
-$name = isset($argv[2]) ? $argv[2] : false;
+use App\Commands\DebuggerCommand;
+use App\Commands\InfoCommand;
+use Symfony\Component\Console\Application;
+use App\Commands\InitCommand;
 
+$application = new Application();
 
+$application->add(new InitCommand());
+$application->add(new InfoCommand());
+$application->add(new DebuggerCommand());
 
-// proceeding with code
-
-echo "\33[0;30m";
-
-echo 'Checking for configurations...' . PHP_EOL;
-
-echo <<<FZ
-  ________ ________
- |\  _____\\_____  \         #######################
- \ \  \__/ \|___/  /|       Welcome to Flight Zone!
-  \ \   __\    /  / /       #######################
-   \ \  \_|   /  /_/__
-    \ \__\   |\________\
-     \|__|    \|_______|
-FZ;
-echo PHP_EOL;
-
-/**
- * @param string $text
- * 
- * @return string
- */
-function echo_bold(string $text): string {
-    return "\033[1m" . $text . "\33[0;30m"; // bold
-}
-
-
-/**
- * @param string $text
- * 
- * @return string
- */
-function echo_error(string $text): string {
-    return "\033[31m" . $text . "\33[0;30m"; // Red Color Text 
-}
-
-/**
- * @param string $text
- * 
- * @return string
- */
-function echo_info(string $text): string {
-    return "\033[34m" . $text . "\33[0;30m"; // Blue Color Text
-}
-
-/**
- * @param string $text
- * @param bool $bold
- * 
- * @return string
- */
-function echo_help(string $text, bool $bold = false): string {
-    if (!$bold) {
-        return "\033[32m" . $text . "\33[0;30m"; // Green Color Text
-    }
-
-    return "\033[32m" . echo_bold($text) . "\33[0;30m"; // Green Color Text
-}
-
-$permission_message = 'It might be due to permissions.' . PHP_EOL;
-
-// -------------------------------
-// create ./storage/logs directory
-// -------------------------------
-$storate_logs_dir = __DIR__ . '/storage/logs';
-if (!file_exists($storate_logs_dir)) {
-    echo 'No ./storage/logs directory not found.' . PHP_EOL;
-    if (!mkdir($storate_logs_dir, 0755)) {
-        echo echo_error('There was a problem creating the directory ' . $storate_logs_dir) . PHP_EOL . echo_error($permission_message);
-        exit;
-    }
-    echo echo_info('Directory created successfully: ' . $storate_logs_dir) . PHP_EOL;
-}
-
-// -------------------------------
-// create ./storage/temp directory
-// -------------------------------
-$storate_temp_dir = __DIR__ . '/storage/temp';
-if (!file_exists($storate_temp_dir)) {
-    echo 'No ./storage/temp directory not found.' . PHP_EOL;
-    if (!mkdir($storate_temp_dir, 0755)) {
-        echo echo_error('There was a problem creating the directory ' . $storate_temp_dir) . PHP_EOL . echo_error($permission_message);
-        exit;
-    }
-    echo echo_info('Directory created successfully: ' . $storate_temp_dir) . PHP_EOL;
-}
-
-// -------------------------------
-// create ./env file
-// -------------------------------
-$env_file = __DIR__ . '/.env';
-$env_sample_file = __DIR__ . '/.env.sample';
-$expected_options = [
-    'DOCKER_APP_IP=',
-    'DOCKER_APP_NAME=',
-];
-if (!file_exists($env_file)) {
-    $content = file_get_contents($env_sample_file);
-    $content_array = explode(PHP_EOL, $content);
-    $env_file_fd = fopen($env_file, "w") or die('Unable to open file!' . $env_file);
-    for ($i = 0; $i < count($content_array); $i++) {
-        if (!in_array($content_array[$i], $expected_options)) {
-            fwrite($env_file_fd, $content_array[$i] . PHP_EOL) or die(echo_error('Unable to write content to file: ' . $content_array[$i]) . PHP_EOL . echo_error($permission_message));
-            continue;
-        }
-
-        if ($content_array[$i] === 'DOCKER_APP_IP=') {
-            $input = $ip ? $ip : readline('Please, insert value of "' . $content_array[$i] . '": ');
-        }
-
-        if ($content_array[$i] === 'DOCKER_APP_NAME=') {
-            $input = $name ? $name : readline('Please, insert value of "' . $content_array[$i] . '": ');
-        }
-
-        fwrite($env_file_fd, $content_array[$i] . $input . PHP_EOL) or die(echo_error('Unable to write content to file: ' . $content_array[$i]) . PHP_EOL . echo_error($permission_message));
-    }
-    fclose($env_file_fd);
-
-    echo echo_info('Successfully created ./.env file!') . PHP_EOL;
-}
-
-
-// -------------------------------
-// Displaying help
-// -------------------------------
-
-echo PHP_EOL;
-echo echo_bold('###################################') . PHP_EOL;
-echo echo_bold('How to:') . PHP_EOL;
-echo echo_bold('###################################') . PHP_EOL;
-echo PHP_EOL;
-echo echo_help('To start docker-compose environment, just run:', true) . ' docker-compose up -d' . PHP_EOL;
-echo PHP_EOL;
-echo echo_bold('--- Supervisor HTTP ---') . PHP_EOL;
-echo echo_help('Supervisor Output is located at:', true) . ' storage/logs/output.log' . PHP_EOL;
-echo echo_help('Supervisor Errors are located at:', true) . ' storage/logs/error.log' . PHP_EOL;
-echo PHP_EOL;
-echo echo_bold('--- Supervisor WebSocket ---') . PHP_EOL;
-echo echo_help('Supervisor Output is located at:', true) . '  storage/logs/ws-output.log' . PHP_EOL;
-echo echo_help('Supervisor Errors are located at:', true) . ' storage/logs/ws-error.log' . PHP_EOL;
-echo PHP_EOL;
-echo echo_bold('--- Inotify ---') . PHP_EOL;
-echo echo_help('Inotify Output is located at:', true) . '  storage/logs/inotify-output.log' . PHP_EOL;
-echo echo_help('Inotify Errors are located at:', true) . ' storage/logs/inotify-error.log' . PHP_EOL;
-echo PHP_EOL;
+$application->run();

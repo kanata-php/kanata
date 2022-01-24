@@ -1,19 +1,18 @@
 <?php
 
+use Ilex\SwoolePsr7\SwooleResponseConverter;
+use Ilex\SwoolePsr7\SwooleServerRequestConverter;
 use Slim\App;
 use Swoole\Http\Server;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
-use Pachico\SlimSwoole\BridgeManager;
 
-return function (App $app) {
-    $bridgeManager = new BridgeManager($app);
-
+return function (App $app, SwooleServerRequestConverter $requestConverter) {
     handle_existing_pid(PID_FILE);
 
     $port = grab_port_from_params(HTTP_PORT_PARAM);
 
-    $server = new Server("0.0.0.0", $port);
+    $server = new Server(HTTP_SERVER_HOST, $port);
 
     $server->set([
         'document_root' => public_path(),
@@ -28,12 +27,14 @@ return function (App $app) {
         echo 'Swoole Server is started at http://' . $server->host . ':' . $server->port . PHP_EOL;
     });
 
-    $server->on(
-        "request",
-        function (Request $swooleRequest, Response $swooleResponse) use ($bridgeManager) {
-            $bridgeManager->process($swooleRequest, $swooleResponse)->end();
-        }
-    );
+    $server->on("request", function (
+        Request $swooleRequest, Response $swooleResponse
+    ) use ($app, $requestConverter) {
+        $psr7Request = $requestConverter->createFromSwoole($swooleRequest);
+        $psr7Response = $app->handle($psr7Request);
+        $converter = new SwooleResponseConverter($swooleResponse);
+        $converter->send($psr7Response);
+    });
 
     $server->start();
 };

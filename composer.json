@@ -42,13 +42,11 @@
         }
     ],
     "require": {
-        "slim/slim": "3.*",
-        "slim/php-view": "^2.0",
+        "slim/slim": "4.*",
         "monolog/monolog": "^1.17",
         "league/flysystem": "^1.0",
-        "pachico/slim-swoole": "^0.3.0",
         "guzzlehttp/guzzle": "^7.3",
-        "symfony/validator": "^5.1",
+        "symfony/validator": "^6.0",
         "league/pipeline": "^1.0",
         "wordstree/socket-conveyor": "^0.2",
         "voku/php-hooks": "^0.2",
@@ -61,7 +59,17 @@
         "vlucas/phpdotenv": "^5.3",
         "ramsey/uuid": "^4.1",
         "phpseclib/phpseclib": "~3.0",
-        "nesbot/carbon": "^2.48"
+        "nesbot/carbon": "^2.48",
+        "wikimedia/composer-merge-plugin": "^2.0",
+        "league/plates": "^3.4",
+        "ilexn/swoole-convent-psr7": "^0.3.0",
+        "nyholm/psr7": "^1.4",
+        "php-di/slim-bridge": "^3.2",
+        "php-di/php-di": "^6.3",
+        "aura/autoload": "^2.0",
+        "symfony/string": "^6.0",
+        "symfony/console": "^5.4",
+        "symfony/process": "^6.0"
     },
     "autoload": {
         "psr-4": {
@@ -82,5 +90,22 @@
         "post-create-project-cmd": [
             "@php fz 10.10 fz"
         ]
+    },
+    "extra": {
+        "merge-plugin": {
+            "include": [
+                "content/plugins/*/composer.json"
+            ],
+            "require": [
+                "composer.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "ignore-duplicates": false,
+            "merge-dev": true,
+            "merge-extra": false,
+            "merge-extra-deep": false,
+            "merge-scripts": false
+        }
     }
 }

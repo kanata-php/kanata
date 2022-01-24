@@ -2,6 +2,7 @@
 
 namespace App\Http\Middlewares\Interfaces;
 
+use Exception;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 interface RequestValidationMiddlewareInterface

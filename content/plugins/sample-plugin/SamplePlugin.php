@@ -1,19 +1,26 @@
 <?php
 
-use App\Models\ModelExample;
+use App\Interfaces\FlightZonePluginInterface;
+use SamplePlugin\Http\Controllers\DocumentationController;
+use SamplePlugin\Interceptors\LogInterceptor;
+use SamplePlugin\Models\Todo;
 use App\Services\Actions\ExampleCreateAction;
 use App\Services\Actions\ExampleDeleteAction;
 use App\Services\Actions\ExampleGetAction;
 use App\Services\Actions\ExampleUpdateAction;
-use Slim\Views\PhpRenderer;
-use voku\helper\Hooks;
+use League\Plates\Engine;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Interfaces\FlightZonePluginInterface;
-use Psr\Container\ContainerInterface;
+use App\Annotations\Plugin;
+use App\Annotations\Description;
+use App\Annotations\Author;
 
 /**
- * Class SamplePlugin
+ * @Plugin(name="SamplePlugin")
+ * @Description(value="This is a sample plugin with basic functionalities. It also makes available the documentation at the current website.")
+ * @Author(name="Savio Resende",email="savio@savioresende.com")
  */
 
 class SamplePlugin implements FlightZonePluginInterface
@@ -23,7 +30,7 @@ class SamplePlugin implements FlightZonePluginInterface
      *
      * @var string
      */
-    protected $viewKey = 'samplePluginView';
+    const VIEW_KEY = 'samplePluginView';
 
     /** @var ContainerInterface */
     protected $container;
@@ -41,6 +48,7 @@ class SamplePlugin implements FlightZonePluginInterface
         $this->register_local_views();
         $this->register_local_routes();
         $this->register_local_socket_actions();
+        $this->register_local_queue_listeners();
     }
 
     /**
@@ -55,13 +63,14 @@ class SamplePlugin implements FlightZonePluginInterface
         // to register a factory, we can call the "Container::make" when we need
         // an instance to work with.
         $this->container->setMethodInterceptor(
-            PhpRenderer::class,
+            Engine::class,
             'render',
             new LogInterceptor,
             [$path]
         );
-        $this->container[$this->viewKey] = $this->container->make(PhpRenderer::class);
-        $this->container[$this->viewKey]->setLayout('layout.php');
+        $this->container[self::VIEW_KEY] = $this->container->make(Engine::class);
+        $this->container[self::VIEW_KEY]->addFolder('core', template_path());
+        $this->container[self::VIEW_KEY]->addFolder('sample', $path);
     }
 
     /**
@@ -69,18 +78,16 @@ class SamplePlugin implements FlightZonePluginInterface
      */
     public function register_local_routes(): void
     {
-        $viewKey = $this->viewKey;
+        $viewKey = self::VIEW_KEY;
 
-        // Hook to route HTTP Requests.
-        Hooks::getInstance()->add_filter('routes', function($app) use ($viewKey) {
-            $app->get('/about', function (Request $request, Response $response) use ($viewKey) {
-                $response = $this->{$viewKey}->render($response, 'about.phtml', []);
-                return $response;
-            });
+        add_filter('routes', function($app) use ($viewKey) {
+            $app->get('/about', [DocumentationController::class, 'about']);
 
+            // UI with WebSockets example.
             $app->get('/todos', function (Request $request, Response $response) use ($viewKey) {
-                $response = $this->{$viewKey}->render($response, 'todos.phtml', []);
-                return $response;
+                $html = $this->{$viewKey}->render('sample::todos', []);
+                $response->getBody()->write($html);
+                return $response->withStatus(200);
             });
 
             return $app;
@@ -92,29 +99,63 @@ class SamplePlugin implements FlightZonePluginInterface
      */
     public function register_local_socket_actions(): void
     {
-        // Hook to Route Socket Messages.
-        Hooks::getInstance()->add_filter('socket_actions', function($socketRouter, $container) {
+        add_filter('socket_actions', function($socketRouter, $container) {
             $socketRouter->add(new ExampleCreateAction(
                 $container->dataDriver,
-                ModelExample::class
+                Todo::class
             ));
 
             $socketRouter->add(new ExampleDeleteAction(
                 $container->dataDriver,
-                ModelExample::class
+                Todo::class
             ));
 
             $socketRouter->add(new ExampleGetAction(
                 $container->dataDriver,
-                ModelExample::class
+                Todo::class
             ));
 
             $socketRouter->add(new ExampleUpdateAction(
                 $container->dataDriver,
-                ModelExample::class
+                Todo::class
             ));
 
             return $socketRouter;
         }, 2);
+    }
+
+    /**
+     * This is an example of how to listem to AMQP messages on your app.
+     *
+     * e.g.:
+     *     $connection = new \PhpAmqpLib\Connection\AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
+     *     $channel = $connection->channel();
+     *     $channel->queue_declare('default', false, false, false, false);
+     *     $msg = new \PhpAmqpLib\Message\AMQPMessage('Hello World!');
+     *     $channel->basic_publish($msg, '', 'default');
+     *
+     * @return void
+     * @throws ErrorException
+     */
+    public function register_local_queue_listeners(): void
+    {
+        $container = container();
+
+        add_filter('queues', function($app) use ($container) {
+            $callback = function ($msg) use ($container) {
+                $container['logger']->info("Queue Service: [x] Received: " . $msg->body . PHP_EOL);
+            };
+
+            $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
+            $channel = $connection->channel();
+
+            $channel->queue_declare('default', false, false, false, false);
+            $channel->basic_consume('default', '', false, true, false, false, $callback);
+
+            $container['logger']->info("Queue Service: [*] Waiting for messages. To exit press CTRL+C" . PHP_EOL);
+            while ($channel->is_open()) {
+                $channel->wait();
+            }
+        });
     }
 }

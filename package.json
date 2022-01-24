@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.php",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lotharthesavior/flight-zone.git"
@@ -22,6 +21,8 @@
     "tailwindcss": "^2.1.2"
   },
   "dependencies": {
-    "alpinejs": "^2.8.2"
+    "@tailwindcss/forms": "^0.4.0",
+    "alpinejs": "^2.8.2",
+    "css-doodle": "^0.24.1"
   }
 }

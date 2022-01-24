@@ -5,9 +5,11 @@ namespace App\Services;
 use Exception;
 use Ray\Aop\Bind;
 use Ray\Aop\MethodInterceptor;
+use Ray\Aop\ReflectionClass;
 use Ray\Aop\Weaver;
 use RuntimeException;
-use Slim\Container as SlimContainer;
+use DI\Container as SlimContainer;
+use ArrayAccess;
 
 /**
  * Class Container
@@ -17,7 +19,7 @@ use Slim\Container as SlimContainer;
  * @package App\Services
  */
 
-class Container extends SlimContainer
+class Container extends SlimContainer implements ArrayAccess
 {
     /** @var string */
     protected $tmpDir;
@@ -35,7 +37,11 @@ class Container extends SlimContainer
     public function __construct(array $values = [])
     {
         $this->tmpDir = storage_path() . 'temp/';
-        parent::__construct($values);
+        parent::__construct();
+
+        foreach ($values as $key => $value) {
+            $this->set($key, $value);
+        }
     }
 
     /**
@@ -46,18 +52,18 @@ class Container extends SlimContainer
      *
      * @return mixed
      */
-    public function make(string $id, array $params = [])
+    public function make($name, array $parameters = [])
     {
-        if (isset($this->registeredAspects[$id])) {
-            return $this->makeWithMethodInterceptor($id, $params);
+        if (isset($this->registeredAspects[$name])) {
+            return $this->makeWithMethodInterceptor($name, $parameters);
         }
 
-        if ($this->has($id)) {
-            return parent::get($id);
+        if ($this->has($name)) {
+            return parent::get($name);
         }
 
-        $reflection_class = new ReflectionClass($id);
-        return $reflection_class->newInstanceArgs($params);
+        $reflection_class = new ReflectionClass($name);
+        return $reflection_class->newInstanceArgs($parameters);
     }
 
     /**
@@ -89,8 +95,6 @@ class Container extends SlimContainer
      * @param array $params
      *
      * @throws RuntimeException
-     *
-     * @return void
      */
     protected function makeWithMethodInterceptor(string $id, array $params)
     {
@@ -105,6 +109,35 @@ class Container extends SlimContainer
         $bind = (new Bind)->bindInterceptors($pieces['method'], [$pieces['methodInterceptor']]);
         $compiler = new Weaver($bind, $this->tmpDir);
         return $compiler->newInstance($pieces['id'], $params, $bind);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            throw new Exception('A key must be set for the container.');
+        } else {
+            $this->set($offset, $value);
+        }
+    }
+
+    public function offsetExists($offset)
+    {
+        return isset($this->has[$offset]);
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->resolvedEntries[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->has($offset) ? $this->get($offset) : null;
+    }
+
+    public function __get($name)
+    {
+        return $this->has($name) ? $this->get($name) : null;
     }
 
     // TODO: find and update: withMethodInterceptorWithParams

@@ -8,44 +8,40 @@ use App\Exceptions\RecordNotFoundException;
 
 class Filesystem implements DataDriverInterface
 {
-    /** @var Flysystem **/
-    protected $filesystem;
-
-    /** @var string */
-    protected $database;
-
-    /** @var string */
-    protected $format;
-
     /**
      * @param string $database
      * @param Flysystem $filesystem
      * @param string $format
+     * @param bool $autoincrement
      */
     public function __construct(
-        string $database,
-        Flysystem $filesystem,
-        string $format = 'json'
-    ) {
-        $this->database = $database;
-        $this->filesystem = $filesystem;
-        $this->format = $format;
-    }
+        protected string $database,
+        protected Flysystem $filesystem,
+        protected string $format = 'json',
+        protected bool $autoincrement = true
+    ) {}
     
     /**
      * @param string $table
      * @param array $data
      *
-     * @return int|bool
+     * @return int|string|bool
      */
     public function create(string $table, array $data)
     {
-        $nextId = $this->getNextItemId($table);
-
-        $recordAddress = $this->database . '/' . $table . '/' . ((string) $nextId) . '.' . $this->format;
-
-        if ($this->filesystem->write($recordAddress, json_encode($data))) {
-            return (int) $nextId;
+        if ($this->autoincrement) {
+            $nextId = $this->getNextItemId($table);
+            $recordAddress = $this->database . '/' . $table . '/' . ((string)$nextId) . '.' . $this->format;
+            if ($this->filesystem->write($recordAddress, json_encode($data))) {
+                return (int)$nextId;
+            }
+        } elseif (isset($data['id'])) {
+            $id = $data['id'];
+            unset($data['id']);
+            $recordAddress = $this->database . '/' . $table . '/' . ((string)$id) . '.' . $this->format;
+            if ($this->filesystem->write($recordAddress, json_encode($data))) {
+                return (string) $id;
+            }
         }
 
         return false;
@@ -53,12 +49,12 @@ class Filesystem implements DataDriverInterface
 
     /**
      * @param string $table
-     * @param int $id
+     * @param int|string $id
      * @param array $data
      *
      * @return bool
      */
-    public function update(string $table, int $id, array $data) : bool
+    public function update(string $table, int|string $id, array $data) : bool
     {
         $recordAddress = $this->getRecordAddress($table, $id);
         if (!$this->filesystem->has($recordAddress)) {
@@ -80,25 +76,28 @@ class Filesystem implements DataDriverInterface
             return $this->getRecordsList($table);
         }
 
-        return $this->getSingleRecord($table, (int) $id);
+        if ($this->autoincrement) {
+            return $this->getSingleRecord($table, (int) $id);
+        }
+
+        return $this->getSingleRecord($table, (string) $id);
     }
 
     /**
      * @param string $table
-     * @param int $id
+     * @param int|string $id
      *
      * @return array
      */
-    private function getSingleRecord(string $table, int $id) : array
+    private function getSingleRecord(string $table, $id) : array
     {
-        $recordAddress = $this->getRecordAddress($table, (int) $id);
+        $recordAddress = $this->getRecordAddress($table, $id);
 
         if (!$this->filesystem->has($recordAddress)) {
             throw new RecordNotFoundException('Record not found!');
         }
 
-        $parsedRecord = json_decode($this->filesystem->read($recordAddress), true);
-        return $this->recordWrapper((string) $id, $parsedRecord);
+        return json_decode($this->filesystem->read($recordAddress), true);
     }
 
     /**
@@ -115,20 +114,17 @@ class Filesystem implements DataDriverInterface
 
         $contents = $this->filesystem->listContents($recordAddress);
         return array_map(function ($record) {
-            return $this->recordWrapper(
-                (string) $record['filename'],
-                json_decode($this->filesystem->read($record['path']), true)
-            );
+            return json_decode($this->filesystem->read($record['path']), true);
         }, $contents);
     }
 
     /**
      * @param string $table
-     * @param int $id
+     * @param int|string $id
      *
      * @return bool
      */
-    public function delete(string $table, int $id) : bool
+    public function delete(string $table, int|string $id) : bool
     {
         $recordAddress = $this->getRecordAddress($table, $id);
         if (!$this->filesystem->has($recordAddress)) {
@@ -175,14 +171,10 @@ class Filesystem implements DataDriverInterface
         return max($recordsList) + 1;
     }
 
-    /**
-     * @param string $id
-     * @param array $record
-     *
-     * @return array
-     */
-    private function recordWrapper(string $id, array $record) : array
+    public function all(string $table): array
     {
-        return array_merge($record, ['id' => $id]);
+        return array_map(function ($item) {
+            return $item['filename'];
+        }, $this->filesystem->listContents($this->getRecordAddress($table)));
     }
 }

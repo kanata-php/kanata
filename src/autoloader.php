@@ -14,7 +14,7 @@
 use App\Services\PluginLoader;
 use Dotenv\Dotenv;
 
-global $container;
+$container = container();
 
 // Load env.
 $dotenv = Dotenv::createImmutable(base_path());
@@ -24,3 +24,4 @@ $dotenv->load();
 $pluginLoader = new PluginLoader($container);
 $pluginLoader->load();
 unset($pluginLoader); // clear some memory.
+

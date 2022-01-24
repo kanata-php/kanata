@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Slim\Container;
+use App\Services\Container;
 
 abstract class Controller
 {
-    /** @var Container */
-    protected $container;
-
-    /**
-     * @param Container $container
-     */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
+    public function __construct(
+        protected Container $container
+    ) {}
 }

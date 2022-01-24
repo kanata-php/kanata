@@ -18,6 +18,20 @@ services:
       masa-network:
         ipv4_address: ${DOCKER_APP_IP}.0.2
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: ${DOCKER_APP}-rabbitmq
+    expose:
+      - "5672"
+      - "15672"
+      - "25672"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "25672:25672"
+    networks:
+      - econoroute-network
+
 networks:
   masa-network:
     driver: bridge

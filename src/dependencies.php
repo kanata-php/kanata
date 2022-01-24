@@ -1,16 +1,20 @@
 <?php
 
 use Conveyor\SocketHandlers\Interfaces\SocketHandlerInterface;
-use Slim\Container;
+;
+
+use DI\Container;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem as Flysystem;
 use App\Drivers\Data\Filesystem;
 use Conveyor\SocketHandlers\SocketMessageRouter;
-use Slim\Views\PhpRenderer;
 use voku\helper\Hooks;
 use Doctrine\Common\Cache\FilesystemCache;
+use League\Plates\Engine;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 return function (Container $container) {
 
@@ -20,15 +24,15 @@ return function (Container $container) {
      * -----------------------------------------------------------
      */
 
-    $container['view'] = new PhpRenderer(template_path());
-    $container['view']->setLayout("layout.php");
-
     $container['logger'] = function ($c) {
         $logger = new Logger('my_logger');
         $file_handler = new StreamHandler(storage_path() . 'logs/app.log');
         $logger->pushHandler($file_handler);
         return $logger;
     };
+
+    $container['view'] = new Engine();
+    $container['view']->addFolder('core', template_path());
 
     $container['cache'] = function ($c) {
         $cache = new FilesystemCache(storage_path() . 'cache/');
@@ -68,4 +72,5 @@ return function (Container $container) {
          */
         return Hooks::getInstance()->apply_filters('socket_actions', $socketRouter, $c);
     };
+
 };

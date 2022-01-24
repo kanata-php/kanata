@@ -1,5 +1,9 @@
 <?php
 
+use Dotenv\Dotenv;
+
 return function () {
-    return [];
+    $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->safeLoad();
+    return $_ENV;
 };

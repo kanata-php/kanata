@@ -10,7 +10,7 @@ return function (App $app) {
 
     $port = grab_port_from_params(WEBSOCKET_PORT_PARAM);
 
-    $websocket = new Server("0.0.0.0", $port);
+    $websocket = new Server(WS_SERVER_HOST, $port);
 
     $websocket->on("start", function (Server $server) {
         file_put_contents(WS_PID_FILE, $server->master_pid);
