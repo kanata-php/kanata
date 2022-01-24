@@ -7,8 +7,10 @@ use Ilex\SwoolePsr7\SwooleServerRequestConverter;
  * Here we orchestrate the servers.
  */
 
-return function (App $app, SwooleServerRequestConverter $requestConverter) {
-    global $argv;
+return function (App $app) {
+    global $argv, $psr17Factory;
+
+    $requestConverter = new SwooleServerRequestConverter($psr17Factory, $psr17Factory, $psr17Factory, $psr17Factory);
 
     switch (true) {
         case in_array('--websocket', $argv):

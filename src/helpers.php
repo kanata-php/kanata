@@ -165,6 +165,10 @@ function add_filter(string $hook, $callback) {
 // Path Helpers
 // ------------------------------------------------------------------------
 
+function make_path_relative_to_project(string $path): string {
+    return str_replace(base_path(), '', $path);
+}
+
 /**
  * Retrieve base path of the project.
  *
@@ -215,6 +219,29 @@ function resource_path(): string
 function template_path(): string
 {
     return base_path() . 'resources/views';
+}
+
+/**
+ * Retrieve plugins path of the project.
+ *
+ * @param string|null $pluginDirectoryName
+ * @return ?string
+ */
+function plugin_path(?string $pluginDirectoryName = null): ?string
+{
+    $path = base_path() . 'content/plugins';
+
+    if (null === $pluginDirectoryName) {
+        return $path;
+    }
+
+    $plugin_path = trailingslashit($path) . $pluginDirectoryName;
+
+    if (!container()->filesystem->has($plugin_path)) {
+        return null;
+    }
+
+    return $plugin_path;
 }
 
 /**

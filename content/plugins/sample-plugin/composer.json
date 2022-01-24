@@ -1,10 +1,4 @@
 {
-    "authors": [
-        {
-            "name": "Savio Resende",
-            "email": "savio@savioresende.com.br"
-        }
-    ],
     "require": {
         "php-amqplib/php-amqplib": "^3.1"
     }

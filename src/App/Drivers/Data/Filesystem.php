@@ -3,6 +3,8 @@
 namespace App\Drivers\Data;
 
 use App\Drivers\Data\Interfaces\DataDriverInterface;
+use Exception;
+use League\Flysystem\FileExistsException;
 use League\Flysystem\Filesystem as Flysystem;
 use App\Exceptions\RecordNotFoundException;
 
@@ -26,12 +28,17 @@ class Filesystem implements DataDriverInterface
      * @param array $data
      *
      * @return int|string|bool
+     *
+     * @throws FileExistsException|Exception
      */
     public function create(string $table, array $data)
     {
         if ($this->autoincrement) {
             $nextId = $this->getNextItemId($table);
             $recordAddress = $this->database . '/' . $table . '/' . ((string)$nextId) . '.' . $this->format;
+
+            $this->checkPermission($recordAddress);
+
             if ($this->filesystem->write($recordAddress, json_encode($data))) {
                 return (int)$nextId;
             }
@@ -39,6 +46,9 @@ class Filesystem implements DataDriverInterface
             $id = $data['id'];
             unset($data['id']);
             $recordAddress = $this->database . '/' . $table . '/' . ((string)$id) . '.' . $this->format;
+
+            $this->checkPermission($recordAddress);
+
             if ($this->filesystem->write($recordAddress, json_encode($data))) {
                 return (string) $id;
             }
@@ -53,10 +63,15 @@ class Filesystem implements DataDriverInterface
      * @param array $data
      *
      * @return bool
+     *
+     * @throws FileExistsException|Exception
      */
     public function update(string $table, int|string $id, array $data) : bool
     {
         $recordAddress = $this->getRecordAddress($table, $id);
+
+        $this->checkPermission($recordAddress);
+
         if (!$this->filesystem->has($recordAddress)) {
             throw new RecordNotFoundException('Record not found!');
         }
@@ -176,5 +191,17 @@ class Filesystem implements DataDriverInterface
         return array_map(function ($item) {
             return $item['filename'];
         }, $this->filesystem->listContents($this->getRecordAddress($table)));
+    }
+
+    /**
+     * @param string $recordAddress
+     * @return void
+     * @throws Exception
+     */
+    private function checkPermission(string $recordAddress): void
+    {
+        if (!is_writable(trailingslashit(base_path()) . $recordAddress)) {
+            throw new Exception('System without enough permissions to write in file: ' . $recordAddress);
+        }
     }
 }
