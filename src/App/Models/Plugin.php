@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Drivers\Data\Filesystem;
-use Exception;
 use function Symfony\Component\String\u;
 
 /**
@@ -15,7 +14,6 @@ use function Symfony\Component\String\u;
 class Plugin extends Model
 {
     protected string $table = 'plugins';
-    protected array $content;
     protected array $defaults = ['active' => false];
 
     public function __construct()

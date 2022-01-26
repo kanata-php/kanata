@@ -102,9 +102,9 @@ class Filesystem implements DataDriverInterface
      * @param string $table
      * @param int|string $id
      *
-     * @return array
+     * @return ?array
      */
-    private function getSingleRecord(string $table, $id) : array
+    private function getSingleRecord(string $table, $id) : ?array
     {
         $recordAddress = $this->getRecordAddress($table, $id);
 
@@ -200,7 +200,7 @@ class Filesystem implements DataDriverInterface
      */
     private function checkPermission(string $recordAddress): void
     {
-        if (!is_writable(trailingslashit(base_path()) . $recordAddress)) {
+        if (!is_writable(dirname(trailingslashit(base_path()) . $recordAddress))) {
             throw new Exception('System without enough permissions to write in file: ' . $recordAddress);
         }
     }

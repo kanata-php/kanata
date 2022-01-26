@@ -21,7 +21,7 @@
             </form>
 
             <div class="flex flex-row items-center">
-                <a class="w-5" href="https://github.com/lotharthesavior/flight-zone">
+                <a class="w-5" href="https://github.com/kanata-php/kanata">
                     <img src="vendors/icons-svg/github.svg"/>
                 </a>
             </div>

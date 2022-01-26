@@ -31,7 +31,7 @@ class InitCommand extends Command
         $adapter = new Local(base_path());
         $this->filesystem = new Filesystem($adapter);
 
-        $this->setHelp('This command allows you to initiate Flight Zone Application.');
+        $this->setHelp('This command allows you to initiate Kanata Application.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

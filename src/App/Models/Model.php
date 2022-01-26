@@ -15,7 +15,7 @@ class Model implements SimpleCrudInterface, ArrayAccess
     protected DataDriverInterface $dataDriver;
     protected int|string $id;
     protected string $table;
-    protected array $content;
+    protected ?array $content = null;
     protected array $defaults = [];
 
     /**
@@ -99,7 +99,9 @@ class Model implements SimpleCrudInterface, ArrayAccess
         }
 
         $this->id = $id;
-        $this->content = $data;
+        if (null !== $data) {
+            $this->content = $data;
+        }
 
         return $this;
     }

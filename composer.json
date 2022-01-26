@@ -1,5 +1,5 @@
 {
-    "name": "lotharthesavior/flight-zone",
+    "name": "lotharthesavior/kanata",
     "description": "App Starter with Swoole.",
     "license": "MIT",
     "authors": [
@@ -89,7 +89,7 @@
             "vendor/bin/phpunit --testsuite Safe"
         ],
         "post-create-project-cmd": [
-            "@php fz 10.10 fz"
+            "@php kanata 10.10 kanata"
         ]
     },
     "extra": {

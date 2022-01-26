@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class StartPluginCommand extends Command
+class CreatePluginCommand extends Command
 {
     use LogoTrait;
 
@@ -18,7 +18,7 @@ class StartPluginCommand extends Command
 
     protected function configure(): void
     {
-        $this->setHelp('This command generate a new plugin skeleton for your Flight Zone Application.');
+        $this->setHelp('This command generate a new plugin skeleton for your Kanata Application.');
 
         $this->addArgument('name', InputArgument::REQUIRED, 'The plugin name.');
         ;
@@ -29,7 +29,7 @@ class StartPluginCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $output->writeln('');
-        $output->writeln('FZ - Creating a Plugin');
+        $output->writeln('Kanata - Creating a Plugin');
         $output->writeln('');
 
         $pluginClassName = $input->getArgument('name');
@@ -43,9 +43,17 @@ class StartPluginCommand extends Command
         }
 
         container()->filesystem->createDir($pluginPath);
+        container()->filesystem->createDir(untrailingslashit($pluginPath) . '/src');
+
+        $result = $this->addEmptyComposerFile($pluginPath);
+        if (!$result) {
+            $io->error('There was an error while trying to write composer.json file to ' . $pluginPath);
+            return Command::FAILURE;
+        }
+
         $result = $this->addBaseClass($pluginPath, $pluginClassName);
         if (!$result) {
-            $io->error('There was an error while trying to write file ' . $pluginPath);
+            $io->error('There was an error while trying to write class file to ' . $pluginPath);
             return Command::FAILURE;
         }
 
@@ -53,7 +61,8 @@ class StartPluginCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function addBaseClass(string $pluginPath, string $pluginClassName) {
+    private function addBaseClass(string $pluginPath, string $pluginClassName): bool
+    {
         $stub = make_path_relative_to_project(trailingslashit($this->resolveStubDir()) . 'plugin-class.stub');
         $stubContent = container()->filesystem->read($stub);
 
@@ -66,6 +75,14 @@ class StartPluginCommand extends Command
         ]);
 
         return container()->filesystem->put(trailingslashit($pluginPath) . $pluginClassName . '.php', $parsedContent);
+    }
+
+    private function addEmptyComposerFile(string $pluginPath): bool
+    {
+        $stub = make_path_relative_to_project(trailingslashit($this->resolveStubDir()) . 'composer.stub');
+        $stubContent = container()->filesystem->read($stub);
+
+        return container()->filesystem->put(trailingslashit($pluginPath) . 'composer.json', $stubContent);
     }
 
     private function resolveStubDir(): string

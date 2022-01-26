@@ -4,13 +4,13 @@ namespace SamplePlugin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ModelExample;
-use App\Services\Actions\ExampleCreateAction;
-use App\Services\Actions\ExampleDeleteAction;
-use App\Services\Actions\ExampleGetAction;
-use App\Services\Actions\ExampleUpdateAction;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use SamplePlugin\Actions\ExampleCreateAction;
+use SamplePlugin\Actions\ExampleDeleteAction;
+use SamplePlugin\Actions\ExampleGetAction;
+use SamplePlugin\Actions\ExampleUpdateAction;
 use function get_query_params;
 use function json_response;
 

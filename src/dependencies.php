@@ -10,6 +10,7 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem as Flysystem;
 use App\Drivers\Data\Filesystem;
 use Conveyor\SocketHandlers\SocketMessageRouter;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 use voku\helper\Hooks;
 use Doctrine\Common\Cache\FilesystemCache;
 use League\Plates\Engine;
@@ -25,7 +26,7 @@ return function (Container $container) {
      */
 
     $container['logger'] = function ($c) {
-        $logger = new Logger('my_logger');
+        $logger = new Logger('kanata-logger');
         $file_handler = new StreamHandler(storage_path() . 'logs/app.log');
         $logger->pushHandler($file_handler);
         return $logger;
@@ -71,6 +72,21 @@ return function (Container $container) {
          * @param Container              $container
          */
         return Hooks::getInstance()->apply_filters('socket_actions', $socketRouter, $c);
+    };
+
+    /**
+     * -----------------------------------------------------------
+     * AMQP Section
+     * -----------------------------------------------------------
+     */
+
+    $container['amqp'] = function ($c) {
+        return new AMQPStreamConnection(
+            QUEUE_SERVER_HOST,
+            QUEUE_SERVER_PORT,
+            QUEUE_SERVER_USER,
+            QUEUE_SERVER_PASSWORD
+        );
     };
 
 };

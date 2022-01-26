@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Actions\Traits;
+namespace SamplePlugin\Actions\Traits;
 
-use App\Models\Interfaces\SimpleCrudInterface;
 use App\Drivers\Data\Interfaces\DataDriverInterface;
+use App\Models\Interfaces\SimpleCrudInterface;
 
 /**
  * Action's Trait for CRUD procedures, similar to RESTful Resources endpoints.

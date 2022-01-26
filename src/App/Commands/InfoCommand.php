@@ -16,7 +16,7 @@ class InfoCommand extends Command
 
     protected function configure(): void
     {
-        $this->setHelp('This command gives you information about your Flight Zone Application.');
+        $this->setHelp('This command gives you information about your Kanata Application.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

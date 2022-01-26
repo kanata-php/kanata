@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Services\Actions;
+namespace SamplePlugin\Actions;
 
-use Exception;
-use InvalidArgumentException;
-
-use App\Drivers\Data\Interfaces\DataDriverInterface;
-use Conveyor\Actions\Abstractions\AbstractAction;
-use App\Services\Actions\Traits\CRUDActionTrait;
 use App\Models\ModelExample;
+use Conveyor\Actions\Abstractions\AbstractAction;
+use InvalidArgumentException;
+use SamplePlugin\Actions\Traits\CRUDActionTrait;
 
 class ExampleDeleteAction extends AbstractAction
 {

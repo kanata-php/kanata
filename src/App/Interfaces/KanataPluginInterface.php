@@ -5,10 +5,10 @@ namespace App\Interfaces;
 use Psr\Container\ContainerInterface;
 
 /**
- * Interface FlightZonePluginInterface
+ * Interface KanataPluginInterface
  */
 
-interface FlightZonePluginInterface
+interface KanataPluginInterface
 {
     /**
      * Method executed when loading the plugin.

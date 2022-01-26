@@ -30,7 +30,7 @@ class ErrorHandler implements ErrorRendererInterface
         $output .= '<div style="max-width: 900px;margin: 0 auto;padding-top: 50px;padding-bottom: 50px;">';
 
         // html
-        $output .= '<h2 class="text-2xl mb-10">FZ Exception</h2>';
+        $output .= '<h2 class="text-2xl mb-10">Kanata Exception</h2>';
         $output .= '<p>Exception Type: ' . get_class($exception) . '</p>';
         $output .= '<p>Exception Message: ' . $exception->getMessage() . '</p>';
         $output .= '<p>Exception File: ' . $exception->getFile() . ':' . $exception->getLine() . '</p>';

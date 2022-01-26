@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Drivers\Data\Filesystem;
-use App\Interfaces\FlightZonePluginInterface;
+use App\Interfaces\KanataPluginInterface;
 use App\Models\Plugin;
 use App\Repositories\Interfaces\Repository;
 use App\Repositories\PluginRepository;

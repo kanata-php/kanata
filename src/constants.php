@@ -52,6 +52,10 @@ if (!defined('QUEUE_SERVER_PASSWORD')) {
     define('QUEUE_SERVER_PASSWORD', $_ENV['QUEUE_SERVER_PASSWORD'] ?? 'guest');
 }
 
+if (!defined('DEFAULT_QUEUE')) {
+    define('DEFAULT_QUEUE', $_ENV['DEFAULT_QUEUE'] ?? false);
+}
+
 if (!defined('OVERWRITE_EXISTENT_SERVICE')) {
     define('OVERWRITE_EXISTENT_SERVICE', $_ENV['OVERWRITE_EXISTENT_SERVICE'] ?? true);
 }

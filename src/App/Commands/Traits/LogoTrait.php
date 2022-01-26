@@ -11,17 +11,11 @@ trait LogoTrait
     {
         $outputStyle = new OutputFormatterStyle('#fff', '#074f8d', ['bold']);
         $output->getFormatter()->setStyle('fire', $outputStyle);
-        $logo = <<<FZ
-<fire>
-  ________ ________
- |\  _____\\_____   \        #######################
- \ \  \__/ \|___/  /|       Welcome to Flight Zone!
-  \ \   __\    /  / /       #######################
-   \ \  \_|   /  /_/__
-    \ \__\   |\________\
-     \|__|    \|_______|
-
-FZ;
+        $logo = <<<KANATA
+######################
+Welcome to Kanata!
+######################
+KANATA;
         $output->writeln('<fire>' . $logo . '</>');
     }
 }

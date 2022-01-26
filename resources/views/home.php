@@ -9,7 +9,7 @@
 
         <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl flex justify-center content-center">
             <css-doodle id="css-doodle-a" class="mr-4"></css-doodle>
-            <span class="block mt-1">Flight Zone</span>
+            <span class="block mt-1">Kanata</span>
             <css-doodle id="css-doodle-b" class="ml-4"></css-doodle>
         </h2>
 

@@ -1,19 +1,19 @@
 {
-  "name": "flight-zone",
+  "name": "kanata",
   "version": "0.0.1",
   "description": "",
   "main": "index.php",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lotharthesavior/flight-zone.git"
+    "url": "git+https://github.com/kanata-php/kanata.git"
   },
   "author": "Savio Resende <savio@savioresende.com.br>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lotharthesavior/flight-zone/issues"
+    "url": "https://github.com/kanata-php/kanata/issues"
   },
-  "homepage": "https://github.com/lotharthesavior/flight-zone#readme",
+  "homepage": "https://github.com/kanata-php/kanata#readme",
   "devDependencies": {
     "laravel-mix": "^6.0.19",
     "mix-tailwindcss": "^1.3.0",

@@ -14,12 +14,12 @@ return function (App $app) {
 
     switch (true) {
         case in_array('--websocket', $argv):
-            (require __DIR__ . '/websocket_server.php')($app);
+            (require trailingslashit(base_path()) . 'src/websocket_server.php')($app);
             break;
         case in_array('--queue', $argv):
-            (require __DIR__ . '/queue_service.php')($app);
+            (require trailingslashit(base_path()) . 'src/message_service.php')($app);
             break;
         default:
-            (require __DIR__ . '/http_server.php')($app, $requestConverter);
+            (require trailingslashit(base_path()) . 'src/http_server.php')($app, $requestConverter);
     }
 };

@@ -1,18 +1,18 @@
 <?php
 
-use App\Interfaces\FlightZonePluginInterface;
-use SamplePlugin\Http\Controllers\DocumentationController;
-use SamplePlugin\Interceptors\LogInterceptor;
-use SamplePlugin\Models\Todo;
-use App\Services\Actions\ExampleCreateAction;
-use App\Services\Actions\ExampleDeleteAction;
-use App\Services\Actions\ExampleGetAction;
-use App\Services\Actions\ExampleUpdateAction;
+use App\Interfaces\KanataPluginInterface;
 use League\Plates\Engine;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use SamplePlugin\Actions\ExampleCreateAction;
+use SamplePlugin\Actions\ExampleDeleteAction;
+use SamplePlugin\Actions\ExampleGetAction;
+use SamplePlugin\Actions\ExampleUpdateAction;
+use SamplePlugin\Http\Controllers\DocumentationController;
+use SamplePlugin\Interceptors\LogInterceptor;
+use SamplePlugin\Models\Todo;
 use App\Annotations\Plugin;
 use App\Annotations\Description;
 use App\Annotations\Author;
@@ -23,8 +23,10 @@ use App\Annotations\Author;
  * @Author(name="Savio Resende",email="savio@savioresende.com")
  */
 
-class SamplePlugin implements FlightZonePluginInterface
+class SamplePlugin implements KanataPluginInterface
 {
+    const DEFAULT_QUEUE = 'default';
+
     /**
      * This is the container's key for this plugin's view.
      *
@@ -125,37 +127,29 @@ class SamplePlugin implements FlightZonePluginInterface
     }
 
     /**
-     * This is an example of how to listem to AMQP messages on your app.
-     *
-     * e.g.:
-     *     $connection = new \PhpAmqpLib\Connection\AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
-     *     $channel = $connection->channel();
-     *     $channel->queue_declare('default', false, false, false, false);
-     *     $msg = new \PhpAmqpLib\Message\AMQPMessage('Hello World!');
-     *     $channel->basic_publish($msg, '', 'default');
+     * This is an example of how to listen to AMQP messages on your app.
+     * It might be interesting to check the helper `register_queue`.
      *
      * @return void
      * @throws ErrorException
      */
     public function register_local_queue_listeners(): void
     {
-        $container = container();
+        if (!DEFAULT_QUEUE) {
+            return;
+        }
 
-        add_filter('queues', function($app) use ($container) {
-            $callback = function ($msg) use ($container) {
-                $container['logger']->info("Queue Service: [x] Received: " . $msg->body . PHP_EOL);
-            };
-
-            $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
-            $channel = $connection->channel();
-
-            $channel->queue_declare('default', false, false, false, false);
-            $channel->basic_consume('default', '', false, true, false, false, $callback);
-
-            $container['logger']->info("Queue Service: [*] Waiting for messages. To exit press CTRL+C" . PHP_EOL);
-            while ($channel->is_open()) {
-                $channel->wait();
-            }
+        add_filter('queues', function($queues) {
+            $queues[self::DEFAULT_QUEUE] = [
+                'callback' => [$this, 'default_queue_handler'],
+            ];
+            return $queues;
         });
+    }
+
+    public function default_queue_handler(AMQPMessage $msg)
+    {
+        $container = container();
+        $container['logger']->info('SamplePlugin handler received: ' . $msg->body);
     }
 }

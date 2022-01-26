@@ -5,9 +5,10 @@ require __DIR__.'/vendor/autoload.php';
 include_once __DIR__ . '/src/constants.php';
 include_once __DIR__ . '/src/helpers.php';
 
+use App\Commands\ActivatePluginCommand;
 use App\Commands\DebuggerCommand;
 use App\Commands\InfoCommand;
-use App\Commands\StartPluginCommand;
+use App\Commands\CreatePluginCommand;
 use Symfony\Component\Console\Application;
 use App\Commands\InitCommand;
 use voku\helper\Hooks;
@@ -15,7 +16,7 @@ use voku\helper\Hooks;
 $application = new Application();
 
 try {
-    include_once __DIR__ . '/fz-core.php';
+    include_once __DIR__ . '/kanata-core.php';
 } catch (Exception $e) {
     echo PHP_EOL . $e->getMessage() . PHP_EOL . PHP_EOL;
     return;
@@ -24,7 +25,8 @@ try {
 $application->add(new InitCommand());
 $application->add(new InfoCommand());
 $application->add(new DebuggerCommand());
-$application->add(new StartPluginCommand());
+$application->add(new CreatePluginCommand());
+$application->add(new ActivatePluginCommand());
 
 /**
  * Action: commands
