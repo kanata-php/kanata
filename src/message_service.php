@@ -15,7 +15,7 @@ return function () {
 
     $default_queue_attributes = [
         'exchange' => 'default',
-        'exchange_type' => 'topic', // TODO: make this hookable
+        'exchange_type' => 'topic',
         'queue' => 'default',
         'routing_key' => '',
         'option' => '--default',
@@ -43,12 +43,12 @@ return function () {
      * Command on supervisor: /usr/bin/php /var/www/html/index.php --queue --example-option
      *
      * Format:
-     *     [Your receipt from Tighten #2308-2448
+     *     [
      *         ['queue' => 'queue-name', 'option' => '--example-option', 'callback' => Callable],
      *         ...
      *     ]
      */
-    $queues = Hooks::getInstance()->apply_filters('queues', $queues);
+    $queues = add_filter('queues', $queues);
 
     foreach ($queues as $queue) {
         $queue = array_merge($default_queue_attributes, $queue);

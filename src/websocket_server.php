@@ -37,7 +37,7 @@ return function () {
          * @param SocketHandlerInterface $socketRouter
          * @param ContainerInterface     $container
          */
-        $socketRouter = Hooks::getInstance()->apply_filters(
+        $socketRouter = add_filter(
             'socket_actions',
             new SocketMessageRouter,
             container()

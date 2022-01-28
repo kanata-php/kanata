@@ -135,10 +135,10 @@ function handle_existing_pid(string $pid_file): void {
 /**
  * @param string $hook
  * @param $callback
- * @return void
+ * @return mixed
  */
-function add_filter(string $hook, $callback) {
-    Hooks::getInstance()->add_filter($hook, $callback);
+function add_filter(string $hook, $callback): mixed {
+    return Hooks::getInstance()->apply_filters($hook, $callback);
 }
 
 // ------------------------------------------------------------------------

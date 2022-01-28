@@ -25,7 +25,7 @@ return function (App $app) {
      * Expected return: SocketHandlerInterface
      * @param App $app
      */
-    $app = Hooks::getInstance()->apply_filters('routes', $app);
+    $app = add_filter('routes', $app);
 
     $app->group('', function (RouteCollectorProxy $group) {
         $group->get('/', function (Request $request, Response $response) {
