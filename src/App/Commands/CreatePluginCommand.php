@@ -21,7 +21,6 @@ class CreatePluginCommand extends Command
         $this->setHelp('This command generate a new plugin skeleton for your Kanata Application.');
 
         $this->addArgument('name', InputArgument::REQUIRED, 'The plugin name.');
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

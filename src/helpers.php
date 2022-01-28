@@ -1,9 +1,12 @@
 <?php
 
+use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Swoole\Process;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use voku\helper\Hooks;
 
@@ -18,6 +21,14 @@ function container(): ContainerInterface
 {
     global $container;
     return $container;
+}
+
+/**
+ * @return Logger
+ */
+function logger(): Logger
+{
+    return container()->logger;
 }
 
 /**
@@ -81,37 +92,6 @@ function get_query_params(Request $request) : array
 }
 
 /**
- * Grab the correct port for HTTP or WebSocket.
- *
- * e.g.: --port=9501
- *
- * @return int|mixed|string
- * @throws Exception
- */
-function grab_port_from_params($port_param) {
-    global $argv;
-
-    $port = array_filter($argv, function($item) use ($port_param) {
-        return
-            substr($item, 0, 8) === $port_param || // WebSocket Port
-            substr($item, 0, 6) === $port_param;   // HTTP Port
-    });
-
-    if (count($port) > 0) {
-        return explode('=', current($port))[1];
-    }
-
-    switch ($port_param) {
-        case HTTP_PORT_PARAM:
-            return (int) HTTP_SERVER_PORT;
-        case WEBSOCKET_PORT_PARAM:
-            return (int) WS_SERVER_PORT;
-        default:
-            return 3000;
-    }
-}
-
-/**
  * Verify if there is an existing PID and offers to kill it in order to proceed.
  *
  * @param string $pid_file
@@ -159,6 +139,45 @@ function handle_existing_pid(string $pid_file): void {
  */
 function add_filter(string $hook, $callback) {
     Hooks::getInstance()->add_filter($hook, $callback);
+}
+
+// ------------------------------------------------------------------------
+// Execution Context Information
+// ------------------------------------------------------------------------
+
+function get_output(): ConsoleOutputInterface {
+    return container()['output'];
+}
+
+function get_input(): InputInterface {
+    return container()['input'];
+}
+
+/**
+ * Says if the current execution is websocket context.
+ *
+ * @return bool
+ */
+function is_websocket_execution(): bool {
+    return get_input()->getOption('websocket');
+}
+
+/**
+ * Says if the current execution is http context.
+ * @return bool
+ */
+function is_http_execution(): bool {
+    return !is_websocket_execution()
+        && !is_queue_execution();
+}
+
+/**
+ * Says if the current execution is queue context.
+ *
+ * @return bool
+ */
+function  is_queue_execution(): bool {
+    return get_input()->getOption('queue');
 }
 
 // ------------------------------------------------------------------------

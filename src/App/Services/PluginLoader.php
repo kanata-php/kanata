@@ -124,7 +124,7 @@ class PluginLoader
             ];
             $result = $this->pluginRepository->updatePlugin($plugin->id, $data);
             if (!$result) {
-                container()->logger->info('There was an error while updating a plugin info: ' . implode(', ', $this->pluginRepository->errors));
+                logger()->info('There was an error while updating a plugin info: ' . implode(', ', $this->pluginRepository->errors));
             }
         }
     }

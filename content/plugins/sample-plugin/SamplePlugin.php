@@ -10,6 +10,7 @@ use SamplePlugin\Actions\ExampleCreateAction;
 use SamplePlugin\Actions\ExampleDeleteAction;
 use SamplePlugin\Actions\ExampleGetAction;
 use SamplePlugin\Actions\ExampleUpdateAction;
+use SamplePlugin\Commands\QuoteCommand;
 use SamplePlugin\Http\Controllers\DocumentationController;
 use SamplePlugin\Interceptors\LogInterceptor;
 use SamplePlugin\Models\Todo;
@@ -47,16 +48,27 @@ class SamplePlugin implements KanataPluginInterface
      */
     public function start(): void
     {
-        $this->register_local_views();
-        $this->register_local_routes();
-        $this->register_local_socket_actions();
-        $this->register_local_queue_listeners();
+        $this->register_views();
+
+        if (is_http_execution()) {
+            $this->register_routes();
+        }
+
+        if (is_websocket_execution()) {
+            $this->register_socket_actions();
+        }
+
+        if (is_queue_execution()) {
+            $this->register_queue_listeners();
+        }
+
+        $this->register_commands();
     }
 
     /**
      * @return void
      */
-    private function register_local_views(): void
+    private function register_views(): void
     {
         $path = __DIR__ . '/views/';
 
@@ -78,7 +90,7 @@ class SamplePlugin implements KanataPluginInterface
     /**
      * @return void
      */
-    public function register_local_routes(): void
+    public function register_routes(): void
     {
         $viewKey = self::VIEW_KEY;
 
@@ -99,7 +111,7 @@ class SamplePlugin implements KanataPluginInterface
     /**
      * @return void
      */
-    public function register_local_socket_actions(): void
+    public function register_socket_actions(): void
     {
         add_filter('socket_actions', function($socketRouter, $container) {
             $socketRouter->add(new ExampleCreateAction(
@@ -131,15 +143,14 @@ class SamplePlugin implements KanataPluginInterface
      * It might be interesting to check the helper `register_queue`.
      *
      * @return void
-     * @throws ErrorException
      */
-    public function register_local_queue_listeners(): void
+    public function register_queue_listeners(): void
     {
         if (!DEFAULT_QUEUE) {
             return;
         }
 
-        add_filter('queues', function($queues) {
+        add_filter('queues', function ($queues) {
             $queues[self::DEFAULT_QUEUE] = [
                 'callback' => [$this, 'default_queue_handler'],
             ];
@@ -151,5 +162,13 @@ class SamplePlugin implements KanataPluginInterface
     {
         $container = container();
         $container['logger']->info('SamplePlugin handler received: ' . $msg->body);
+    }
+
+    public function register_commands()
+    {
+        add_filter('commands', function($app) {
+            $app->add(new QuoteCommand());
+            return $app;
+        });
     }
 }

@@ -2,8 +2,6 @@
 
 require_once 'vendor/autoload.php';
 
-use Ilex\SwoolePsr7\SwooleServerRequestConverter;
-
 include_once __DIR__ . '/kanata-core.php';
 
 global $app;

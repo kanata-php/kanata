@@ -28,8 +28,6 @@ class ActivatePluginCommand extends Command
                     new InputArgument('plugin-name', InputArgument::REQUIRED, 'Which plugin to activate (by directory name).'),
                 ])
             );
-
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

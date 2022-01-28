@@ -42,6 +42,7 @@
         }
     ],
     "require": {
+        "php": "^8.0",
         "slim/slim": "4.*",
         "monolog/monolog": "^1.17",
         "league/flysystem": "^1.0",

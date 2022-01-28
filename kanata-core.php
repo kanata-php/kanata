@@ -14,5 +14,6 @@ $psr17Factory = new Psr17Factory();
 $app = new App($psr17Factory, new Container(['settings' => $config]));
 $container = $app->getContainer();
 
+(require_once __DIR__ . '/src/console.php')();
 (require_once __DIR__ . '/src/dependencies.php')($container);
 include_once __DIR__ . '/src/autoloader.php';

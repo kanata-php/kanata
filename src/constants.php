@@ -21,11 +21,11 @@ if (!defined('WS_SERVER_PORT')) {
 }
 
 if (!defined('HTTP_PORT_PARAM')) {
-    define('HTTP_PORT_PARAM', $_ENV['HTTP_PORT_PARAM'] ??  '--port');
+    define('HTTP_PORT_PARAM', 'port');
 }
 
 if (!defined('WEBSOCKET_PORT_PARAM')) {
-    define('WEBSOCKET_PORT_PARAM', $_ENV['WEBSOCKET_PORT_PARAM'] ?? '--wsport');
+    define('WEBSOCKET_PORT_PARAM', 'wsport');
 }
 
 if (!defined('PID_FILE')) {
@@ -58,4 +58,16 @@ if (!defined('DEFAULT_QUEUE')) {
 
 if (!defined('OVERWRITE_EXISTENT_SERVICE')) {
     define('OVERWRITE_EXISTENT_SERVICE', $_ENV['OVERWRITE_EXISTENT_SERVICE'] ?? true);
+}
+
+if (!defined('WEBSOCKET_CONSOLE_OPTION')) {
+    define('WEBSOCKET_CONSOLE_OPTION', 'websocket');
+}
+
+if (!defined('QUEUE_CONSOLE_OPTION')) {
+    define('QUEUE_CONSOLE_OPTION', 'queue');
+}
+
+if (!defined('QUEUE_NAME_CONSOLE_OPTION')) {
+    define('QUEUE_NAME_CONSOLE_OPTION', 'queue-name');
 }

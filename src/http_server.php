@@ -10,9 +10,7 @@ use Swoole\Http\Response;
 return function (App $app, SwooleServerRequestConverter $requestConverter) {
     handle_existing_pid(PID_FILE);
 
-    $port = grab_port_from_params(HTTP_PORT_PARAM);
-
-    $server = new Server(HTTP_SERVER_HOST, $port);
+    $server = new Server(HTTP_SERVER_HOST, get_input()->getOption(HTTP_PORT_PARAM));
 
     $server->set([
         'document_root' => public_path(),
