@@ -16,4 +16,5 @@ $container = $app->getContainer();
 
 (require_once __DIR__ . '/src/console.php')();
 (require_once __DIR__ . '/src/dependencies.php')($container);
+(require_once __DIR__ . '/src/configurations.php')();
 include_once __DIR__ . '/src/autoloader.php';
