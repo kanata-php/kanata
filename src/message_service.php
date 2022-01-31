@@ -48,7 +48,7 @@ return function () {
      *         ...
      *     ]
      */
-    $queues = add_filter('queues', $queues);
+    $queues = Hooks::getInstance()->apply_filters('queues', $queues);
 
     foreach ($queues as $queue) {
         $queue = array_merge($default_queue_attributes, $queue);
@@ -70,7 +70,7 @@ return function () {
             continue;
         }
 
-        container()['logger']->info('Queue Service: [' . $queue['queue'] . '] Waiting for messages.' . PHP_EOL);
+        logger()->info('Queue Service: [' . $queue['queue'] . '] Waiting for messages.' . PHP_EOL);
     }
 
     while ($channel->is_open()) {

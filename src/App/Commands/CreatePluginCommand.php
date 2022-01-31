@@ -86,6 +86,6 @@ class CreatePluginCommand extends Command
 
     private function resolveStubDir(): string
     {
-        return trailingslashit(base_path()) . 'src/App/Commands/stubs';
+        return base_path() . 'src/App/Commands/stubs';
     }
 }

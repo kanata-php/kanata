@@ -1,10 +1,8 @@
 <?php
 
-use App\Services\Container;
 use Conveyor\SocketHandlers\Interfaces\SocketHandlerInterface;
 use Conveyor\SocketHandlers\SocketMessageRouter;
 use Psr\Container\ContainerInterface;
-use Slim\App;
 use Swoole\Http\Request;
 use Swoole\WebSocket\Frame;
 use Swoole\WebSocket\Server;
@@ -37,7 +35,7 @@ return function () {
          * @param SocketHandlerInterface $socketRouter
          * @param ContainerInterface     $container
          */
-        $socketRouter = add_filter(
+        $socketRouter = Hooks::getInstance()->apply_filters(
             'socket_actions',
             new SocketMessageRouter,
             container()
