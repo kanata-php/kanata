@@ -1,10 +1,9 @@
 <?php
 
-require_once 'vendor/autoload.php';
+const ROOT_FOLDER = __DIR__;
 
-include_once __DIR__ . '/kanata-core.php';
+require __DIR__.'/vendor/autoload.php';
 
-global $app;
+use Kanata\Services\Bootstrap;
 
-(require_once __DIR__ . '/src/routes.php')($app);
-(require_once __DIR__ . '/src/servers.php')($app);
+Bootstrap::startServers();

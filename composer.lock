@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbc48e8fce074273e6e6312d2af8a2b6",
+    "content-hash": "ade9a8702bbd36fb2fb79b01598af27a",
     "packages": [
         {
             "name": "aura/autoload",
@@ -586,12 +586,12 @@
             "version": "2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/lotharthesavior/Lazer-Database.git",
+                "url": "https://github.com/Lazer-Database/Lazer-Database.git",
                 "reference": "ee82e7836fe46119ab6c6ad62c0ca4cc1a78b172"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotharthesavior/Lazer-Database/zipball/ee82e7836fe46119ab6c6ad62c0ca4cc1a78b172",
+                "url": "https://api.github.com/repos/Lazer-Database/Lazer-Database/zipball/ee82e7836fe46119ab6c6ad62c0ca4cc1a78b172",
                 "reference": "ee82e7836fe46119ab6c6ad62c0ca4cc1a78b172",
                 "shasum": ""
             },
@@ -609,11 +609,7 @@
                     "Lazer\\Test\\": "tests/src/"
                 }
             },
-            "scripts": {
-                "test": [
-                    "./vendor/bin/phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -627,16 +623,17 @@
             "description": "PHP library to use JSON files like flat-file database",
             "homepage": "https://github.com/Greg0/Lazer-Database",
             "keywords": [
+                "Simple",
                 "database",
                 "db",
                 "file",
                 "flat",
                 "json",
-                "lazer",
-                "simple"
+                "lazer"
             ],
             "support": {
-                "source": "https://github.com/lotharthesavior/Lazer-Database/tree/2.0.0"
+                "issues": "https://github.com/Lazer-Database/Lazer-Database/issues",
+                "source": "https://github.com/Lazer-Database/Lazer-Database/tree/master"
             },
             "time": "2020-07-14T16:40:31+00:00"
         },
@@ -1354,6 +1351,79 @@
             "time": "2022-01-28T16:29:10+00:00"
         },
         {
+            "name": "kanata-php/kanata-core",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:kanata-php/kanata-core.git",
+                "reference": "b5444d81017b1b2f0f35069382445c0c822b610a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/b5444d81017b1b2f0f35069382445c0c822b610a",
+                "reference": "b5444d81017b1b2f0f35069382445c0c822b610a",
+                "shasum": ""
+            },
+            "require": {
+                "aura/autoload": "^2.0",
+                "dflydev/fig-cookies": "^3.0",
+                "doctrine/annotations": "^1.13",
+                "doctrine/cache": "^1.10",
+                "ext-sqlite3": "*",
+                "greg0/lazer-database": "^2.0",
+                "guzzlehttp/guzzle": "^7.3",
+                "ilexn/swoole-convent-psr7": "^0.3.0",
+                "illuminate/database": "^8.42",
+                "kanata-php/socket-conveyor": "^1.0",
+                "league/flysystem": "^1.0",
+                "league/pipeline": "^1.0",
+                "league/plates": "^3.4",
+                "monolog/monolog": "^1.17",
+                "mustache/mustache": "^2.14",
+                "nesbot/carbon": "^2.48",
+                "nyholm/psr7": "^1.4",
+                "php": "^8.0",
+                "php-amqplib/php-amqplib": "^3.1",
+                "php-di/php-di": "^6.3",
+                "php-di/slim-bridge": "^3.2",
+                "phpseclib/phpseclib": "~3.0",
+                "psr/cache": "^2",
+                "ramsey/uuid": "^4.1",
+                "ray/aop": "^2.10",
+                "slim/slim": "4.*",
+                "symfony/console": "^5.4",
+                "symfony/process": "^6.0",
+                "symfony/string": "^6.0",
+                "symfony/validator": "^6.0",
+                "vlucas/phpdotenv": "^5.3",
+                "voku/php-hooks": "^0.2",
+                "wikimedia/composer-merge-plugin": "^2.0"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.30",
+                "mockery/mockery": "^1.4",
+                "phpunit/phpunit": "^9.2",
+                "symfony/var-dumper": "^5.2"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kanata\\": "src/App",
+                    "Tests\\": "tests"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Kanata App Starter Core",
+            "support": {
+                "source": "https://github.com/kanata-php/kanata-core/tree/master",
+                "issues": "https://github.com/kanata-php/kanata-core/issues"
+            },
+            "time": "2022-02-03T23:40:59+00:00"
+        },
+        {
             "name": "kanata-php/socket-conveyor",
             "version": "1.0.3",
             "source": {
@@ -1973,12 +2043,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "FastRoute\\": "src/"
-                },
                 "files": [
                     "src/functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "FastRoute\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -7657,12 +7727,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kanata-php/kanata-core": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0",
-        "ext-sqlite3": "*"
+        "php": "^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"

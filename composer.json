@@ -39,45 +39,19 @@
                     "classmap": ["src/"]
                 }
             }
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kanata-php/kanata-core.git"
         }
     ],
     "require": {
         "php": "^8.0",
-        "slim/slim": "4.*",
-        "monolog/monolog": "^1.17",
-        "league/flysystem": "^1.0",
-        "guzzlehttp/guzzle": "^7.3",
-        "symfony/validator": "^6.0",
-        "league/pipeline": "^1.0",
-        "kanata-php/socket-conveyor": "^1.0",
-        "voku/php-hooks": "^0.2",
-        "dflydev/fig-cookies": "^3.0",
-        "doctrine/annotations": "^1.13",
-        "doctrine/cache": "^1.10",
-        "ray/aop": "^2.10",
-        "psr/cache": "^2",
-        "illuminate/database": "^8.42",
-        "vlucas/phpdotenv": "^5.3",
-        "ramsey/uuid": "^4.1",
-        "phpseclib/phpseclib": "~3.0",
-        "nesbot/carbon": "^2.48",
-        "wikimedia/composer-merge-plugin": "^2.0",
-        "league/plates": "^3.4",
-        "ilexn/swoole-convent-psr7": "^0.3.0",
-        "nyholm/psr7": "^1.4",
-        "php-di/slim-bridge": "^3.2",
-        "php-di/php-di": "^6.3",
-        "aura/autoload": "^2.0",
-        "symfony/string": "^6.0",
-        "symfony/console": "^5.4",
-        "symfony/process": "^6.0",
-        "mustache/mustache": "^2.14",
-        "ext-sqlite3": "*",
-        "greg0/lazer-database": "^2.0"
+        "kanata-php/kanata-core": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/App",
+            "Kanata\\": "src/App",
             "Tests\\": "tests"
         }
     },
@@ -114,5 +88,10 @@
     },
     "bin": [
         "start-kanata"
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "wikimedia/composer-merge-plugin": true
+        }
+    }
 }

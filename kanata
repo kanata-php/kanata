@@ -1,39 +1,10 @@
 #!/usr/bin/env php
 <?php
 
+const ROOT_FOLDER = __DIR__;
+
 require __DIR__.'/vendor/autoload.php';
-include_once __DIR__ . '/src/constants.php';
-include_once __DIR__ . '/src/helpers.php';
 
-use App\Commands\ActivatePluginCommand;
-use App\Commands\DebuggerCommand;
-use App\Commands\InfoCommand;
-use App\Commands\CreatePluginCommand;
-use Symfony\Component\Console\Application;
-use App\Commands\InitCommand;
-use voku\helper\Hooks;
+use Kanata\Services\Bootstrap;
 
-$application = new Application();
-
-try {
-    include_once __DIR__ . '/kanata-core.php';
-} catch (Exception $e) {
-    echo PHP_EOL . $e->getMessage() . PHP_EOL . PHP_EOL;
-    return;
-}
-
-$application->add(new InitCommand());
-$application->add(new InfoCommand());
-$application->add(new DebuggerCommand());
-$application->add(new CreatePluginCommand());
-$application->add(new ActivatePluginCommand());
-
-/**
- * Action: commands
- * Description: Important for extra commands registration via plugins.
- * Expected return: Application
- * @param Application $application
- */
-$application = Hooks::getInstance()->apply_filters('commands', $application);
-
-$application->run();
+Bootstrap::startConsole();

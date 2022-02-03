@@ -6,7 +6,6 @@ require __DIR__.'/vendor/autoload.php';
 use Lazer\Classes\Database as Lazer;
 use Lazer\Classes\Helpers\Validate;
 use Lazer\Classes\LazerException;
-use Symfony\Component\Process\Process;
 
 
 foreach ([

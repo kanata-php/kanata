@@ -1,6 +1,6 @@
 <?php
 
-use App\Interfaces\KanataPluginInterface;
+use Kanata\Interfaces\KanataPluginInterface;
 use League\Plates\Engine;
 use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Container\ContainerInterface;
@@ -10,9 +10,9 @@ use SamplePlugin\Actions\ExampleAction;
 use SamplePlugin\Commands\QuoteCommand;
 use SamplePlugin\Http\Controllers\DocumentationController;
 use SamplePlugin\Interceptors\LogInterceptor;
-use App\Annotations\Plugin;
-use App\Annotations\Description;
-use App\Annotations\Author;
+use Kanata\Annotations\Plugin;
+use Kanata\Annotations\Description;
+use Kanata\Annotations\Author;
 
 /**
  * @Plugin(name="SamplePlugin")
