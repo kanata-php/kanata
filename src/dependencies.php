@@ -1,5 +1,7 @@
 <?php
 
+use App\Services\WebSocketCommunication;
+use App\Services\WebSocketPersistence;
 use DI\Container;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -9,6 +11,7 @@ use App\Drivers\Data\Filesystem;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Doctrine\Common\Cache\FilesystemCache;
 use League\Plates\Engine;
+use voku\helper\Hooks;
 
 return function (Container $container) {
 
@@ -35,7 +38,7 @@ return function (Container $container) {
 
     /**
      * -----------------------------------------------------------
-     * Data Source Section
+     * Filesystem
      * -----------------------------------------------------------
      */
 
@@ -44,8 +47,35 @@ return function (Container $container) {
         return new Flysystem($adapter);
     };
 
-    $container['dataDriver'] = function ($c) {
-        return new Filesystem('data', $c->filesystem);
+    /**
+     * -----------------------------------------------------------
+     * WebSockets Section
+     * -----------------------------------------------------------
+     */
+
+    $container['socket_persistence'] = function ($c) {
+        /**
+         * Here you can choose a different websocket persistence implementation.
+         *
+         * Interface: \Conveyor\SocketHandlers\Interfaces\PersistenceInterface
+         */
+        return Hooks::getInstance()->apply_filters(
+            'socket_persistence',
+            new WebSocketPersistence
+        );
+    };
+
+    $container['socket_communication'] = function ($c) {
+        /**
+         * Here you can choose a different websocket communication implementation.
+         *
+         * Interface: \App\Interfaces\WebSocketCommunicationInterface
+         */
+        return Hooks::getInstance()->apply_filters(
+            'socket_communication',
+            new WebSocketCommunication(),
+            container()
+        );
     };
 
     /**

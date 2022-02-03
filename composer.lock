@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b2d32a44ffb95c53ba52d17684c59a7",
+    "content-hash": "dbc48e8fce074273e6e6312d2af8a2b6",
     "packages": [
         {
             "name": "aura/autoload",
@@ -582,6 +582,65 @@
             "time": "2021-11-21T21:41:47+00:00"
         },
         {
+            "name": "greg0/lazer-database",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lotharthesavior/Lazer-Database.git",
+                "reference": "ee82e7836fe46119ab6c6ad62c0ca4cc1a78b172"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lotharthesavior/Lazer-Database/zipball/ee82e7836fe46119ab6c6ad62c0ca4cc1a78b172",
+                "reference": "ee82e7836fe46119ab6c6ad62c0ca4cc1a78b172",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "~1.6",
+                "phpunit/phpunit": "6.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lazer\\": "src/",
+                    "Lazer\\Test\\": "tests/src/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "./vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grzegorz Kuźnik",
+                    "email": "gerg0sz92@gmail.com",
+                    "role": "Owner"
+                }
+            ],
+            "description": "PHP library to use JSON files like flat-file database",
+            "homepage": "https://github.com/Greg0/Lazer-Database",
+            "keywords": [
+                "database",
+                "db",
+                "file",
+                "flat",
+                "json",
+                "lazer",
+                "simple"
+            ],
+            "support": {
+                "source": "https://github.com/lotharthesavior/Lazer-Database/tree/2.0.0"
+            },
+            "time": "2020-07-14T16:40:31+00:00"
+        },
+        {
             "name": "guzzlehttp/guzzle",
             "version": "7.4.1",
             "source": {
@@ -961,7 +1020,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -988,12 +1047,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Illuminate\\Support\\": ""
-                },
                 "files": [
                     "helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Illuminate\\Support\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1015,7 +1074,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -1066,7 +1125,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -1114,16 +1173,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "2dab88ccaf750e3e79d51ddd0b2c94f5f11c8d77"
+                "reference": "b2b7fb8eee6ac52ad6bc93f9e35d82c85a7f1a28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/2dab88ccaf750e3e79d51ddd0b2c94f5f11c8d77",
-                "reference": "2dab88ccaf750e3e79d51ddd0b2c94f5f11c8d77",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/b2b7fb8eee6ac52ad6bc93f9e35d82c85a7f1a28",
+                "reference": "b2b7fb8eee6ac52ad6bc93f9e35d82c85a7f1a28",
                 "shasum": ""
             },
             "require": {
@@ -1178,11 +1237,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-22T18:51:18+00:00"
+            "time": "2022-01-27T18:36:14+00:00"
         },
         {
             "name": "illuminate/macroable",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -1228,16 +1287,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "fb33fd4bbcc075f641d5576b700a1c3d962acef0"
+                "reference": "910c5eb5d506013fdf60f9dc68c5512711857558"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/fb33fd4bbcc075f641d5576b700a1c3d962acef0",
-                "reference": "fb33fd4bbcc075f641d5576b700a1c3d962acef0",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/910c5eb5d506013fdf60f9dc68c5512711857558",
+                "reference": "910c5eb5d506013fdf60f9dc68c5512711857558",
                 "shasum": ""
             },
             "require": {
@@ -1269,12 +1328,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Illuminate\\Support\\": ""
-                },
                 "files": [
                     "helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Illuminate\\Support\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1292,20 +1351,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-25T16:10:28+00:00"
+            "time": "2022-01-28T16:29:10+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/socket-conveyor.git",
-                "reference": "974ce898bf644fe1b7d25839a2f17d68deb6da0b"
+                "reference": "4861bef96306eb6ff9b5cd866d4870a6d2a58979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/974ce898bf644fe1b7d25839a2f17d68deb6da0b",
-                "reference": "974ce898bf644fe1b7d25839a2f17d68deb6da0b",
+                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/4861bef96306eb6ff9b5cd866d4870a6d2a58979",
+                "reference": "4861bef96306eb6ff9b5cd866d4870a6d2a58979",
                 "shasum": ""
             },
             "require": {
@@ -1318,6 +1377,9 @@
                 "phpunit/phpunit": "^9.2",
                 "symfony/var-dumper": "^5.1"
             },
+            "bin": [
+                "start-ws-server"
+            ],
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -1332,9 +1394,9 @@
             "description": "A WebSocket/Socket message Router",
             "support": {
                 "issues": "https://github.com/kanata-php/socket-conveyor/issues",
-                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.0.2"
+                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.0.3"
             },
-            "time": "2022-01-30T06:18:13+00:00"
+            "time": "2022-01-31T02:54:20+00:00"
         },
         {
             "name": "koriym/attributes",
@@ -1997,16 +2059,16 @@
         },
         {
             "name": "nyholm/psr7",
-            "version": "1.4.1",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nyholm/psr7.git",
-                "reference": "2212385b47153ea71b1c1b1374f8cb5e4f7892ec"
+                "reference": "1461e07a0f2a975a52082ca3b769ca912b816226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/2212385b47153ea71b1c1b1374f8cb5e4f7892ec",
-                "reference": "2212385b47153ea71b1c1b1374f8cb5e4f7892ec",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/1461e07a0f2a975a52082ca3b769ca912b816226",
+                "reference": "1461e07a0f2a975a52082ca3b769ca912b816226",
                 "shasum": ""
             },
             "require": {
@@ -2058,7 +2120,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Nyholm/psr7/issues",
-                "source": "https://github.com/Nyholm/psr7/tree/1.4.1"
+                "source": "https://github.com/Nyholm/psr7/tree/1.5.0"
             },
             "funding": [
                 {
@@ -2070,7 +2132,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-02T08:32:20+00:00"
+            "time": "2022-02-02T18:37:57+00:00"
         },
         {
             "name": "opis/closure",
@@ -5566,12 +5628,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "DeepCopy\\": "src/DeepCopy/"
-                },
                 "files": [
                     "src/DeepCopy/deep_copy.php"
-                ]
+                ],
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -7599,7 +7661,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "ext-sqlite3": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"

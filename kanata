@@ -34,6 +34,6 @@ $application->add(new ActivatePluginCommand());
  * Expected return: Application
  * @param Application $application
  */
-$application = add_filter('commands', $application);
+$application = Hooks::getInstance()->apply_filters('commands', $application);
 
 $application->run();

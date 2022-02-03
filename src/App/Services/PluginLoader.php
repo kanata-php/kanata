@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-use App\Drivers\Data\Filesystem;
-use App\Interfaces\KanataPluginInterface;
 use App\Models\Plugin;
-use App\Repositories\Interfaces\Repository;
 use App\Repositories\PluginRepository;
 use Doctrine\Common\Annotations\AnnotationReader;
 use FilesystemIterator;
@@ -13,7 +10,6 @@ use IteratorIterator;
 use Psr\Container\ContainerInterface;
 use RecursiveDirectoryIterator;
 use ReflectionClass;
-use ReflectionException;
 use Aura\Autoload\Loader;
 use App\Annotations\Plugin as PluginAnnotation;
 use App\Annotations\Author as AuthorAnnotation;
@@ -61,7 +57,7 @@ class PluginLoader
             $pluginPath = $info->getPathname();
             $plugin = $this->pluginRepository->registerIfNotRegistered($pluginPath);
             $this->loadPlugin($plugin);
-            $pluginsFound[] = $plugin['directory-name'];
+            $pluginsFound[] = $plugin->id;
         }
 
         $this->unregisterIfNotFound($pluginsFound);
@@ -69,16 +65,17 @@ class PluginLoader
 
     private function unregisterIfNotFound(array $pluginsFound): void
     {
-        $registeredPlugins = array_map(function ($item) {
-            return $item->id;
-        }, Plugin::all());
+        $registeredPlugins = [];
+        foreach (Plugin::all() as $registered) {
+            $registeredPlugins[] = $registered->id;
+        }
 
         $remaining = array_filter($registeredPlugins, function ($item) use ($pluginsFound) {
             return !in_array($item, $pluginsFound);
         });
 
         foreach($remaining as $item) {
-            Plugin::find($item)->delete();
+            Plugin::getInstance()->where('id', '=', $item)->find()->delete();
         }
     }
 
@@ -100,7 +97,9 @@ class PluginLoader
     private function loadPluginClass(Plugin $plugin): void
     {
         $mainFile = $plugin->getMainFile();
-        $this->loader->setClassFile($plugin->getClassName(), $mainFile);
+        $className = $plugin->getClassName();
+
+        $this->loader->setClassFile($className, $mainFile);
     }
 
     private function loadPluginAnnotations(Plugin &$plugin, ReflectionClass $reflectionClass): void
@@ -111,15 +110,15 @@ class PluginLoader
         $realDescription = $reader->getClassAnnotation($reflectionClass, DescriptionAnnotation::class);
 
         if (
-            $plugin->name !== $realName->name
-            || $plugin['author-name'] !== $realAuthor->name
-            || $plugin['author-email'] !== $realAuthor->email
-            || !$plugin->description !== $realDescription->value
+            $plugin['name'] !== $realName->name
+            || $plugin['author_name'] !== $realAuthor->name
+            || $plugin['author_email'] !== $realAuthor->email
+            || $plugin['description'] !== $realDescription->value
         ) {
             $data = [
                 'name' => $realName->name,
-                'author-name' => $realAuthor->name,
-                'author-email' => $realAuthor->email,
+                'author_name' => $realAuthor->name,
+                'author_email' => $realAuthor->email,
                 'description' => $realDescription->value,
             ];
             $result = $this->pluginRepository->updatePlugin($plugin->id, $data);

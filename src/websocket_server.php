@@ -11,21 +11,57 @@ use voku\helper\Hooks;
 return function () {
     handle_existing_pid(WS_PID_FILE);
 
+    $persistence = socket_persistence();
+
+    $communications = socket_communication();
+
     $port = get_input()->getOption(WEBSOCKET_PORT_PARAM);
 
     $websocket = new Server(WS_SERVER_HOST, $port);
 
-    $websocket->on("start", function (Server $server) use ($port) {
+    $websocket->on("start", function (Server $server) use ($port, $communications, $persistence) {
         file_put_contents(WS_PID_FILE, $server->master_pid);
 
         echo 'Swoole Server is started at ws://' . $server->host . ':' . $port;
+
+        if (!(bool) WS_TICK_ENABLED) {
+            return;
+        }
+
+        $server->tick((int) WS_TICK_INTERVAL, function () use ($server, $communications, $persistence) {
+            $data = $communications->get(WS_MESSAGE_ACTION);
+            if (count($data) === 0) {
+                return;
+            }
+
+            $data = current($data);
+            $communications->clean(WS_MESSAGE_ACTION);
+            $content = json_decode($data['data'], true);
+            if (isset($content['channel'])) {
+                $connections = [];
+                foreach ($persistence->getAllConnections() as $key => $item) {
+                    if ($item !== $content['channel']) {
+                        continue;
+                    }
+                    $connections[] = $key;
+                }
+            } else {
+                $connections = $server->connections;
+            }
+
+            foreach ($connections as $fd) {
+                if (!$server->push($fd, json_encode($data))) {
+                    $persistence->disconnect($fd);
+                }
+            }
+        });
     });
 
-    $websocket->on('open', function (Server $server, Request $request){
+    $websocket->on('open', function (Server $server, Request $request) {
         echo "WS Opened: " . $request->fd . PHP_EOL;
     });
 
-    $websocket->on('message', function (Server $server, Frame $frame) {
+    $websocket->on('message', function (Server $server, Frame $frame) use ($persistence) {
         echo 'Received message (' . $frame->fd . '): ' . $frame->data . PHP_EOL;
 
         /**
@@ -37,15 +73,17 @@ return function () {
          */
         $socketRouter = Hooks::getInstance()->apply_filters(
             'socket_actions',
-            new SocketMessageRouter,
+            new SocketMessageRouter($persistence),
             container()
         );
 
-        $message = $socketRouter($frame->data, $frame->fd, $server);
+        $socketRouter($frame->data, $frame->fd, $server);
+    });
 
-        foreach ($server->connections as $fd) {
-            $server->push($fd, json_encode($message));
-        }
+
+    $websocket->on('Disconnect', function(Server $server, int $fd)
+    {
+        echo 'Connection disconnected: ' . $fd . PHP_EOL;
     });
 
     $websocket->on('close', function ($server, $fd) {

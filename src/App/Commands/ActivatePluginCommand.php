@@ -38,7 +38,7 @@ class ActivatePluginCommand extends Command
 
         $pluginName = $input->getArgument('plugin-name');
 
-        $plugin = Plugin::find($pluginName);
+        $plugin = Plugin::getInstance()->where('directory_name', '=', $pluginName)->find();
 
         if (null === $plugin) {
             $io->error('Plugin ' . $pluginName . ' was not found!');

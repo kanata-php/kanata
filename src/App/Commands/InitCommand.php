@@ -6,7 +6,6 @@ use App\Commands\Traits\InfoTrait;
 use App\Commands\Traits\LogoTrait;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use League\Flysystem\Adapter\Local;

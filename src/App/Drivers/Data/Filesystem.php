@@ -81,11 +81,11 @@ class Filesystem implements DataDriverInterface
 
     /**
      * @param string $table
-     * @param string|int|null $id
+     * @param mixed $id
      *
      * @return array
      */
-    public function get(string $table, $id)
+    public function get(string $table, mixed $id)
     {
         if ($id === null) {
             return $this->getRecordsList($table);
@@ -186,11 +186,11 @@ class Filesystem implements DataDriverInterface
         return max($recordsList) + 1;
     }
 
-    public function all(string $table): array
+    public function all(): array
     {
         return array_map(function ($item) {
             return $item['filename'];
-        }, $this->filesystem->listContents($this->getRecordAddress($table)));
+        }, $this->filesystem->listContents($this->getRecordAddress($this->database)));
     }
 
     /**

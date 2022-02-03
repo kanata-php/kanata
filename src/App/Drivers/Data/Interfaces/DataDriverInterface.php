@@ -8,4 +8,5 @@ interface DataDriverInterface
     public function update(string $database, int $id, array $data) : bool;
     public function get(string $database, $id);
     public function delete(string $database, int $id) : bool;
+    public function all(): array;
 }

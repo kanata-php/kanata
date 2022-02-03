@@ -6,14 +6,10 @@ use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use SamplePlugin\Actions\ExampleCreateAction;
-use SamplePlugin\Actions\ExampleDeleteAction;
-use SamplePlugin\Actions\ExampleGetAction;
-use SamplePlugin\Actions\ExampleUpdateAction;
+use SamplePlugin\Actions\ExampleAction;
 use SamplePlugin\Commands\QuoteCommand;
 use SamplePlugin\Http\Controllers\DocumentationController;
 use SamplePlugin\Interceptors\LogInterceptor;
-use SamplePlugin\Models\Todo;
 use App\Annotations\Plugin;
 use App\Annotations\Description;
 use App\Annotations\Author;
@@ -35,8 +31,7 @@ class SamplePlugin implements KanataPluginInterface
      */
     const VIEW_KEY = 'samplePluginView';
 
-    /** @var ContainerInterface */
-    protected $container;
+    protected ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)
     {
@@ -94,16 +89,8 @@ class SamplePlugin implements KanataPluginInterface
     {
         $viewKey = self::VIEW_KEY;
 
-        add_filter('routes', function($app) use ($viewKey) {
+        add_filter('routes', function($app) {
             $app->get('/about', [DocumentationController::class, 'about']);
-
-            // UI with WebSockets example.
-            $app->get('/todos', function (Request $request, Response $response) use ($viewKey) {
-                $html = $this->{$viewKey}->render('sample::todos', []);
-                $response->getBody()->write($html);
-                return $response->withStatus(200);
-            });
-
             return $app;
         });
     }
@@ -113,27 +100,8 @@ class SamplePlugin implements KanataPluginInterface
      */
     public function register_socket_actions(): void
     {
-        add_filter('socket_actions', function($socketRouter, $container) {
-            $socketRouter->add(new ExampleCreateAction(
-                $container->dataDriver,
-                Todo::class
-            ));
-
-            $socketRouter->add(new ExampleDeleteAction(
-                $container->dataDriver,
-                Todo::class
-            ));
-
-            $socketRouter->add(new ExampleGetAction(
-                $container->dataDriver,
-                Todo::class
-            ));
-
-            $socketRouter->add(new ExampleUpdateAction(
-                $container->dataDriver,
-                Todo::class
-            ));
-
+        add_filter('socket_actions', function($socketRouter) {
+            $socketRouter->add(new ExampleAction());
             return $socketRouter;
         }, 2);
     }

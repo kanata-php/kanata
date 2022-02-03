@@ -1,5 +1,7 @@
 <?php
 
+use App\Services\WebSocketCommunication;
+use App\Services\WebSocketPersistence;
 use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -36,7 +38,7 @@ if (! function_exists('config')) {
      */
     function config(string $key, mixed $default = null): mixed
     {
-        return array_get(container()['config'], $key, $default);
+        return array_get(container()->config, $key, $default);
     }
 }
 
@@ -213,14 +215,14 @@ if (!function_exists('array_get')) {
 if (! function_exists('get_output')) {
     function get_output(): ConsoleOutputInterface
     {
-        return container()['output'];
+        return container()->output;
     }
 }
 
 if (! function_exists('get_input')) {
     function get_input(): InputInterface
     {
-        return container()['input'];
+        return container()->input;
     }
 }
 
@@ -309,128 +311,186 @@ if (! function_exists('public_path')) {
     }
 }
 
-/**
- * Retrieve resources path of the project.
- *
- * @return string
- */
-function resource_path(): string {
-    return base_path() . 'resources/';
-}
-
-/**
- * Retrieve templates path of the project.
- *
- * @return string
- */
-function template_path(): string {
-    return base_path() . 'resources/views';
-}
-
-/**
- * Retrieve plugins path of the project.
- *
- * @param string|null $pluginDirectoryName
- * @return ?string
- */
-function plugin_path(?string $pluginDirectoryName = null): ?string {
-    $path = base_path() . 'content/plugins';
-
-    if (null === $pluginDirectoryName) {
-        return $path;
+if (! function_exists('resource_path')) {
+    /**
+     * Retrieve resources path of the project.
+     *
+     * @return string
+     */
+    function resource_path(): string
+    {
+        return base_path() . 'resources/';
     }
+}
 
-    $plugin_path = trailingslashit($path) . $pluginDirectoryName;
-
-    if (!container()->filesystem->has($plugin_path)) {
-        return null;
+if (! function_exists('template_path')) {
+    /**
+     * Retrieve templates path of the project.
+     *
+     * @return string
+     */
+    function template_path(): string
+    {
+        return base_path() . 'resources/views';
     }
-
-    return $plugin_path;
 }
 
-/**
- * Add trailing slash.
- *
- * (original from WordPress)
- *
- * Reference: https://developer.wordpress.org/reference/functions/trailingslashit/
- *
- * @param $string
- *
- * @return string
- */
-function trailingslashit( $string ): string {
-    return untrailingslashit( $string ) . '/';
+if (! function_exists('plugin_path')) {
+    /**
+     * Retrieve plugins path of the project.
+     *
+     * @param string|null $pluginDirectoryName
+     * @return ?string
+     */
+    function plugin_path(?string $pluginDirectoryName = null): ?string
+    {
+        $path = base_path() . 'content/plugins';
+
+        if (null === $pluginDirectoryName) {
+            return $path;
+        }
+
+        $plugin_path = trailingslashit($path) . $pluginDirectoryName;
+
+        if (!container()->filesystem->has($plugin_path)) {
+            return null;
+        }
+
+        return $plugin_path;
+    }
 }
 
-/**
- * Remove trailing slash if it exists.
- *
- * (original from WordPress)
- *
- * Reference: https://developer.wordpress.org/reference/functions/untrailingslashit/
- *
- * @param $string
- *
- * @return string
- */
-function untrailingslashit( $string ): string {
-    return rtrim( $string, '/\\' );
+if (! function_exists('trailingslashit')) {
+    /**
+     * Add trailing slash.
+     *
+     * (original from WordPress)
+     *
+     * Reference: https://developer.wordpress.org/reference/functions/trailingslashit/
+     *
+     * @param $string
+     *
+     * @return string
+     */
+    function trailingslashit($string): string
+    {
+        return untrailingslashit($string) . '/';
+    }
+}
+
+if (! function_exists('untrailingslashit')) {
+    /**
+     * Remove trailing slash if it exists.
+     *
+     * (original from WordPress)
+     *
+     * Reference: https://developer.wordpress.org/reference/functions/untrailingslashit/
+     *
+     * @param $string
+     *
+     * @return string
+     */
+    function untrailingslashit($string): string
+    {
+        return rtrim($string, '/\\');
+    }
 }
 
 // ------------------------------------------------------------------------
 // View
 // ------------------------------------------------------------------------
 
-/**
- * Render view for route.
- *
- * @param Response $response
- * @param string $view
- * @param array $params
- * @param int $status
- * @return Response
- */
-function view(Response $response, string $view, array $params = [], int $status = 200): Response {
-    $html = container()->view->render($view, $params);
-    $response->getBody()->write($html);
-    return $response->withStatus($status);
+if (! function_exists('view')) {
+    /**
+     * Render view for route.
+     *
+     * @param Response $response
+     * @param string $view
+     * @param array $params
+     * @param int $status
+     * @return Response
+     */
+    function view(Response $response, string $view, array $params = [], int $status = 200): Response
+    {
+        $html = container()->view->render($view, $params);
+        $response->getBody()->write($html);
+        return $response->withStatus($status);
+    }
 }
 
 // ------------------------------------------------------------------------
 // String
 // ------------------------------------------------------------------------
 
-function slug(string $text): string {
-    $slugger = new AsciiSlugger();
-    return strtolower($slugger->slug($text));
+if (! function_exists('slug')) {
+    /**
+     * Make a string a slug.
+     *
+     * @param string $text
+     * @return string
+     */
+    function slug(string $text): string
+    {
+        $slugger = new AsciiSlugger();
+        return strtolower($slugger->slug($text));
+    }
 }
 
 // ------------------------------------------------------------------------
 // Queues
 // ------------------------------------------------------------------------
 
-/**
- * Register a new callback to a message in the AMQP service.
- *
- * @param string $queue The name of the queue.
- * @param string $exchange The name of the exchange.
- * @param string $option The command to run on terminal for long-running service.
- * @param mixed $callback Function that receives the message.
- * @param string $routingKey The name of the routing key. (default: '')
- * @return void
- */
-function register_queue(string $queue, string $exchange, string $option, mixed $callback, string $routingKey = '') {
-    add_filter('queues', function ($queues) use ($queue, $exchange, $option, $callback, $routingKey) {
-        $queues[$queue] = [
-            'exchange' => $exchange,
-            'queue' => $queue,
-            'routing_key' => $routingKey,
-            'option' => $option,
-            'callback' => $callback,
-        ];
+if (! function_exists('register_queue')) {
+    /**
+     * Register a new callback to a message in the AMQP service.
+     *
+     * @param string $queue The name of the queue.
+     * @param string $exchange The name of the exchange.
+     * @param string $option The command to run on terminal for long-running service.
+     * @param mixed $callback Function that receives the message.
+     * @param string $routingKey The name of the routing key. (default: '')
+     * @return void
+     */
+    function register_queue(string $queue, string $exchange, string $option, mixed $callback, string $routingKey = '')
+    {
+        add_filter('queues', function ($queues) use ($queue, $exchange, $option, $callback, $routingKey) {
+            $queues[$queue] = [
+                'exchange' => $exchange,
+                'queue' => $queue,
+                'routing_key' => $routingKey,
+                'option' => $option,
+                'callback' => $callback,
+            ];
 
-        return $queues;
-    });
+            return $queues;
+        });
+    }
+}
+
+// ------------------------------------------------------------------------
+// WebSockets
+// ------------------------------------------------------------------------
+
+if (! function_exists('socket_communication')) {
+    /**
+     * Get websocket communication instance.
+     *
+     * @return WebSocketCommunication
+     */
+    function socket_communication(): WebSocketCommunication
+    {
+        return container()->socket_communication;
+    }
+}
+
+if (! function_exists('socket_persistence')) {
+    /**
+     * Get websocket persistence instance.
+     *
+     * @return WebSocketPersistence
+     */
+    function socket_persistence(): WebSocketPersistence
+    {
+        return container()->socket_persistence;
+    }
 }

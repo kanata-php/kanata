@@ -71,7 +71,9 @@
         "symfony/string": "^6.0",
         "symfony/console": "^5.4",
         "symfony/process": "^6.0",
-        "mustache/mustache": "^2.14"
+        "mustache/mustache": "^2.14",
+        "ext-sqlite3": "*",
+        "greg0/lazer-database": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -109,5 +111,8 @@
             "merge-extra-deep": false,
             "merge-scripts": false
         }
-    }
+    },
+    "bin": [
+        "start-kanata"
+    ]
 }

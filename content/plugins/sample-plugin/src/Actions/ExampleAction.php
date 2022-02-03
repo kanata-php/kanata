@@ -2,39 +2,30 @@
 
 namespace SamplePlugin\Actions;
 
-use App\Models\ModelExample;
 use Conveyor\Actions\Abstractions\AbstractAction;
 use Exception;
 use InvalidArgumentException;
-use SamplePlugin\Actions\Traits\CRUDActionTrait;
 
-class ExampleCreateAction extends AbstractAction
+class ExampleAction extends AbstractAction
 {
-    use CRUDActionTrait;
-
-    /** @var string */
-    protected $name = 'example-create-action';
+    protected string $name = 'example-action';
 
     /**
      * @param array $data
      *
-     * @return array
+     * @return mixed
      *
      * @throws InvalidArgumentException
      * @throws Exception
      */
-    public function execute(array $data)
+    public function execute(array $data): mixed
     {
         /** @throws InvalidArgumentException */
         $this->validateData($data['params']);
 
-        $this->data = $data['params'];
+        $this->send($data['params']['content']);
 
-        if ($id = $this->model->create($this->data)) {
-            return $this->model->get($id)->toArray();
-        }
-
-        throw new Exception('Couldn\'t create record!');
+        return null;
     }
 
     /**

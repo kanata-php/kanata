@@ -2,29 +2,22 @@
 
 namespace App\Models;
 
-use App\Drivers\Data\Filesystem;
 use function Symfony\Component\String\u;
-
-/**
- * name => string
- * path => string
- * active => bool
- */
 
 class Plugin extends Model
 {
-    protected string $table = 'plugins';
-    protected array $defaults = ['active' => false];
+    const TABLE_NAME = 'plugins';
+    protected string $database = self::TABLE_NAME;
 
     public function __construct()
     {
-        $dataDriver = new Filesystem('data', container()->filesystem, 'json', false);
-        parent::__construct($dataDriver);
+        $this->name = self::TABLE_NAME;
+        parent::__construct();
     }
 
     public function getClassName(): string
     {
-        return ucfirst((string) u($this['directory-name'])->camel());
+        return ucfirst((string) u($this->directory_name)->camel());
     }
 
     /**

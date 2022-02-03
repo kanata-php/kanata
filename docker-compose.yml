@@ -5,6 +5,8 @@ services:
   php:
     build:
       context: ./docker/swoole
+      args:
+        SUPERVISOR_CONF: ${DOCKER_SUPERVISOR_CONF}
     container_name: ${DOCKER_APP_NAME}-php
     volumes:
       - ".:/var/www/html"
@@ -15,12 +17,11 @@ services:
       - "8001:8001"
       - "8002:8002"
     networks:
-      masa-network:
-        ipv4_address: ${DOCKER_APP_IP}.0.2
+      - kanata-network
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: ${DOCKER_APP}-rabbitmq
+    container_name: ${DOCKER_APP_NAME}-rabbitmq
     expose:
       - "5672"
       - "15672"
@@ -30,12 +31,8 @@ services:
       - "15672:15672"
       - "25672:25672"
     networks:
-      - econoroute-network
+      - kanata-network
 
 networks:
-  masa-network:
+  kanata-network:
     driver: bridge
-    ipam:
-      config:
-        - subnet: ${DOCKER_APP_IP}.0.0/16
-          gateway: ${DOCKER_APP_IP}.0.1

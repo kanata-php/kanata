@@ -7,111 +7,25 @@ use App\Exceptions\RecordNotFoundException;
 use App\Models\Interfaces\SimpleCrudInterface;
 use App\Models\Traits\Validation;
 use ArrayAccess;
+use Lazer\Classes\Database;
+use Lazer\Classes\LazerException;
 use ReflectionClass;
 use function container;
 
-class Model implements SimpleCrudInterface, ArrayAccess
+abstract class Model extends Database implements ArrayAccess
 {
-    protected DataDriverInterface $dataDriver;
-    protected int|string $id;
-    protected string $table;
-    protected ?array $content = null;
-    protected array $defaults = [];
+    public array $errors = [];
 
-    /**
-     * When there is any error in procedures, this would be the best place to find them.
-     *
-     * @var array
-     */
-    public array $errors;
-
-    public function __construct(DataDriverInterface $dataDriver)
+    public function __construct()
     {
-        $this->dataDriver = $dataDriver;
+        $this->setFields();
+        $this->setPending();
     }
 
-    public static function getInstance(): Model
+    public static function getInstance()
     {
-        $reflectionClass = new ReflectionClass(get_called_class());
-        return $reflectionClass->newInstanceArgs([container()->dataDriver]);
-    }
-
-    public static function find(string $fileName): ?Model
-    {
-        $model = get_called_class()::getInstance();
-        return $model->get($fileName);
-    }
-
-    public static function all(): array
-    {
-        return array_map(function ($item) {
-            return get_called_class()::find($item);
-        }, container()->dataDriver->all(get_called_class()::getInstance()->getTable()));
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return ?Model
-     */
-    public function create(array $data)
-    {
-        $data = array_merge($this->defaults, $data);
-
-        $id = $this->dataDriver->create($this->table, $data);
-
-        if (!$id) {
-            return null;
-        }
-
-        return $this->get($id);
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return bool
-     */
-    public function update(array $data): bool
-    {
-        $existentContent = $this->get($this->id)->content;
-        $newContent = array_merge($existentContent, $data);
-
-        if (!$this->dataDriver->update($this->table, $this->id, $newContent)) {
-            return false;
-        }
-
-        $this->content = $newContent;
-        return true;
-    }
-
-    /**
-     * @param int|null $id
-     *
-     * @return ?Model
-     */
-    public function get($id = null): ?Model
-    {
-        try {
-            $data = $this->dataDriver->get($this->table, $id);
-        } catch (RecordNotFoundException $e) {
-            return null;
-        }
-
-        $this->id = $id;
-        if (null !== $data) {
-            $this->content = $data;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function delete()
-    {
-        return $this->dataDriver->delete($this->table, $this->id);
+        $class = get_called_class();
+        return new $class;
     }
 
     /**
@@ -131,25 +45,11 @@ class Model implements SimpleCrudInterface, ArrayAccess
      */
     public function offsetGet($offset)
     {
-        if ($offset === 'id') {
-            return $this->id;
-        }
-
-        if (!isset($this->content[$offset])) {
+        if (!isset($this->{$offset})) {
             return null;
         }
 
-        return $this->content[$offset];
-    }
-
-    /**
-     * @param mixed $offset
-     *
-     * @return mixed
-     */
-    public function __get($offset)
-    {
-        return $this[$offset];
+        return $this->{$offset};
     }
 
     /**
@@ -174,26 +74,44 @@ class Model implements SimpleCrudInterface, ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        if ($offset === 'id') {
-            unset($this->{$offset});
+        $this->{$offset} = null;
+    }
+
+    public static function all()
+    {
+        return self::getInstance()->findAll();
+    }
+
+    public static function createRecord(array $data): Database|null
+    {
+        try {
+            $record = self::getInstance();
+            foreach ($data as $key => $value) {
+                $record->setField($key, $value);
+            }
+            $record->save();
+        } catch (LazerException $e) {
+            return null;
         }
 
-        unset($this->content[$offset]);
+        return $record->find($record->lastId());
     }
 
-    /**
-     * @return array
-     */
-    public function toArray() : array
+    public function update(array $data): bool
     {
-        return [
-            'id' => $this->id,
-            'content' => $this->content,
-        ];
-    }
+        try {
+            foreach ($data as $key => $value) {
+                $this->setField($key, $value);
+            }
+            $this->save();
+            foreach ((array) self::getInstance()->find($this->id)->set as $key => $value) {
+                $this->setField($key, $value);
+            }
+        } catch (LazerException $e) {
+            $this->errors[] = $e->getMessage();
+            return false;
+        }
 
-    public function getTable(): string
-    {
-        return $this->table;
+        return true;
     }
 }

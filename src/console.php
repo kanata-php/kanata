@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Here we deal with the console input for the http, websocket and queue processes.
@@ -28,6 +29,13 @@ function get_input_instance(ConsoleOutputInterface $output): InputInterface {
         // queues
         new InputOption(QUEUE_CONSOLE_OPTION, null, InputOption::VALUE_NONE),
         new InputOption(QUEUE_NAME_CONSOLE_OPTION, null, InputOption::VALUE_REQUIRED),
+
+        // arguments
+        new InputArgument('arg', InputArgument::OPTIONAL),
+        new InputArgument('arg2', InputArgument::OPTIONAL),
+        new InputArgument('arg3', InputArgument::OPTIONAL),
+        new InputArgument('arg4', InputArgument::OPTIONAL),
+        new InputArgument('arg5', InputArgument::OPTIONAL),
     ]);
 
     try {

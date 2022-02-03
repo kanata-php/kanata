@@ -22,14 +22,14 @@ use ArrayAccess;
 class Container extends SlimContainer implements ArrayAccess
 {
     /** @var string */
-    protected $tmpDir;
+    protected string $tmpDir;
 
     /**
      * Register for debugging and audit.
      * 
      * @var array
      */
-    protected $registeredAspects = [];
+    protected array $registeredAspects = [];
 
     /**
      * @param array $values The parameters or objects.

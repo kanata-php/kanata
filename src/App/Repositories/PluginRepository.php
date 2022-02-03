@@ -2,21 +2,25 @@
 
 namespace App\Repositories;
 
-use App\Models\Model;
 use App\Models\Plugin;
 use App\Models\Traits\Validation;
 use App\Repositories\Interfaces\Repository;
 use Exception;
-use PHPUnit\Framework\Constraint\StringContains;
+use Lazer\Classes\LazerException;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Required;
 use Symfony\Component\Validator\Constraints\Type;
+use Lazer\Classes\Database as Lazer;
 
 class PluginRepository implements Repository
 {
     use Validation;
 
     public array $errors = [];
+
+    public array $defaultValues = [
+        'active' => false,
+    ];
 
     /**
      * @param string $procedure
@@ -30,16 +34,16 @@ class PluginRepository implements Repository
             $this->validateField($data['name'], [new Type('string'), new NotBlank()]);
         }
 
-        if ($procedure === 'create' || isset($data['directory-name'])) {
-            $this->validateField($data['directory-name'], [new Required(), new Type('string'), new NotBlank()]);
+        if ($procedure === 'create' || isset($data['directory_name'])) {
+            $this->validateField($data['directory_name'], [new Required(), new Type('string'), new NotBlank()]);
         }
 
-        if (isset($data['author-name'])) {
-            $this->validateField($data['author-name'], [new Type('string'), new NotBlank()]);
+        if (isset($data['author_name'])) {
+            $this->validateField($data['author_name'], [new Type('string'), new NotBlank()]);
         }
 
-        if (isset($data['author-email'])) {
-            $this->validateField($data['author-email'], [new Type('string'), new NotBlank()]);
+        if (isset($data['author_email'])) {
+            $this->validateField($data['author_email'], [new Type('string'), new NotBlank()]);
         }
 
         if (isset($data['description'])) {
@@ -60,12 +64,33 @@ class PluginRepository implements Repository
             return null;
         }
 
-        $record = Plugin::find($data['directory-name']);
-        if (null !== $record) {
+        /** @var Plugin $record */
+        $record = Plugin::getInstance()->where('directory_name', '=', $data['directory_name'])->find();
+
+        if (
+            null !== $record
+            && null !== $record['directory_name']
+        ) {
             return $record;
         }
 
-        return Plugin::getInstance()->create($data);
+        if ($record->count() > 0) {
+            $record->delete();
+        }
+
+        $data = $this->fillDefaults($data);
+
+        return Plugin::createRecord($data);
+    }
+
+    public function fillDefaults(array $data): array
+    {
+        foreach ($this->defaultValues as $key => $value) {
+            if (!isset($data[$key])) {
+                $data[$key] = $value;
+            }
+        }
+        return $data;
     }
 
     public function updatePlugin(string $id, array $data): bool
@@ -77,16 +102,20 @@ class PluginRepository implements Repository
             return false;
         }
 
-        $record = Plugin::find($id);
+        try {
+            $record = Plugin::getInstance()->find((int)$id);
+        } catch (LazerException $e) {
+            return false;
+        }
         return $record->update($data);
     }
 
-    public function registerIfNotRegistered(string $pluginPath): Model
+    public function registerIfNotRegistered(string $pluginPath): Lazer
     {
         $pluginDirectoryName = basename($pluginPath);
         $record = $this->registerPlugin([
-            'id' => $pluginDirectoryName,
-            'directory-name' => $pluginDirectoryName,
+            'name' => $pluginDirectoryName,
+            'directory_name' => $pluginDirectoryName,
             'path' => $pluginPath,
         ]);
 
