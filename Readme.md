@@ -1,6 +1,6 @@
 # Kanata
 
-This application is a Starting point for advanced and easy to maintain apps. Based on Slim4 and Swoole, it serves at this point HTTP, WebSocket and AMQP services. It is extensible via plugins that can change basically every single aspect of this application, and can also work together to build more complex things. It can also route WebSocket Messages just like HTTP Requests, for this [Socket Conveyor](https://github.com/WordsTree/socket-conveyor) is used.
+This application is a Starting point for advanced and easy to maintain apps. Based on Slim4 and Swoole, it serves at this point HTTP, WebSocket and AMQP services. It is extensible via plugins that can change basically every single aspect of this application, and can also work together to build more complex things. It can also route WebSocket Messages just like HTTP Requests, for this [Socket Conveyor](https://github.com/kanata-php/socket-conveyor) is used.
 
 Built for PHP8.0+.
 
@@ -215,7 +215,7 @@ class MyPlugin
 }
 ```
 
-This action will be available for WebSocket connections according to the rules of [Socket Conveyor Library](https://github.com/WordsTree/socket-conveyor) used by Kanata to route websocket messages matching the `ActionInterface` interface.
+This action will be available for WebSocket connections according to the rules of [Socket Conveyor Library](https://github.com/kanata-php/socket-conveyor) used by Kanata to route websocket messages matching the `ActionInterface` interface.
 
 **commands**
 
