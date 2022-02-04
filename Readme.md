@@ -4,7 +4,18 @@ This application is a Starting point for advanced and easy to maintain apps. Bas
 
 Built for PHP8.0+.
 
-## Details
+# Table of contents
+
+- [Installation](#installation)
+- [Servers (HTTP, WebSocket)](#servers-http-websocket)
+  - [To Start Servers](#to-start-servers)
+- [To Start AMQP interaction](#to-start-amqp-interaction)
+- [Plugins](#plugins)
+- [Hooks](#hooks)
+  - [Filters](#filters)
+- [AOP](#aop)
+  - [Registering instances with Interceptors](#registering-instances-with-interceptors)
+- [PsyShell](#psyshell)
 
 ### Installation
 
@@ -18,22 +29,20 @@ The environment is expecting to run via docker-compose, but following you'll fin
 
 > The base version uses filesystem to persist data. For that to work right out of the box with the existent example model you just need to create the directory at the root of the project: `./data/`.
 
-
-### Server
-
+### Servers (HTTP, WebSocket)
 
 This app serves HTTP and WebSocket connections, and is also ready to interact with AMQP messages.
 
 The server listens to 2 ports, one for HTTP connections, another for WebSocket connections. This can be configured at the `.env` file or at the CLI interface used to start the app shown at "[To Start Server](#To Start Server)".
 
-#### To Start Server
+#### To Start Servers
 
 ##### Bare Metal
 
 **Basic:**
 
 ```shell
-php index.php --websocket
+php index.php
 ```
 
 Access via http://localhost:8001 .
@@ -63,6 +72,12 @@ php index.php --websocket --wsport=8004
 
 Access via ws://localhost:8004 .
 
+**Queues**
+
+```shell
+php index.php --queue --queue-name=default
+```
+
 ##### Docker
 
 ```shell
@@ -79,9 +94,17 @@ To start AMQP interaction you just need to execute the registered exchanges in y
 
 ### Plugins
 
-Every customization happens via plugins. The plugin must be present at `./content/plugins` directory. Plugins must have a class at the root with the name set as a camel-case version of your plugin directory's name (e.g. for a plugin image-processor we would have a class called `ImageProcessor`). The file with this class **has** to have this class's name or be `index.php`.
+Every customization happens via configurations and plugins. The plugin must be present at `./content/plugins` directory. Plugins must have a class at the root with the name set as a camel-case version of your plugin directory's name (e.g. for a plugin image-processor we would have a class called `ImageProcessor`). The file with this class **has** to have this class's name or be `index.php`.
 
 The plugin's class must implement `App\Interfaces\KanataPluginInterface`.
+
+To avoid having to manually set up this structure, you can use the `kanata` command line tool like follows:
+
+```shell
+php kanata plugin:create MyPlugin
+```
+
+This command will create a directory at `./content/plugins/my-plugin`. There you'll find a file named `MyPlugin.php` with a class `MyPlugin`. that class has the method `MyPlugin::start`. There, you'll call all the functionalities your for plugin.
 
 ### Hooks
 
@@ -93,18 +116,71 @@ This application has hooks that you'll use to customize deeply its behaviours. F
 
 Important for Routes specification via plugins.
 
-Location: `./src/routes.php`.
+Example:
+
+```php
+use Psr\Container\ContainerInterface;
+use League\Plates\Engine;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+class MyPlugin
+{
+    const VIEW_KEY = 'samplePluginView';
+    
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    public function start()
+    {
+        $viewKey = self::VIEW_KEY;
+        $path = __DIR__ . '/views/';
+        
+        // prepare the view engine
+        // reference: https://platesphp.com
+        $this->container[self::VIEW_KEY] = $this->container->make(Engine::class);
+        $this->container[self::VIEW_KEY]->addFolder('sample', $path);
+
+        add_filter('routes', function($app) use ($viewKey) {
+            // Route with a json response.
+            $app->get('/api/todos', function (Request $request, Response $response) {
+                $response->getBody()->write(file_get_contents(__DIR__ . '/todo.json'));
+                return $response
+                  ->withHeader('Content-Type', 'application/json')
+                  ->withStatus(200);
+            });
+            
+            // Route with an HTML response.
+            $app->get('/todos', function (Request $request, Response $response) use ($viewKey) {
+                $todos = file_get_contents(__DIR__ . '/todo.json');
+                $html = $this->{$viewKey}->render('sample::todos', $todos);
+                $response->getBody()->write($html);
+                return $response->withStatus(200);
+            });
+
+            return $app;
+        });
+    }
+}
+```
+
+This example makes available 2 endpoints at your app:
+
+1 - GET `/todos` - this returns an HTML template located at `views/todo.php` at your plugin.
+
+2 - GET `/api/todos` - this returns a json formatted output with todos found at the `todo.json` file.
 
 **socket_actions**
 
 Register new WebSocket Actions. For the existent WebSocket server, you'll find that you can route specific patterns in the incoming messages to different actions.
 
-Location: `./src/dependencies.php`.
-
 Example:
 
 ```php
-use Conveyor\Actions\Interfaces\ActionInterface
+use Conveyor\Actions\Interfaces\ActionInterface;
+use Psr\Container\ContainerInterface;
 
 class ExampleAction implements ActionInterface
 {       
@@ -121,21 +197,90 @@ class ExampleAction implements ActionInterface
         $server->push($fd, json_encode([]));
     }
 }
- 
-add_filter('socket_actions', function($socketRouter) {
-    $socketRouter->add(new ExampleAction());
-    return $socketRouter;
-});
+
+class MyPlugin
+{
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+    
+    public function start()
+    {
+        add_filter('socket_actions', function($socketRouter) {
+            $socketRouter->add(new ExampleAction());
+            return $socketRouter;
+        });
+    }
+}
 ```
+
+This action will be available for WebSocket connections according to the rules of [Socket Conveyor Library](https://github.com/WordsTree/socket-conveyor) used by Kanata to route websocket messages matching the `ActionInterface` interface.
 
 **commands**
 
-$application = Hooks::getInstance()->apply_filters('commands', $application);
+Register commands to be executed with `kanata` command line.
 
-Location: `./kanata`
+$application = add_filter('commands', $application);
+
+Example:
+
+```php
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Psr\Container\ContainerInterface;
+use GuzzleHttp\Client;
+
+class QuoteCommand extends Command
+{
+    protected static $defaultName = 'quote';
+
+    protected function configure(): void
+    {
+        $this->setHelp('This command displays quotes.');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $client = new Client();
+        $res = $client->request('GET', 'https://quotes.rest/qod', [
+            'headers' => ['Accept' => 'application/json'],
+        ]);
+        if ($res->getStatusCode() !== 200) {
+            $output->writeln('<error>There was an error while trying to get a quote!</error>');
+            return Command::FAILURE;
+        }
+
+        $data = json_decode($res->getBody(), true);
+        $quote = current($data['contents']['quotes']);
+        $output->writeln('"' . $quote['quote'] . '"');
+        $output->writeln($quote['author']);
+
+        return Command::SUCCESS;
+    }
+}
+
+class MyPlugin
+{
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+    
+    public function start()
+    {
+        add_filter('commands', function($app) {
+            $app->add(new QuoteCommand());
+            return $app;
+        });
+    }
+}
+```
+
+This command will respond a quote for the call at your cli: `php kanata quote`.
 
 ### AOP
-
 
 At the plugin you'll also find the structure to extend the application via Aspects. To understand more how it works, you can read more about it [here](https://en.wikipedia.org/wiki/Aspect-oriented_programming). The PHP library used is [Ray.Aop](https://github.com/ray-di/Ray.Aop). At this application, you'll need to run the instances via Application Container to be able to intercept instances and methods.
 
@@ -190,3 +335,10 @@ class MyPlugin implements KanataPluginInterface
 
 This example will intercept every call to `InterceptedClass::interceptedMethod` method and log the data passed.
 
+### PsyShell
+
+To start PsyShell on terminal, just run:
+
+```shell
+php kanata shell
+```
