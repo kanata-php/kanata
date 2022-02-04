@@ -47,7 +47,8 @@
     ],
     "require": {
         "php": "^8.0",
-        "kanata-php/kanata-core": "dev-master"
+        "kanata-php/kanata-core": "dev-master",
+        "psy/psysh": "@stable"
     },
     "autoload": {
         "psr-4": {
