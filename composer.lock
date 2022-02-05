@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d5c99eb91b2c9d43033511aa53c93e0",
+    "content-hash": "8a831b0dbb880f3c0d67fb101d009923",
     "packages": [
         {
             "name": "aura/autoload",
@@ -961,35 +961,37 @@
             "time": "2021-10-06T17:43:30+00:00"
         },
         {
-            "name": "ilexn/swoole-convent-psr7",
-            "version": "0.3.0",
+            "name": "ilexn/swoole-convert-psr7",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/iLexN/swoole-psr7.git",
-                "reference": "5d12b7a62c71347c8fbe582631707306db867435"
+                "reference": "9a69575821a11bf94697813dd3b1c6f0b69e83d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/iLexN/swoole-psr7/zipball/5d12b7a62c71347c8fbe582631707306db867435",
-                "reference": "5d12b7a62c71347c8fbe582631707306db867435",
+                "url": "https://api.github.com/repos/iLexN/swoole-psr7/zipball/9a69575821a11bf94697813dd3b1c6f0b69e83d4",
+                "reference": "9a69575821a11bf94697813dd3b1c6f0b69e83d4",
                 "shasum": ""
             },
             "require": {
                 "dflydev/fig-cookies": "^3.0",
-                "ext-swoole": ">=4.4.6",
-                "php": ">=8.0"
+                "php": ">=8.1"
             },
             "require-dev": {
                 "eaglewu/swoole-ide-helper": "dev-master",
                 "nyholm/psr7": "^1.4",
-                "phpspec/prophecy-phpunit": "^2.0",
-                "phpstan/phpstan": "^0.12.90",
-                "phpstan/phpstan-phpunit": "^0.12.20",
-                "phpstan/phpstan-strict-rules": "^0.12.9",
+                "phpstan/phpstan": "^1.2",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.1",
                 "phpunit/phpunit": "^9.5",
-                "rector/rector": "^0.11.27",
-                "roave/security-advisories": "dev-master",
-                "symfony/var-dumper": "^5.3"
+                "rector/rector": "^0.12.5",
+                "roave/security-advisories": "dev-latest",
+                "symfony/var-dumper": "^6.0"
+            },
+            "suggest": {
+                "ext-openswoole": "This package requires at least one of Open Swoole or Swoole",
+                "ext-swoole": "This package requires at least one of Open Swoole or Swoole"
             },
             "type": "library",
             "autoload": {
@@ -1010,10 +1012,15 @@
             "description": "convert swoole to psr7 request response",
             "support": {
                 "issues": "https://github.com/iLexN/swoole-psr7/issues",
-                "source": "https://github.com/iLexN/swoole-psr7/tree/0.3.0"
+                "source": "https://github.com/iLexN/swoole-psr7/tree/0.5.0"
             },
-            "abandoned": "ilexn/swoole-convert-psr7",
-            "time": "2021-07-02T02:41:23+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/iLexN",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-12-03T08:32:46+00:00"
         },
         {
             "name": "illuminate/collections",
@@ -1355,13 +1362,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:kanata-php/kanata-core.git",
-                "reference": "a3f950f8f6d79fe78f32eab7f372f40ede2600ce"
+                "url": "https://github.com/kanata-php/kanata-core.git",
+                "reference": "50282fb9eb4f341c78a0a0b29add420fecd9a218"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/a3f950f8f6d79fe78f32eab7f372f40ede2600ce",
-                "reference": "a3f950f8f6d79fe78f32eab7f372f40ede2600ce",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/50282fb9eb4f341c78a0a0b29add420fecd9a218",
+                "reference": "50282fb9eb4f341c78a0a0b29add420fecd9a218",
                 "shasum": ""
             },
             "require": {
@@ -1369,10 +1376,9 @@
                 "dflydev/fig-cookies": "^3.0",
                 "doctrine/annotations": "^1.13",
                 "doctrine/cache": "^1.10",
-                "ext-sqlite3": "*",
                 "greg0/lazer-database": "^2.0",
                 "guzzlehttp/guzzle": "^7.3",
-                "ilexn/swoole-convent-psr7": "^0.3.0",
+                "ilexn/swoole-convert-psr7": "^0.5",
                 "illuminate/database": "^8.42",
                 "kanata-php/socket-conveyor": "^1.0",
                 "league/flysystem": "^1.0",
@@ -1382,7 +1388,7 @@
                 "mustache/mustache": "^2.14",
                 "nesbot/carbon": "^2.48",
                 "nyholm/psr7": "^1.4",
-                "php": "^8.0",
+                "php": "^8.1",
                 "php-amqplib/php-amqplib": "^3.1",
                 "php-di/php-di": "^6.3",
                 "php-di/slim-bridge": "^3.2",
@@ -1407,22 +1413,26 @@
                 "symfony/var-dumper": "^5.2"
             },
             "default-branch": true,
+            "bin": [
+                "start-kanata"
+            ],
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Kanata\\": "src/App",
-                    "Tests\\": "tests"
+                    "Tests\\": "tests",
+                    "Kanata\\": "src/App"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "description": "Kanata App Starter Core",
             "support": {
-                "source": "https://github.com/kanata-php/kanata-core/tree/master",
-                "issues": "https://github.com/kanata-php/kanata-core/issues"
+                "issues": "https://github.com/kanata-php/kanata-core/issues",
+                "source": "https://github.com/kanata-php/kanata-core/tree/master"
             },
-            "time": "2022-02-04T03:12:19+00:00"
+            "time": "2022-02-05T03:52:33+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
@@ -7804,13 +7814,12 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kanata-php/kanata-core": 20,
-        "psy/psysh": 0
+        "kanata-php/kanata-core": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0"
+        "php": "^8.1"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"
