@@ -1,11 +1,10 @@
 {
-    "name": "lotharthesavior/kanata",
-    "description": "App Starter with Swoole.",
+    "name": "kanata-php/kanata",
+    "description": "App Starter.",
     "license": "MIT",
     "authors": [
         {
             "name": "Savio Resende",
-            "email": "savio@savioresende.com.br",
             "homepage": "https://savioresende.com.br"
         }
     ],
