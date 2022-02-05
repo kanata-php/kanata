@@ -1,6 +1,5 @@
 vendor
 node_modules
-data
 .phpintel
 .idea
 .env
