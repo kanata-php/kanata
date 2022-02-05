@@ -47,6 +47,12 @@ php index.php
 
 Access via http://localhost:8001 .
 
+For the assets to be available you'll need to isntall npm dependencies and build the assets. Larave mix is available, so the sequence of commands are like this:
+
+```shell
+npm install && npx mix
+```
+
 **With WebSocket:**
 
 ```shell
