@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05400e828157c0a925c491abc6df69dd",
+    "content-hash": "63337fc5bb78e1e7512d2656fbb3d179",
     "packages": [
         {
             "name": "aura/autoload",
@@ -118,6 +118,66 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "danielstjules/stringy",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danielstjules/Stringy.git",
+                "reference": "df24ab62d2d8213bbbe88cc36fc35a4503b4bd7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/df24ab62d2d8213bbbe88cc36fc35a4503b4bd7e",
+                "reference": "df24ab62d2d8213bbbe88cc36fc35a4503b4bd7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "symfony/polyfill-mbstring": "~1.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Create.php"
+                ],
+                "psr-4": {
+                    "Stringy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel St. Jules",
+                    "email": "danielst.jules@gmail.com",
+                    "homepage": "http://www.danielstjules.com"
+                }
+            ],
+            "description": "A string manipulation library with multibyte support",
+            "homepage": "https://github.com/danielstjules/Stringy",
+            "keywords": [
+                "UTF",
+                "helpers",
+                "manipulation",
+                "methods",
+                "multibyte",
+                "string",
+                "utf-8",
+                "utility",
+                "utils"
+            ],
+            "support": {
+                "issues": "https://github.com/danielstjules/Stringy/issues",
+                "source": "https://github.com/danielstjules/Stringy"
+            },
+            "time": "2017-06-12T01:10:27+00:00"
         },
         {
             "name": "dflydev/fig-cookies",
@@ -681,12 +741,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -962,16 +1022,16 @@
         },
         {
             "name": "ilexn/swoole-convert-psr7",
-            "version": "0.5.0",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/iLexN/swoole-psr7.git",
-                "reference": "9a69575821a11bf94697813dd3b1c6f0b69e83d4"
+                "reference": "eff56ba6689196a642e82915ad6248c8a5e88470"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/iLexN/swoole-psr7/zipball/9a69575821a11bf94697813dd3b1c6f0b69e83d4",
-                "reference": "9a69575821a11bf94697813dd3b1c6f0b69e83d4",
+                "url": "https://api.github.com/repos/iLexN/swoole-psr7/zipball/eff56ba6689196a642e82915ad6248c8a5e88470",
+                "reference": "eff56ba6689196a642e82915ad6248c8a5e88470",
                 "shasum": ""
             },
             "require": {
@@ -980,12 +1040,12 @@
             },
             "require-dev": {
                 "eaglewu/swoole-ide-helper": "dev-master",
-                "nyholm/psr7": "^1.4",
-                "phpstan/phpstan": "^1.2",
+                "nyholm/psr7": "^1.5",
+                "phpstan/phpstan": "^1.4",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "phpstan/phpstan-strict-rules": "^1.1",
                 "phpunit/phpunit": "^9.5",
-                "rector/rector": "^0.12.5",
+                "rector/rector": "^0.12.15",
                 "roave/security-advisories": "dev-latest",
                 "symfony/var-dumper": "^6.0"
             },
@@ -1012,7 +1072,7 @@
             "description": "convert swoole to psr7 request response",
             "support": {
                 "issues": "https://github.com/iLexN/swoole-psr7/issues",
-                "source": "https://github.com/iLexN/swoole-psr7/tree/0.5.0"
+                "source": "https://github.com/iLexN/swoole-psr7/tree/0.6.0"
             },
             "funding": [
                 {
@@ -1020,20 +1080,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-03T08:32:46+00:00"
+            "time": "2022-02-07T06:49:24+00:00"
         },
         {
             "name": "illuminate/collections",
-            "version": "v8.82.0",
+            "version": "v8.83.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
-                "reference": "3933ab6b032167c0f7a598388e211c0810acf5d3"
+                "reference": "5cf7ed1c0a1b8049576b29f5cab5c822149aaa91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/collections/zipball/3933ab6b032167c0f7a598388e211c0810acf5d3",
-                "reference": "3933ab6b032167c0f7a598388e211c0810acf5d3",
+                "url": "https://api.github.com/repos/illuminate/collections/zipball/5cf7ed1c0a1b8049576b29f5cab5c822149aaa91",
+                "reference": "5cf7ed1c0a1b8049576b29f5cab5c822149aaa91",
                 "shasum": ""
             },
             "require": {
@@ -1074,20 +1134,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-24T16:41:15+00:00"
+            "time": "2022-02-15T14:40:58+00:00"
         },
         {
             "name": "illuminate/container",
-            "version": "v8.82.0",
+            "version": "v8.83.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "e18f8ce24a551e086621b00c7b75d6914d2011b4"
+                "reference": "14062628d05f75047c5a1360b9350028427d568e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/e18f8ce24a551e086621b00c7b75d6914d2011b4",
-                "reference": "e18f8ce24a551e086621b00c7b75d6914d2011b4",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/14062628d05f75047c5a1360b9350028427d568e",
+                "reference": "14062628d05f75047c5a1360b9350028427d568e",
                 "shasum": ""
             },
             "require": {
@@ -1125,11 +1185,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-05T15:38:15+00:00"
+            "time": "2022-02-02T21:03:35+00:00"
         },
         {
             "name": "illuminate/contracts",
-            "version": "v8.82.0",
+            "version": "v8.83.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -1177,16 +1237,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v8.82.0",
+            "version": "v8.83.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "b2b7fb8eee6ac52ad6bc93f9e35d82c85a7f1a28"
+                "reference": "463de5a2028138d7f4749f072bb809288d8bd2fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/b2b7fb8eee6ac52ad6bc93f9e35d82c85a7f1a28",
-                "reference": "b2b7fb8eee6ac52ad6bc93f9e35d82c85a7f1a28",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/463de5a2028138d7f4749f072bb809288d8bd2fe",
+                "reference": "463de5a2028138d7f4749f072bb809288d8bd2fe",
                 "shasum": ""
             },
             "require": {
@@ -1241,11 +1301,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-27T18:36:14+00:00"
+            "time": "2022-02-14T17:09:29+00:00"
         },
         {
             "name": "illuminate/macroable",
-            "version": "v8.82.0",
+            "version": "v8.83.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -1291,16 +1351,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v8.82.0",
+            "version": "v8.83.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "910c5eb5d506013fdf60f9dc68c5512711857558"
+                "reference": "fe5469faa982e2dd8c2f5978b23cf881e3715d1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/910c5eb5d506013fdf60f9dc68c5512711857558",
-                "reference": "910c5eb5d506013fdf60f9dc68c5512711857558",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/fe5469faa982e2dd8c2f5978b23cf881e3715d1b",
+                "reference": "fe5469faa982e2dd8c2f5978b23cf881e3715d1b",
                 "shasum": ""
             },
             "require": {
@@ -1355,32 +1415,33 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-28T16:29:10+00:00"
+            "time": "2022-02-07T21:23:13+00:00"
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "dev-master",
+            "version": "0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "dd51adc92a03f8dff28aedd4a719f165b0dbb8a8"
+                "reference": "e152bea2ba2e1a6fe75e9630006d6e868c6ac0fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/dd51adc92a03f8dff28aedd4a719f165b0dbb8a8",
-                "reference": "dd51adc92a03f8dff28aedd4a719f165b0dbb8a8",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/e152bea2ba2e1a6fe75e9630006d6e868c6ac0fb",
+                "reference": "e152bea2ba2e1a6fe75e9630006d6e868c6ac0fb",
                 "shasum": ""
             },
             "require": {
                 "aura/autoload": "^2.0",
+                "danielstjules/stringy": "^3.1",
                 "dflydev/fig-cookies": "^3.0",
                 "doctrine/annotations": "^1.13",
                 "doctrine/cache": "^1.10",
                 "greg0/lazer-database": "^2.0",
                 "guzzlehttp/guzzle": "^7.3",
-                "ilexn/swoole-convert-psr7": "^0.5",
+                "ilexn/swoole-convert-psr7": "^0.6",
                 "illuminate/database": "^8.42",
-                "kanata-php/socket-conveyor": "^1.0",
+                "kanata-php/socket-conveyor": "^1.1",
                 "league/flysystem": "^1.0",
                 "league/pipeline": "^1.0",
                 "league/plates": "^3.4",
@@ -1400,7 +1461,6 @@
                 "slim/slim": "4.*",
                 "symfony/console": "^5.4",
                 "symfony/process": "^6.0",
-                "symfony/string": "^6.0",
                 "symfony/validator": "^6.0",
                 "vlucas/phpdotenv": "^5.3",
                 "voku/php-hooks": "^0.2",
@@ -1412,7 +1472,6 @@
                 "phpunit/phpunit": "^9.2",
                 "symfony/var-dumper": "^5.2"
             },
-            "default-branch": true,
             "bin": [
                 "start-kanata"
             ],
@@ -1430,22 +1489,22 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/master"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.0.3"
             },
-            "time": "2022-02-05T16:49:21+00:00"
+            "time": "2022-02-18T01:46:49+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
-            "version": "1.0.3",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/socket-conveyor.git",
-                "reference": "4861bef96306eb6ff9b5cd866d4870a6d2a58979"
+                "reference": "ef594323b75ec8515073102b9dc92989d24a05fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/4861bef96306eb6ff9b5cd866d4870a6d2a58979",
-                "reference": "4861bef96306eb6ff9b5cd866d4870a6d2a58979",
+                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/ef594323b75ec8515073102b9dc92989d24a05fe",
+                "reference": "ef594323b75ec8515073102b9dc92989d24a05fe",
                 "shasum": ""
             },
             "require": {
@@ -1464,8 +1523,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Conveyor\\": "src/",
-                    "Tests\\": "tests"
+                    "Tests\\": "tests",
+                    "Conveyor\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1475,9 +1534,15 @@
             "description": "A WebSocket/Socket message Router",
             "support": {
                 "issues": "https://github.com/kanata-php/socket-conveyor/issues",
-                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.0.3"
+                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.1.0"
             },
-            "time": "2022-01-31T02:54:20+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/kanata-php",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-13T21:13:55+00:00"
         },
         {
             "name": "koriym/attributes",
@@ -1938,16 +2003,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.56.0",
+            "version": "2.57.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "626ec8cbb724cd3c3400c3ed8f730545b744e3f4"
+                "reference": "4a54375c21eea4811dbd1149fe6b246517554e78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/626ec8cbb724cd3c3400c3ed8f730545b744e3f4",
-                "reference": "626ec8cbb724cd3c3400c3ed8f730545b744e3f4",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4a54375c21eea4811dbd1149fe6b246517554e78",
+                "reference": "4a54375c21eea4811dbd1149fe6b246517554e78",
                 "shasum": ""
             },
             "require": {
@@ -2030,7 +2095,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-21T17:08:38+00:00"
+            "time": "2022-02-13T18:13:33+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -2571,12 +2636,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "DI\\": "src/"
-                },
                 "files": [
                     "src/functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "DI\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4327,12 +4392,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5966,16 +6031,16 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "bae7c545bef187884426f042434e561ab1ddb182"
+                "reference": "15a90844ad40f127afd244c0cad228de2a80052a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/bae7c545bef187884426f042434e561ab1ddb182",
-                "reference": "bae7c545bef187884426f042434e561ab1ddb182",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/15a90844ad40f127afd244c0cad228de2a80052a",
+                "reference": "15a90844ad40f127afd244c0cad228de2a80052a",
                 "shasum": ""
             },
             "require": {
@@ -6011,9 +6076,9 @@
             "description": "Library for handling version information and constraints",
             "support": {
                 "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.1.0"
+                "source": "https://github.com/phar-io/version/tree/3.1.1"
             },
-            "time": "2021-02-23T14:00:09+00:00"
+            "time": "2022-02-07T21:56:48+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -6622,11 +6687,11 @@
                 }
             },
             "autoload": {
-                "classmap": [
-                    "src/"
-                ],
                 "files": [
                     "src/Framework/Assert/Functions.php"
+                ],
+                "classmap": [
+                    "src/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -7169,16 +7234,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.3",
+            "version": "5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49"
+                "reference": "0ca8db5a5fc9c8646244e629625ac486fa286bf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23bd5951f7ff26f12d4e3242864df3e08dec4e49",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/0ca8db5a5fc9c8646244e629625ac486fa286bf2",
+                "reference": "0ca8db5a5fc9c8646244e629625ac486fa286bf2",
                 "shasum": ""
             },
             "require": {
@@ -7221,7 +7286,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.3"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.5"
             },
             "funding": [
                 {
@@ -7229,7 +7294,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-11T13:31:12+00:00"
+            "time": "2022-02-14T08:28:10+00:00"
         },
         {
             "name": "sebastian/lines-of-code",
@@ -7813,9 +7878,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "kanata-php/kanata-core": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
