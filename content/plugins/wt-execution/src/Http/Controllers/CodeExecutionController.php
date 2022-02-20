@@ -3,12 +3,13 @@
 namespace WtExecution\Http\Controllers;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Ramsey\Uuid\Uuid;
-use WtExecution\Actions\CodeStreaming;
 use WtExecution\Models\Execution;
-use WtExecution\Services\SshService;
+use WtExecution\Queues\ExecuteCode;
 
 class CodeExecutionController
 {
@@ -35,13 +36,25 @@ class CodeExecutionController
         }
 
         // TODO: improve interface
-        $recordId = Execution::createRecord([
+        $result = Execution::createRecord([
             'user_id' => $data['user_id'],
             'uuid' => $data['uuid'],
             'language' => $data['language'],
             'source_temp_file' => $source_file,
             'server_id' => $data['server_id'],
-        ])->lastId();
+        ]);
+
+        if (null === $result) {
+            logger()->error('Couldn\'t register the execution record!');
+            return json_response(
+                $response,
+                'error',
+                500,
+                'Execution registration failed - could\'t create record!'
+            );
+        }
+
+        $recordId = $result->lastId();
         $record = Execution::getInstance()->where('id', '=', $recordId)->find();
         $record = json_encode(current($record->asArray()));
 
@@ -99,43 +112,23 @@ class CodeExecutionController
      */
     public function execute(Request $request, Response $response, array $args): Response
     {
-        $execution = Execution::getInstance()->where('id', '=', $args['execution_id'])->find();
-
-        $output_file = 'storage/temp/output-' . $execution->uuid;
-        if (!filesystem()->has($output_file)) {
-            filesystem()->write($output_file, '');
-        } else {
-            filesystem()->update($output_file, '');
-        }
-
-        $config = [
-            'host' => '162.243.164.132',
-            'port' => 22,
-            'connection_type' => SshService::CONNECTION_TYPE_PUB_KEY,
-            'username' => 'forge',
-            'public_key' => storage_path() . 'servers/1/id_rsa.pub',
-            'private_key' => storage_path() . 'servers/1/id_rsa',
-        ];
-
-        (new SshService($config))->run(
-            file_get_contents(base_path() . $execution->source_temp_file),
-            function($line) use ($output_file) {
-                // write to file
-                $existentContent = filesystem()->read($output_file);
-                filesystem()->update($output_file, $existentContent . PHP_EOL . $line);
-
-                // broadcast to ws
-                $message = json_encode([
-                    'action' => CodeStreaming::ACTION_NAME,
-                    'data' => [
-                        'channel' => 'code-execution',
-                        'line' => $line,
-                    ],
-                ]);
-                socket_communication()->set(WS_MESSAGE_ACTION, $message);
-            }
+        $connection = new AMQPStreamConnection(
+            QUEUE_SERVER_HOST,
+            QUEUE_SERVER_PORT,
+            QUEUE_SERVER_USER,
+            QUEUE_SERVER_PASSWORD
+        );
+        $channel = $connection->channel();
+        $channel->queue_declare(ExecuteCode::EXECUTE_CODE_QUEUE, false, false, false, false);
+        $channel->basic_publish(
+            new AMQPMessage($args['execution_id']),
+            ExecuteCode::EXECUTE_CODE_EXCHANGE,
+            ExecuteCode::EXECUTE_CODE_ROUTING_KEY
         );
 
-        return $response;
+        return json_response($response, json_encode([
+            'success' => true,
+            'message' => 'Code execution started!',
+        ]), 200);
     }
 }

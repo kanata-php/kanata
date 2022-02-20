@@ -73,6 +73,7 @@ class SshService
             $callback($line);
         }
 
+        $callback('CLOSED');
         fclose($stdout_stream);
     }
 }
