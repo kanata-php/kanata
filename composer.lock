@@ -1419,16 +1419,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.0.6",
+            "version": "0.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "f0c43b5d516564450219804c3ae61302df8da6fa"
+                "reference": "3ea825bac6dc58f84af9d43cacdc39f7a47fd431"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/f0c43b5d516564450219804c3ae61302df8da6fa",
-                "reference": "f0c43b5d516564450219804c3ae61302df8da6fa",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/3ea825bac6dc58f84af9d43cacdc39f7a47fd431",
+                "reference": "3ea825bac6dc58f84af9d43cacdc39f7a47fd431",
                 "shasum": ""
             },
             "require": {
@@ -1489,22 +1489,22 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.0.6"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.0.8"
             },
-            "time": "2022-02-19T05:38:25+00:00"
+            "time": "2022-02-22T01:16:57+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/socket-conveyor.git",
-                "reference": "ee3e145c19f76a33fbee6a16dc620004d87e5b7e"
+                "reference": "795e93d80d816eeb1b741758c1b085402059326b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/ee3e145c19f76a33fbee6a16dc620004d87e5b7e",
-                "reference": "ee3e145c19f76a33fbee6a16dc620004d87e5b7e",
+                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/795e93d80d816eeb1b741758c1b085402059326b",
+                "reference": "795e93d80d816eeb1b741758c1b085402059326b",
                 "shasum": ""
             },
             "require": {
@@ -1534,7 +1534,7 @@
             "description": "A WebSocket/Socket message Router",
             "support": {
                 "issues": "https://github.com/kanata-php/socket-conveyor/issues",
-                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.1.1"
+                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.1.2"
             },
             "funding": [
                 {
@@ -1542,7 +1542,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-19T05:34:50+00:00"
+            "time": "2022-02-21T17:37:07+00:00"
         },
         {
             "name": "koriym/attributes",
@@ -3763,16 +3763,16 @@
         },
         {
             "name": "ray/aop",
-            "version": "2.12.0",
+            "version": "2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ray-di/Ray.Aop.git",
-                "reference": "f6076c0471581a4281226814986201b14859817f"
+                "reference": "7c5bcca5c24296c502c1ed2e4303fab71638affc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ray-di/Ray.Aop/zipball/f6076c0471581a4281226814986201b14859817f",
-                "reference": "f6076c0471581a4281226814986201b14859817f",
+                "url": "https://api.github.com/repos/ray-di/Ray.Aop/zipball/7c5bcca5c24296c502c1ed2e4303fab71638affc",
+                "reference": "7c5bcca5c24296c502c1ed2e4303fab71638affc",
                 "shasum": ""
             },
             "require": {
@@ -3790,6 +3790,9 @@
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "annotation_loader.php"
+                ],
                 "psr-4": {
                     "Ray\\Aop\\": [
                         "src/"
@@ -3797,10 +3800,7 @@
                     "Ray\\ServiceLocator\\": [
                         "sl-src/"
                     ]
-                },
-                "files": [
-                    "annotation_loader.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3818,7 +3818,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ray-di/Ray.Aop/issues",
-                "source": "https://github.com/ray-di/Ray.Aop/tree/2.12.0"
+                "source": "https://github.com/ray-di/Ray.Aop/tree/2.12.1"
             },
             "funding": [
                 {
@@ -3830,7 +3830,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-28T08:56:47+00:00"
+            "time": "2022-02-21T12:09:25+00:00"
         },
         {
             "name": "slim/slim",
@@ -6031,16 +6031,16 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.1.1",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "15a90844ad40f127afd244c0cad228de2a80052a"
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/15a90844ad40f127afd244c0cad228de2a80052a",
-                "reference": "15a90844ad40f127afd244c0cad228de2a80052a",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
                 "shasum": ""
             },
             "require": {
@@ -6076,9 +6076,9 @@
             "description": "Library for handling version information and constraints",
             "support": {
                 "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.1.1"
+                "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
-            "time": "2022-02-07T21:56:48+00:00"
+            "time": "2022-02-21T01:04:05+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
