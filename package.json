@@ -23,6 +23,8 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.4.0",
     "alpinejs": "^2.8.2",
-    "css-doodle": "^0.24.1"
+    "css-doodle": "^0.24.1",
+    "socket-conveyor-client": "^1.0.6",
+    "ws-reconnect": "^1.0.7"
   }
 }

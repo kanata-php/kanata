@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63337fc5bb78e1e7512d2656fbb3d179",
+    "content-hash": "05400e828157c0a925c491abc6df69dd",
     "packages": [
         {
             "name": "aura/autoload",
@@ -1419,16 +1419,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "e152bea2ba2e1a6fe75e9630006d6e868c6ac0fb"
+                "reference": "04f5577e42bec2d63cbc93e41dc7181a89e946d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/e152bea2ba2e1a6fe75e9630006d6e868c6ac0fb",
-                "reference": "e152bea2ba2e1a6fe75e9630006d6e868c6ac0fb",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/04f5577e42bec2d63cbc93e41dc7181a89e946d9",
+                "reference": "04f5577e42bec2d63cbc93e41dc7181a89e946d9",
                 "shasum": ""
             },
             "require": {
@@ -1472,6 +1472,7 @@
                 "phpunit/phpunit": "^9.2",
                 "symfony/var-dumper": "^5.2"
             },
+            "default-branch": true,
             "bin": [
                 "start-kanata"
             ],
@@ -1489,22 +1490,22 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.0.3"
+                "source": "https://github.com/kanata-php/kanata-core/tree/master"
             },
-            "time": "2022-02-18T01:46:49+00:00"
+            "time": "2022-02-21T17:55:12+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/socket-conveyor.git",
-                "reference": "ef594323b75ec8515073102b9dc92989d24a05fe"
+                "reference": "795e93d80d816eeb1b741758c1b085402059326b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/ef594323b75ec8515073102b9dc92989d24a05fe",
-                "reference": "ef594323b75ec8515073102b9dc92989d24a05fe",
+                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/795e93d80d816eeb1b741758c1b085402059326b",
+                "reference": "795e93d80d816eeb1b741758c1b085402059326b",
                 "shasum": ""
             },
             "require": {
@@ -1534,7 +1535,7 @@
             "description": "A WebSocket/Socket message Router",
             "support": {
                 "issues": "https://github.com/kanata-php/socket-conveyor/issues",
-                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.1.0"
+                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.1.2"
             },
             "funding": [
                 {
@@ -1542,7 +1543,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-13T21:13:55+00:00"
+            "time": "2022-02-21T17:37:07+00:00"
         },
         {
             "name": "koriym/attributes",
@@ -3763,16 +3764,16 @@
         },
         {
             "name": "ray/aop",
-            "version": "2.12.0",
+            "version": "2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ray-di/Ray.Aop.git",
-                "reference": "f6076c0471581a4281226814986201b14859817f"
+                "reference": "7c5bcca5c24296c502c1ed2e4303fab71638affc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ray-di/Ray.Aop/zipball/f6076c0471581a4281226814986201b14859817f",
-                "reference": "f6076c0471581a4281226814986201b14859817f",
+                "url": "https://api.github.com/repos/ray-di/Ray.Aop/zipball/7c5bcca5c24296c502c1ed2e4303fab71638affc",
+                "reference": "7c5bcca5c24296c502c1ed2e4303fab71638affc",
                 "shasum": ""
             },
             "require": {
@@ -3790,6 +3791,9 @@
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "annotation_loader.php"
+                ],
                 "psr-4": {
                     "Ray\\Aop\\": [
                         "src/"
@@ -3797,10 +3801,7 @@
                     "Ray\\ServiceLocator\\": [
                         "sl-src/"
                     ]
-                },
-                "files": [
-                    "annotation_loader.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3818,7 +3819,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ray-di/Ray.Aop/issues",
-                "source": "https://github.com/ray-di/Ray.Aop/tree/2.12.0"
+                "source": "https://github.com/ray-di/Ray.Aop/tree/2.12.1"
             },
             "funding": [
                 {
@@ -3830,7 +3831,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-28T08:56:47+00:00"
+            "time": "2022-02-21T12:09:25+00:00"
         },
         {
             "name": "slim/slim",
@@ -6031,16 +6032,16 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.1.1",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "15a90844ad40f127afd244c0cad228de2a80052a"
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/15a90844ad40f127afd244c0cad228de2a80052a",
-                "reference": "15a90844ad40f127afd244c0cad228de2a80052a",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
                 "shasum": ""
             },
             "require": {
@@ -6076,9 +6077,9 @@
             "description": "Library for handling version information and constraints",
             "support": {
                 "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.1.1"
+                "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
-            "time": "2022-02-07T21:56:48+00:00"
+            "time": "2022-02-21T01:04:05+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -6309,16 +6310,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.10",
+            "version": "9.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "d5850aaf931743067f4bfc1ae4cbd06468400687"
+                "reference": "665a1ac0a763c51afc30d6d130dac0813092b17f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/d5850aaf931743067f4bfc1ae4cbd06468400687",
-                "reference": "d5850aaf931743067f4bfc1ae4cbd06468400687",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/665a1ac0a763c51afc30d6d130dac0813092b17f",
+                "reference": "665a1ac0a763c51afc30d6d130dac0813092b17f",
                 "shasum": ""
             },
             "require": {
@@ -6374,7 +6375,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.10"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.11"
             },
             "funding": [
                 {
@@ -6382,7 +6383,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-05T09:12:13+00:00"
+            "time": "2022-02-18T12:46:09+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -6627,16 +6628,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.13",
+            "version": "9.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "597cb647654ede35e43b137926dfdfef0fb11743"
+                "reference": "1883687169c017d6ae37c58883ca3994cfc34189"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/597cb647654ede35e43b137926dfdfef0fb11743",
-                "reference": "597cb647654ede35e43b137926dfdfef0fb11743",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1883687169c017d6ae37c58883ca3994cfc34189",
+                "reference": "1883687169c017d6ae37c58883ca3994cfc34189",
                 "shasum": ""
             },
             "require": {
@@ -6714,7 +6715,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.13"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.14"
             },
             "funding": [
                 {
@@ -6726,7 +6727,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-24T07:33:35+00:00"
+            "time": "2022-02-18T12:54:07+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -7878,7 +7879,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kanata-php/kanata-core": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

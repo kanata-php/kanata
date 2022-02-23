@@ -1,0 +1,10 @@
+*
+!.gitignore
+!plugins.config.json
+!plugins.data.json
+!wschannels.config.json
+!wschannels.data.json
+!wscommunications.config.json
+!wscommunications.data.json
+!wslisteners.config.json
+!wslisteners.data.json
