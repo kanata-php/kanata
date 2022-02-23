@@ -7,3 +7,4 @@ supervisord.log
 supervisord.pid
 http-server-pid
 ws-server-pid
+data
