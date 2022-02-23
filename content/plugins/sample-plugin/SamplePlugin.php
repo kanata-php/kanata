@@ -4,8 +4,6 @@ use Kanata\Interfaces\KanataPluginInterface;
 use League\Plates\Engine;
 use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use SamplePlugin\Actions\ExampleAction;
 use SamplePlugin\Commands\QuoteCommand;
 use SamplePlugin\Http\Controllers\DocumentationController;
