@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1723cd7d25e2afdac12820afb47db85b",
+    "content-hash": "d330cbb86ce085a54fa5962d5bf3f1da",
     "packages": [
         {
             "name": "aura/autoload",
@@ -1419,16 +1419,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.0.8",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "3ea825bac6dc58f84af9d43cacdc39f7a47fd431"
+                "reference": "68c32a03222e34212e5a30c431a6a38a1795826f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/3ea825bac6dc58f84af9d43cacdc39f7a47fd431",
-                "reference": "3ea825bac6dc58f84af9d43cacdc39f7a47fd431",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/68c32a03222e34212e5a30c431a6a38a1795826f",
+                "reference": "68c32a03222e34212e5a30c431a6a38a1795826f",
                 "shasum": ""
             },
             "require": {
@@ -1440,7 +1440,7 @@
                 "greg0/lazer-database": "^2.0",
                 "guzzlehttp/guzzle": "^7.3",
                 "ilexn/swoole-convert-psr7": "^0.6",
-                "illuminate/database": "^8.42",
+                "illuminate/database": "^8.83",
                 "kanata-php/socket-conveyor": "^1.1",
                 "league/flysystem": "^1.0",
                 "league/pipeline": "^1.0",
@@ -1489,9 +1489,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.0.8"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.1.0"
             },
-            "time": "2022-02-22T01:16:57+00:00"
+            "time": "2022-02-23T04:02:40+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
