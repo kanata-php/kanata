@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63337fc5bb78e1e7512d2656fbb3d179",
+    "content-hash": "d330cbb86ce085a54fa5962d5bf3f1da",
     "packages": [
         {
             "name": "aura/autoload",
@@ -1419,16 +1419,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.0.9",
+            "version": "0.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "78c0a1ae70d048c361572ea5c9a41ed8e1e72dbf"
+                "reference": "287b53aac894231740a4bfaaf142205a3e767283"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/78c0a1ae70d048c361572ea5c9a41ed8e1e72dbf",
-                "reference": "78c0a1ae70d048c361572ea5c9a41ed8e1e72dbf",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/287b53aac894231740a4bfaaf142205a3e767283",
+                "reference": "287b53aac894231740a4bfaaf142205a3e767283",
                 "shasum": ""
             },
             "require": {
@@ -1489,9 +1489,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.0.9"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.1.6"
             },
-            "time": "2022-02-26T01:15:00+00:00"
+            "time": "2022-02-25T04:42:04+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
@@ -7882,7 +7882,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "ext-ssh2": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"

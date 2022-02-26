@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/kanata-php/kanata#readme",
   "devDependencies": {
-    "laravel-mix": "^6.0.19",
+    "laravel-mix": "^6.0.43",
     "mix-tailwindcss": "^1.3.0",
     "postcss": "^8.3.0",
     "tailwindcss": "^2.1.2"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.4.0",
     "alpinejs": "^2.8.2",
-    "css-doodle": "^0.24.1",
+    "css-doodle": "^0.24.4",
     "socket-conveyor-client": "^1.0.6",
     "ws-reconnect": "^1.0.7"
   }
