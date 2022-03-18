@@ -118,7 +118,7 @@ This application has hooks that you'll use to customize deeply its behaviours. F
 
 #### Filters
 
-**routes**
+##### routes
 
 Important for Routes specification via plugins.
 
@@ -178,7 +178,7 @@ This example makes available 2 endpoints at your app:
 
 2 - GET `/api/todos` - this returns a json formatted output with todos found at the `todo.json` file.
 
-**socket_actions**
+##### socket_actions
 
 Register new WebSocket Actions. For the existent WebSocket server, you'll find that you can route specific patterns in the incoming messages to different actions.
 
@@ -206,11 +206,6 @@ class ExampleAction implements ActionInterface
 
 class MyPlugin
 {
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-    
     public function start()
     {
         add_filter('socket_actions', function($socketRouter) {
@@ -223,7 +218,82 @@ class MyPlugin
 
 This action will be available for WebSocket connections according to the rules of [Socket Conveyor Library](https://github.com/kanata-php/socket-conveyor) used by Kanata to route websocket messages matching the `ActionInterface` interface.
 
-**commands**
+##### websocket_mode
+
+This hook allows you to switch between `SWOOLE_PROCESS` and `SWOOLE_BASE` server modes. To understand more go to https://openswoole.com/docs/modules/swoole-server-construct.
+
+Example:
+
+```php
+class MyPlugin
+{
+    public function start()
+    {
+        add_filter('websocket_mode', function($serverMode) {
+            $serverMode = SWOOLE_PROCESS;
+            return $serverMode;
+        });
+    }
+}
+```
+
+This example shows how to use this hook to multi Process mode.
+
+##### websocket_sock_type
+
+This hook is useful to customize the server socket type. To understand more go to https://openswoole.com/docs/modules/swoole-server-construct .
+
+Example:
+
+```php
+class MyPlugin
+{
+    public function start()
+    {
+        add_filter('websocket_sock_type', function($serverSockType) {
+            $serverSockType = SWOOLE_TCP | SWOOLE_SOCK_TCP;
+            return $serverSockType;
+        });
+    }
+}
+```
+
+This example enables SSL on the server instance.
+
+##### websocket_settings
+
+This hook is useful for you to specify custom configurations for your WebSocket Server with OpenSwoole. The callback must accept an array as parameter and return the same array modified as needed.
+
+Example:
+
+```php
+class MyPlugin
+{
+    public function start()
+    {
+        add_filter('websocket_settings', function($settings) {
+            $settings['worker_num'] = 4;
+            return $settings;
+        });
+    }
+}
+```
+
+In this example we are setting the WebSocket Server to have 4 workers. To understand more you can check at this documentation: https://openswoole.com/docs/modules/swoole-server/configuration.
+
+##### http_mode
+
+This is the same as the hook [websocket_mode](#websocket_mode), but for the HTTP Server.
+
+##### http_sock_type
+
+This is the same as the hook [websocket_sock_type](#websocket_sock_type), but for the HTTP Server.
+
+##### http_settings
+
+This is the same as the hook [websocket_settings](#websocket_settings), but for the HTTP Server.
+
+##### commands
 
 Register commands to be executed with `kanata` command line.
 
