@@ -122,7 +122,7 @@ SSL_KEY=/path/to/key
 
 #### WebSocket SSL
 
-To make your HTTP Server SSL you just need 3 extra env settings:
+To make your WebSocket Server SSL you just need 3 extra env settings:
 
 ```
 WS_SERVER_SSL=true
