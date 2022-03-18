@@ -39,7 +39,7 @@ The server listens to 2 ports, one for HTTP connections, another for WebSocket c
 
 ##### Bare Metal
 
-**Basic:**
+###### Basic
 
 ```shell
 php index.php
@@ -53,7 +53,7 @@ For the assets to be available you'll need to isntall npm dependencies and build
 npm install && npx mix
 ```
 
-**With WebSocket:**
+###### With WebSocket
 
 ```shell
 php index.php --websocket
@@ -61,7 +61,7 @@ php index.php --websocket
 
 Access via ws://localhost:8002 .
 
-**With Custom Ports:**
+###### With Custom Ports
 
 For HTTP:
 ```shell
@@ -78,7 +78,7 @@ php index.php --websocket --wsport=8004
 
 Access via ws://localhost:8004 .
 
-**Queues**
+###### Queues
 
 ```shell
 php index.php --queue --queue-name=default
@@ -93,6 +93,26 @@ docker-compose up -d
 At the `docker-compose.yml` we use the strategy of static IPs. The advantage of it is that your containers don't compete with other containers in the same machine for ports. For that, "expose" parameter is used instead of "ports", and at the networks, "ipam". Commenting those out might get you to the more common configuration binding the host port to the containers.
 
 If left the default ports, access via http://localhost:8001.
+
+#### HTTP SSL
+
+To make your HTTP Server SSL you just need 3 extra env settings:
+
+```
+HTTP_SERVER_SSL=true
+SSL_CERTIFICATE=/path/to/cert
+SSL_KEY=/path/to/key
+```
+
+#### WebSocket SSL
+
+To make your HTTP Server SSL you just need 3 extra env settings:
+
+```
+WS_SERVER_SSL=true
+WS_SSL_CERTIFICATE=/path/to/cert
+WS_SSL_KEY=/path/to/key
+```
 
 ### To Start AMQP interaction
 
@@ -239,27 +259,6 @@ class MyPlugin
 
 This example shows how to use this hook to multi Process mode.
 
-##### websocket_sock_type
-
-This hook is useful to customize the server socket type. To understand more go to https://openswoole.com/docs/modules/swoole-server-construct .
-
-Example:
-
-```php
-class MyPlugin
-{
-    public function start()
-    {
-        add_filter('websocket_sock_type', function($serverSockType) {
-            $serverSockType = SWOOLE_TCP | SWOOLE_SOCK_TCP;
-            return $serverSockType;
-        });
-    }
-}
-```
-
-This example enables SSL on the server instance.
-
 ##### websocket_settings
 
 This hook is useful for you to specify custom configurations for your WebSocket Server with OpenSwoole. The callback must accept an array as parameter and return the same array modified as needed.
@@ -284,10 +283,6 @@ In this example we are setting the WebSocket Server to have 4 workers. To unders
 ##### http_mode
 
 This is the same as the hook [websocket_mode](#websocket_mode), but for the HTTP Server.
-
-##### http_sock_type
-
-This is the same as the hook [websocket_sock_type](#websocket_sock_type), but for the HTTP Server.
 
 ##### http_settings
 
