@@ -7,15 +7,31 @@ Built for PHP8.0+.
 # Table of contents
 
 - [Installation](#installation)
-- [Servers (HTTP, WebSocket)](#servers-http-websocket)
-  - [To Start Servers](#to-start-servers)
+- [Servers (HTTP, WebSocket)](#servers--http--websocket-)
+  * [To Start Servers](#to-start-servers)
+    + [Bare Metal](#bare-metal)
+      - [Basic](#basic)
+      - [With WebSocket](#with-websocket)
+      - [With Custom Ports](#with-custom-ports)
+      - [Queues](#queues)
+    + [Docker](#docker)
+  * [HTTP SSL](#http-ssl)
+  * [WebSocket SSL](#websocket-ssl)
 - [To Start AMQP interaction](#to-start-amqp-interaction)
 - [Plugins](#plugins)
 - [Hooks](#hooks)
-  - [Filters](#filters)
+  * [Filters](#filters)
+    + [routes](#routes)
+    + [socket_actions](#socket-actions)
+    + [websocket_mode](#websocket-mode)
+    + [websocket_settings](#websocket-settings)
+    + [http_mode](#http-mode)
+    + [http_settings](#http-settings)
+    + [commands](#commands)
 - [AOP](#aop)
-  - [Registering instances with Interceptors](#registering-instances-with-interceptors)
+  * [Registering instances with Interceptors](#registering-instances-with-interceptors)
 - [PsyShell](#psyshell)
+
 
 ### Installation
 
@@ -25,7 +41,7 @@ Start running:
 php kanata
 ```
 
-The environment is expecting to run via docker-compose, but following you'll find coordinates for bare metal as well. Because of that it will prompt a question about the name of your app container.
+The environment will give coordinates to execute kanata via docker-compose, but here you'll find how to run as bare metal as well. Because of that it will prompt a question about the name of your app container.
 
 > The base version uses filesystem to persist data. For that to work right out of the box with the existent example model you just need to create the directory at the root of the project: `./data/`.
 
