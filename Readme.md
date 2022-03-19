@@ -429,3 +429,107 @@ To start PsyShell on terminal, just run:
 ```shell
 php kanata shell
 ```
+
+
+### How To's
+
+#### New Routes
+
+To add new route at a plugin, you use the hook [routes](#routes). With that in hand, you must return a `Psr\Http\Message\ResponseInterface` as output. For that, you have available helpers.
+
+##### Views
+
+To return a view, you can use the helper `view()`. Without the helper is also possible, following is presented both ways:
+
+The way to present a view at enpoint is as follows:
+
+```php
+
+add_filter('routes', function($app) {
+    $app->get('/', function(Request $request, Response $response){
+        $view = 'core::home';
+        $params = [];
+        $html = container()->view->render($view, $params);
+        $response->getBody()->write($html);
+        return $response->withStatus($status);
+    });
+    return $app;
+});
+```
+
+The short version with the helper is as follows:
+
+```php
+add_filter('routes', function($app) {
+    $app->get('/', function(Request $request, Response $response){
+        return view($response, 'core::home', []);
+    });
+    return $app;
+});
+```
+
+##### API
+
+To return JSON data as an API response, the helper `json_response` is available. For that you can return a successful response as follows:
+
+```php
+add_filter('routes', function($app) {
+    $app->get('/users', function(Request $request, Response $response){
+        return json_encode($response, '', 200, null, null, [
+            'success' => true,
+            'data'=> json_encode([
+                [
+                    'id' => 1,
+                    'name' => 'Hari Seldom',
+                    'email' => 'hari@kanataphp.com',
+                ],
+            ]),
+        ]);
+    });
+    return $app;
+});
+```
+
+The response goes as follows:
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "name": "Hari Seldom",
+            "email": "hari@kanataphp.com"
+        }  
+    ]
+}
+```
+
+#### Custom Views locations
+
+To tell Kanata which view to load at a given route, you'll have available the helper `view()`. This helper will wrap [Plates](https://platesphp.com) engine. Plates engine is added as a dependency of the project at the `container()->view` object, and is available to be called at any given moment of the project. The goal is to be used at the template presentation of routes.
+
+The way to parse a template to html is as follows:
+
+```php
+$html = container()->view->render('core::home', []);
+```
+
+By default, Kanata comes with a place for new views called "core". When you present a view, if you want the template to be searched at the `./resources/views` directory, you use `'core::'` as prefix for your template. As an example, for you to load the template `./resources/views/home.php`, you'll use `core::home`.
+
+To customize the place, and search, as an example, within a plugin, the following can be done:
+
+```php
+// ./content/plugins/my-plugin
+use League\Plates\Engine;
+
+container()['custom-key'] = container()->make(Engine::class);
+container()['custom-key']->addFolder('sample', __DIR__ . '/views');
+```
+
+With this in hand, for you to load the template `./content/plugins/my-plugin/views/home.php`, you would do as follows:
+
+```php
+$html = container()->view->render('sample::home', []);
+```
+

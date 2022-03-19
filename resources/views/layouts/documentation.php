@@ -7,7 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="title" content="<?=APP_NAME?>">
     <meta name="description" content="">
+
+    <link rel="icon" href="/imgs/favicon.ico"/>
+
     <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/fontawesome-all.min.css">
 </head>
 <body class="text-gray-900 leading-normal font-sans bg-gray-100">
