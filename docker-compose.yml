@@ -19,6 +19,40 @@ services:
     networks:
       - kanata-network
 
+  mysql:
+    image: mysql:5.7.29
+    container_name: ${DOCKER_APP_NAME}-mysql
+    restart: unless-stopped
+    tty: true
+    expose:
+      - "3306"
+    ports:
+      - "33061:3306"
+    environment:
+      MYSQL_DATABASE: ${DOCKER_MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DOCKER_MYSQL_ROOT_PASS}
+    volumes:
+      - ./docker/my.cnf:/etc/mysql/conf.d/wt-my.cnf
+      - ./docker/mysql_data:/var/lib/mysql
+    networks:
+      - kanata-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ${DOCKER_APP_NAME}-phpmyadmin
+    restart: always
+    expose:
+      - "80"
+    ports:
+      - "8003:80"
+    volumes:
+      - ./docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    networks:
+      - kanata-network
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: ${DOCKER_APP_NAME}-rabbitmq

@@ -8,3 +8,4 @@ supervisord.pid
 http-server-pid
 ws-server-pid
 data
+docker/mysql_data
