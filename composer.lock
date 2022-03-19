@@ -1419,16 +1419,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.2.5",
+            "version": "0.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "173f8ecb477f3914d40e55b85ea580cea0b1133a"
+                "reference": "303e897243199233daee1487301fcdfcf6b969c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/173f8ecb477f3914d40e55b85ea580cea0b1133a",
-                "reference": "173f8ecb477f3914d40e55b85ea580cea0b1133a",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/303e897243199233daee1487301fcdfcf6b969c4",
+                "reference": "303e897243199233daee1487301fcdfcf6b969c4",
                 "shasum": ""
             },
             "require": {
@@ -1489,9 +1489,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.2.5"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.2.6"
             },
-            "time": "2022-03-19T18:11:27+00:00"
+            "time": "2022-03-19T18:41:29+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
