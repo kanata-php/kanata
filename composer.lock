@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ab846b283f8d4dc2b85ff8fed50acd6",
+    "content-hash": "7aa764181360ab17167a7f4f8c62384c",
     "packages": [
         {
             "name": "aura/autoload",
@@ -1419,16 +1419,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.2.9",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "91dd107ca6a83b93684139a28c34ee1873318228"
+                "reference": "f8a2fb0547d226c7707ce8c082921d323cc7ccbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/91dd107ca6a83b93684139a28c34ee1873318228",
-                "reference": "91dd107ca6a83b93684139a28c34ee1873318228",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/f8a2fb0547d226c7707ce8c082921d323cc7ccbb",
+                "reference": "f8a2fb0547d226c7707ce8c082921d323cc7ccbb",
                 "shasum": ""
             },
             "require": {
@@ -1460,6 +1460,7 @@
                 "ray/aop": "^2.10",
                 "slim/slim": "4.*",
                 "symfony/console": "^5.4",
+                "symfony/password-hasher": "^6.0",
                 "symfony/process": "^6.0",
                 "symfony/validator": "^6.0",
                 "vlucas/phpdotenv": "^5.3",
@@ -1479,7 +1480,7 @@
             "autoload": {
                 "psr-4": {
                     "Tests\\": "tests",
-                    "Kanata\\": "src/App"
+                    "Kanata\\": "src/Kanata"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1489,9 +1490,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.2.9"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.3.0"
             },
-            "time": "2022-03-20T06:05:37+00:00"
+            "time": "2022-03-20T19:16:56+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
@@ -4118,6 +4119,78 @@
                 }
             ],
             "time": "2021-11-01T23:48:49+00:00"
+        },
+        {
+            "name": "symfony/password-hasher",
+            "version": "v6.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/password-hasher.git",
+                "reference": "4d04edcbcee4a97f39c72d1cf6149681d634e63f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/password-hasher/zipball/4d04edcbcee4a97f39c72d1cf6149681d634e63f",
+                "reference": "4d04edcbcee4a97f39c72d1cf6149681d634e63f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.2"
+            },
+            "conflict": {
+                "symfony/security-core": "<5.4"
+            },
+            "require-dev": {
+                "symfony/console": "^5",
+                "symfony/security-core": "^5.4|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\PasswordHasher\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Chalas",
+                    "email": "robin.chalas@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides password hashing utilities",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "hashing",
+                "password"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/password-hasher/tree/v6.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-01-02T09:55:41+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
