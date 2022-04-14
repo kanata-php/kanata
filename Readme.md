@@ -28,13 +28,35 @@ Built for PHP8.0+.
     + [http_mode](#http_mode)
     + [http_settings](#http_settings)
     + [commands](#commands)
+  + [Actions](#actions)
+    + [migrations](#migrations)
 - [AOP](#aop)
   * [Registering instances with Interceptors](#registering-instances-with-interceptors)
+* [Commands](#commands)
+  * [info](#info)
+  * [plugin activate](#plugin-activate)
+  * [plugin deactivate](#plugin-deactivate)
+  * [plugin create](#plugin-create)
+  * [plugin publish](#plugin-publish)
+  * [command create](#command-create)
+  * [debug](#debug)
+  * [shell](#shell)
 - [PsyShell](#psyshell)
+- [How To](#how-to)
+  - [New Routes](#new-routes)
+    - [Views](#views)
+    - [API](#api)
+  - [Custom Views locations](#custom-views-locations)
 
 ### Installation
 
 Start running:
+
+```shell
+./vendor/bin/start-kanata
+```
+
+Get more info about available commands as follows:
 
 ```shell
 php kanata
@@ -50,9 +72,13 @@ This app serves HTTP and WebSocket connections, and is also ready to interact wi
 
 The server listens to 2 ports, one for HTTP connections, another for WebSocket connections. This can be configured at the `.env` file or at the CLI interface used to start the app shown at "[To Start Server](#To Start Server)".
 
+#### 
+
 #### To Start Servers
 
 ##### Bare Metal
+
+###### 
 
 ###### Basic
 
@@ -93,6 +119,8 @@ php index.php --websocket --wsport=8004
 ```
 
 Access via ws://localhost:8004 .
+
+###### 
 
 ###### Queues
 
@@ -308,7 +336,9 @@ This is the same as the hook [websocket_settings](#websocket_settings), but for 
 
 Register commands to be executed with `kanata` command line.
 
+```
 $application = add_filter('commands', $application);
+```
 
 Example:
 
@@ -367,6 +397,50 @@ class MyPlugin
 
 This command will respond a quote for the call at your cli: `php kanata quote`.
 
+##### view_folders
+
+With this filter you can specify alternative locations where you'll be able to load views from.
+
+Example:
+
+```php
+add_filter('view_folders', function($view_folders){
+    $view_folders['sample'] = __DIR__ . '/views';
+    return $view_folders;
+});
+```
+
+This will allow views to be loaded using this:
+
+```php
+$html = container()->view->render('sample::home', []);
+```
+
+#### Actions
+
+##### migrations
+
+This action will execute during the bootstrap of the application, more specifically at the migration moment. You can inject migrations at this moment.
+
+Example:
+
+```php
+add_action('migrations', function() {
+    // users
+    if (!mysql_table_exists(DB_DATABASE, User::TABLE_NAME)) {
+        container()->db->schema()->create(User::TABLE_NAME, function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 40);
+            $table->string('email', 80);
+            $table->dateTime('email_verified_at')->nullable();
+            $table->timestamps();
+        });
+    }
+});
+```
+
+When the system gets initialized with the script `./vendor/bin/start-kanata`, this migration will run if the table doesn't exist yet.
+
 ### AOP
 
 At the plugin you'll also find the structure to extend the application via Aspects. To understand more how it works, you can read more about it [here](https://en.wikipedia.org/wiki/Aspect-oriented_programming). The PHP library used is [Ray.Aop](https://github.com/ray-di/Ray.Aop). At this application, you'll need to run the instances via Application Container to be able to intercept instances and methods.
@@ -421,6 +495,40 @@ class MyPlugin implements KanataPluginInterface
 ```
 
 This example will intercept every call to `InterceptedClass::interceptedMethod` method and log the data passed.
+
+### Commands
+
+#### info
+
+This command gives you information about your Kanata Application.
+
+#### plugin activate
+
+This command activates a plugin.
+
+#### plugin deactivate
+
+This command deactivates a plugin.
+
+#### plugin create
+
+This command generate a new plugin skeleton for your Kanata Application.
+
+#### plugin publish
+
+This command publishes assets from plugin.
+
+#### command create
+
+This command generate a new command skeleton for your Kanata Plugin.
+
+#### debug
+
+This command starts the debugger server.
+
+#### shell
+
+Start PsyShell for the Kanata Application.
 
 ### PsyShell
 
@@ -515,14 +623,14 @@ $html = container()->view->render('core::home', []);
 
 By default, Kanata comes with a place for new views called "core". When you present a view, if you want the template to be searched at the `./resources/views` directory, you use `'core::'` as prefix for your template. As an example, for you to load the template `./resources/views/home.php`, you'll use `core::home`.
 
-To customize the place, and search, as an example, within a plugin, the following can be done:
+To customize the place, and search, as an example, within a plugin, the following filter hook can be used:
 
 ```php
 // ./content/plugins/my-plugin
-use League\Plates\Engine;
-
-container()['custom-key'] = container()->make(Engine::class);
-container()['custom-key']->addFolder('sample', __DIR__ . '/views');
+add_filter('view_folders', function($view_folders){
+    $view_folders['sample'] = __DIR__ . '/views';
+    return $view_folders;
+});
 ```
 
 With this in hand, for you to load the template `./content/plugins/my-plugin/views/home.php`, you would do as follows:
