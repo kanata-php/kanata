@@ -31,7 +31,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Tests\\": "tests"
+            "Tests\\": "tests",
+            "Kanata\\": "packages/kanata-core/src/Kanata",
+            "Chocookies\\": "packages/chocookies/src"
         }
     },
     "require-dev": {

@@ -1,4 +1,8 @@
-<?php $this->layout('core::layouts/admin', []) ?>
+<?php
+$this->layout('core::layouts/admin', [
+    'is_logged' => $is_logged,
+])
+?>
 
 <h2 class="text-3xl mb-10">Dashboard</h2>
 

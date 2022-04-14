@@ -32,7 +32,6 @@ Built for PHP8.0+.
   * [Registering instances with Interceptors](#registering-instances-with-interceptors)
 - [PsyShell](#psyshell)
 
-
 ### Installation
 
 Start running:
@@ -80,6 +79,7 @@ Access via ws://localhost:8002 .
 ###### With Custom Ports
 
 For HTTP:
+
 ```shell
 php index.php --port=8003
 ```
@@ -169,7 +169,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class MyPlugin
 {
     const VIEW_KEY = 'samplePluginView';
-    
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -179,7 +179,7 @@ class MyPlugin
     {
         $viewKey = self::VIEW_KEY;
         $path = __DIR__ . '/views/';
-        
+
         // prepare the view engine
         // reference: https://platesphp.com
         $this->container[self::VIEW_KEY] = $this->container->make(Engine::class);
@@ -193,7 +193,7 @@ class MyPlugin
                   ->withHeader('Content-Type', 'application/json')
                   ->withStatus(200);
             });
-            
+
             // Route with an HTML response.
             $app->get('/todos', function (Request $request, Response $response) use ($viewKey) {
                 $todos = file_get_contents(__DIR__ . '/todo.json');
@@ -234,7 +234,7 @@ class ExampleAction implements ActionInterface
     public function execute(array $data, $fd, $server)
     {
         // do something here with $data.
-        
+
         // you can then respond in real-time:
         $server->push($fd, json_encode([]));
     }
@@ -354,7 +354,7 @@ class MyPlugin
     {
         $this->container = $container;
     }
-    
+
     public function start()
     {
         add_filter('commands', function($app) {
@@ -406,12 +406,12 @@ class MyPlugin implements KanataPluginInterface
     {
         $this->container = $container;
     }
-    
+
     public function start()
     {
         $this->registerInterceptor();
     }
-    
+
     public function registerInterceptor()
     {
         $this->container->setMethodInterceptor(InterceptedClass::class, 'interceptedMethod', new LogInterceptor, [] );
@@ -430,8 +430,7 @@ To start PsyShell on terminal, just run:
 php kanata shell
 ```
 
-
-### How To's
+### How To
 
 #### New Routes
 
@@ -444,7 +443,6 @@ To return a view, you can use the helper `view()`. Without the helper is also po
 The way to present a view at enpoint is as follows:
 
 ```php
-
 add_filter('routes', function($app) {
     $app->get('/', function(Request $request, Response $response){
         $view = 'core::home';
@@ -532,4 +530,3 @@ With this in hand, for you to load the template `./content/plugins/my-plugin/vie
 ```php
 $html = container()->view->render('sample::home', []);
 ```
-

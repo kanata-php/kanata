@@ -4,6 +4,7 @@
     'title' => null,
     'description' => null,
     'updated_at' => null,
+    'is_logged' => $is_logged,
 ]) ?>
 
 <div>Some content</div>

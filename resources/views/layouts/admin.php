@@ -16,8 +16,10 @@
 <body class="h-full">
 
     <?php
-    if (!$hide_top_bar) {
-        $this->insert('core::header');
+    if (!isset($hide_top_bar) || !$hide_top_bar) {
+        $this->insert('core::header', [
+            'is_logged' => $is_logged,
+        ]);
     }
     ?>
 
@@ -26,14 +28,14 @@
             <div class="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
 
                 <?php
-                if (!$hide_left_sidebar) {
+                if (!isset($hide_left_sidebar) || !$hide_left_sidebar) {
                     $this->insert('core::admin/parts/left-sidebar');
                 }
                 ?>
 
                 <main
                     class="
-                        <?php if (!$hide_left_sidebar) {?>
+                        <?php if (!isset($hide_left_sidebar) || !$hide_left_sidebar) {?>
                             lg:col-span-9 xl:col-span-9
                         <?php } else {?>
                             lg:col-span-12 xl:col-span-12

@@ -1,4 +1,6 @@
-<?php $this->layout('core::layouts/index', []) ?>
+<?php $this->layout('core::layouts/index', [
+    'is_logged' => $is_logged,
+]) ?>
 
 <?=$content?>
 
