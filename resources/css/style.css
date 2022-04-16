@@ -3,3 +3,17 @@
 @tailwind utilities;
 
 [x-cloak] { display: none !important; }
+
+/* BEGIN: Tooltip */
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+}
+.has-tooltip:hover .tooltip {
+    visibility: visible;
+    z-index: 100;
+}
+
+/* END: Tooltip */
+

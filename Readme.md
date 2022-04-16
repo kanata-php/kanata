@@ -72,13 +72,10 @@ This app serves HTTP and WebSocket connections, and is also ready to interact wi
 
 The server listens to 2 ports, one for HTTP connections, another for WebSocket connections. This can be configured at the `.env` file or at the CLI interface used to start the app shown at "[To Start Server](#To Start Server)".
 
-#### 
 
 #### To Start Servers
 
 ##### Bare Metal
-
-###### 
 
 ###### Basic
 
@@ -120,8 +117,6 @@ php index.php --websocket --wsport=8004
 
 Access via ws://localhost:8004 .
 
-###### 
-
 ###### Queues
 
 ```shell
@@ -157,6 +152,10 @@ WS_SERVER_SSL=true
 WS_SSL_CERTIFICATE=/path/to/cert
 WS_SSL_KEY=/path/to/key
 ```
+
+#### HTTP Middleware
+
+At Kanara it is possible to use 2 types of middlewares. The first is an interceptor that intercepts the "tunnel" of the application workflow. The second is the [PSR-15](https://www.php-fig.org/psr/psr-15/) style of middleware, that takes works arount the HTTP request handler.
 
 ### To Start AMQP interaction
 

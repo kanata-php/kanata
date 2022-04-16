@@ -1,6 +1,4 @@
-<?php $this->layout('core::layouts/index', [
-    'is_logged' => $is_logged,
-]) ?>
+<?php $this->layout('core::layouts/index', []) ?>
 
 <div
     x-data="home()"

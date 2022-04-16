@@ -15,9 +15,7 @@
 </head>
 <body class="text-gray-900 leading-normal font-sans bg-gray-100">
 
-<?php $this->insert('core::header', [
-    'is_logged' => $is_logged,
-]) ?>
+<?php $this->insert('core::header', []) ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto">
