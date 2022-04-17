@@ -34,7 +34,7 @@
                  * Expected return: array
                  * @param array Items to be added to menu.
                  */
-                foreach (apply_filters('header_navbar_menus', []) as $menu) {
+                foreach (apply_filters('header_navbar_menus', [[]]) as $menu) {
                     if (is_array($menu)) {
                         $this->insert($menu['name'], array_merge($this->data, $menu['params']));
                         continue;
@@ -88,7 +88,7 @@
                  * Expected return: array
                  * @param array Items to be added to menu.
                  */
-                foreach (apply_filters('header_navbar_menus_mobile', []) as $menu) {
+                foreach (apply_filters('header_navbar_menus_mobile', [[]]) as $menu) {
                     if (is_array($menu)) {
                         $this->insert($menu['name'], array_merge($this->data, $menu['params']));
                         continue;
