@@ -13,6 +13,7 @@ Built for PHP8.0+.
       - [Middleware](#middleware)
       - [SSL](#ssl)
     + [WebSocket](#websocket)
+      - [Middleware](#middleware-1)
       - [SSL](#ssl-1)
   * [Server Events](#server-events)
 - [Queues](#queues)
@@ -21,13 +22,13 @@ Built for PHP8.0+.
 - [Hooks](#hooks)
   * [Filters](#filters)
     + [routes](#routes)
-    + [socket_actions](#socket-actions)
-    + [websocket_mode](#websocket-mode)
-    + [websocket_settings](#websocket-settings)
-    + [http_mode](#http-mode)
-    + [http_settings](#http-settings)
+    + [socket_actions](#socket_actions)
+    + [websocket_mode](#websocket_mode)
+    + [websocket_settings](#websocket_settings)
+    + [http_mode](#http_mode)
+    + [http_settings](#http_settings)
     + [commands](#commands)
-    + [view_folders](#view-folders)
+    + [view_folders](#view_folders)
   * [Actions](#actions)
     + [migrations](#migrations)
 - [AOP](#aop)
@@ -126,6 +127,26 @@ With custom port:
 
 ```shell
 php index.php --websocket --wsport=8004
+```
+
+###### Middleware
+
+To add actions to handle socket messages, you must check the [socket_actions](#socket_actions) hook section. Middlewares applied to WebSockets are added at that moment, as they are based on actions.
+
+Please verify this section of its documentation: https://github.com/kanata-php/socket-conveyor#case-5-using-middlewares, where middlewares usage is described.
+
+The way to add middleware to actions added via hook is as follows:
+
+```php
+add_filter('socket_actions', function($socketRouter) {
+    $action = new ExampleActionWithMiddleware;
+    $socketRouter->add($action);
+    // adding action with pipeline middleware
+    $socketRouter->middleware($action->getName(), new MiddlewareExample);
+    // adding action with function middleware
+    $socketRouter->middleware($action->getName(), function($payload) {return $payload;});
+    return $socketRouter;
+});
 ```
 
 ###### SSL
