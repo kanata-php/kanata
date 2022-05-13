@@ -73,14 +73,20 @@ This app serves HTTP and WebSocket connections, and is also ready to interact wi
 The server listens to 2 ports, one for HTTP connections, another for WebSocket connections. This can be configured at the `.env` file or at the CLI interface used to start the app shown at "[To Start Server](#To Start Server)".
 
 
-#### To Start Servers
+#### Servers
 
-##### Bare Metal
+##### HTTP
 
-###### Basic
+Usage:
 
 ```shell
 php index.php
+```
+
+With custom port:
+
+```shell
+php index.php --port=8003
 ```
 
 Access via http://localhost:8001 .
@@ -91,49 +97,11 @@ For the assets to be available you'll need to isntall npm dependencies and build
 npm install && npx mix
 ```
 
-###### With WebSocket
+###### Middleware
 
-```shell
-php index.php --websocket
-```
+At Kanara it is possible to use 2 types of middlewares. The first is an interceptor that intercepts the "tunnel" of the application workflow. The second is the [PSR-15](https://www.php-fig.org/psr/psr-15/) style of middleware, that takes works arount the HTTP request handler.
 
-Access via ws://localhost:8002 .
-
-###### With Custom Ports
-
-For HTTP:
-
-```shell
-php index.php --port=8003
-```
-
-Access via http://localhost:8003 .
-
-For Websockets:
-
-```shell
-php index.php --websocket --wsport=8004
-```
-
-Access via ws://localhost:8004 .
-
-###### Queues
-
-```shell
-php index.php --queue --queue-name=default
-```
-
-##### Docker
-
-```shell
-docker-compose up -d
-```
-
-At the `docker-compose.yml` we use the strategy of static IPs. The advantage of it is that your containers don't compete with other containers in the same machine for ports. For that, "expose" parameter is used instead of "ports", and at the networks, "ipam". Commenting those out might get you to the more common configuration binding the host port to the containers.
-
-If left the default ports, access via http://localhost:8001.
-
-#### HTTP SSL
+###### SSL
 
 To make your HTTP Server SSL you just need 3 extra env settings:
 
@@ -143,7 +111,25 @@ SSL_CERTIFICATE=/path/to/cert
 SSL_KEY=/path/to/key
 ```
 
-#### WebSocket SSL
+##### WebSocket
+
+The WebSocket User Interface is based on [Socket Conveyor](https://github.com/kanata-php/socket-conveyor). That makes it possible for extensible actions based on message structures. Visit the [Hooks](#hooks) section to see more about how to extend existent functionalities such as adding custom actions or customizing broadcasts.
+
+Usage:
+
+```shell
+php index.php --websocket
+```
+
+Access via ws://localhost:8002 .
+
+With custom port:
+
+```shell
+php index.php --websocket --wsport=8004
+```
+
+###### SSL
 
 To make your WebSocket Server SSL you just need 3 extra env settings:
 
@@ -153,13 +139,109 @@ WS_SSL_CERTIFICATE=/path/to/cert
 WS_SSL_KEY=/path/to/key
 ```
 
-#### HTTP Middleware
+> **Helper**: `socket_communication()`
+> This helper is useful for broadcasting messages asynchronously. Imagine that you need to broadcast a
+> message form a place where you have no access to the WebSocket context, e.g.: from a queue handler. This
+> returns an instance of a `\Swoole\Table` class that is consumed by the WebSocket Server "tick". In the
+> next second (interval customizable by the environment variable `WS_TICK_INTERVAL`) the information added
+> to it will be consumed in the other side. This is how you use it:
+> 
+> ```php
+> socket_communication()->set(WS_MESSAGE_ACTION, ['channel' => 'team-1', 'message' => 'Hello Team!']);
+> ```
+> 
+> This will broadcast the message "Hello Team!" on the "team-1" channel. If you skip the "channel" the
+> message will be broadcasted to all available connections.
 
-At Kanara it is possible to use 2 types of middlewares. The first is an interceptor that intercepts the "tunnel" of the application workflow. The second is the [PSR-15](https://www.php-fig.org/psr/psr-15/) style of middleware, that takes works arount the HTTP request handler.
+#### Server Events
 
-### To Start AMQP interaction
+For Websocket and HTTP servers events can be dispatched. To use it, you need to register events, and then dispatch events with the given keys. If you dispatch a not-registered event (or with unmatched keys) nothing will happen.
 
-To start AMQP interaction you just need to execute the registered exchanges in your system in the command line. When running in the dockerized environment you'll find it being executed by supervisor, if you want to configure your own environment, you can simply install your own instance of supervisor or take another approach for long-lasting processes.
+To register event, or add further handlers to existent events, use this helper:
+
+```php
+/** @var callable $callback E.g. function(){} or 'functionName' or [$instance, 'method'] */
+register_event('event-name', $callback);
+```
+
+To dispatch an event, another helper can be used:
+
+```php
+/** @var string $data E.g.: json_encode([]) */
+dispatch_event('event-name', $data);
+```
+
+> The events dispatched this way will be caught asynchronously according to the next timer tick timeout,
+> customizable by the environment variable `EVENT_TICK_INTERVAL` (e.g.: `EVENT_TICK_INTERVAL=1000` for
+> 1sec interval).
+
+### Queues
+
+The Queue System at Kanata is expected to be handled by an AMQP system at this point, e.g. RabbitMQ.
+
+Usage:
+
+```shell
+php index.php --queue --queue-name=default
+```
+
+This will start the services available for Queues.
+
+To add Queue handlers you need to implement `\Kanata\Interfaces\QueueInterface`. Here is an example plugin using it:
+
+```php
+use Kanata\Interfaces\QueueInterface;
+use PhpAmqpLib\Message\AMQPMessage;
+use Kanata\Interfaces\KanataPluginInterface;
+
+class ProcessXHandler implements QueueInterface
+{
+    // these constants 
+    const PROCESS_X_EXCHANGE = 'processx';
+    const PROCESS_X_QUEUE = 'processx';
+    const PROCESS_X_ROUTING_KEY = 'processx';
+    const PROCESS_X_QUEUE_OPTION = 'processx';
+
+    public function handle(AMQPMessage $msg, array $args = []): void
+    
+    {
+    
+        $message = json_encode([
+            'action' => AcceptRunAction::ACTION_NAME,
+            'channel' => Queues::MAIN_CHANNEL,
+            'submission_id' => json_decode($msg->body)->submission_id,
+            'notification_id' => json_decode($msg->body)->notification_id,
+        ]);
+        socket_communication()->set(WS_MESSAGE_ACTION, $message);
+    }
+}
+
+class MyPlugin implements KanataPluginInterface
+{
+    public function start()
+    {
+        register_queue(
+            ProcessXHandler::PROCESS_X_QUEUE,
+            ProcessXHandler::PROCESS_X_EXCHANGE,
+            ProcessXHandler::PROCESS_X_QUEUE_OPTION,
+            [new ProcessXHandler, 'handle'],
+            ProcessXHandler::PROCESS_X_ROUTING_KEY
+        );
+    }
+}
+```
+
+This example is a Kanata Plugin that adds a queue handler for the exchange "process-x", with routing kee "process-x". The queue type on Rabbit MQ is "topic" so it is possible to  focus which listeners will receive messages via routing key. To understand more check their documentation [here](https://www.rabbitmq.com/tutorials/tutorial-five-php.html).
+
+### Docker
+
+Usage:
+
+```shell
+docker-compose up -d
+```
+
+This will start all services available. To keep services running as daemons we use supervisor. Check the "./docker" directory for more info.
 
 ### Plugins
 
@@ -501,37 +583,81 @@ This example will intercept every call to `InterceptedClass::interceptedMethod` 
 
 This command gives you information about your Kanata Application.
 
+Usage:
+
+```shell
+php kanata info
+```
+
 #### plugin activate
 
 This command activates a plugin.
+
+Usage:
+
+```shell
+php kanata plugin:activate MyPluginName
+```
 
 #### plugin deactivate
 
 This command deactivates a plugin.
 
+Usage:
+
+```shell
+php kanata plugin:deactivate MyPluginName
+```
+
 #### plugin create
 
 This command generate a new plugin skeleton for your Kanata Application.
+
+Usage:
+
+```shell
+php kanata plugin:create MyPluginName
+```
 
 #### plugin publish
 
 This command publishes assets from plugin.
 
+Usage:
+
+```shell
+php kanata plugin:publish MyPluginName config
+```
+
+> `php kanata plugin:publish {plugin-name} {directory}`
+
 #### command create
 
 This command generate a new command skeleton for your Kanata Plugin.
+
+Usage:
+
+```shell
+php kanata command:create CommandName MyPluginName
+```
+
+> `php kanata command:create {command-name} {plugin-name}`
 
 #### debug
 
 This command starts the debugger server.
 
-#### shell
+Usage:
 
-Start PsyShell for the Kanata Application.
+```shell
+php kanata debug
+```
 
-### PsyShell
+#### PsyShell
 
-To start PsyShell on terminal, just run:
+Start PsyShell (REPL) for the Kanata Application.
+
+Usage:
 
 ```shell
 php kanata shell
@@ -543,6 +669,30 @@ php kanata shell
 
 To add new route at a plugin, you use the hook [routes](#routes). With that in hand, you must return a `Psr\Http\Message\ResponseInterface` as output. For that, you have available helpers.
 
+Example:
+
+```php
+use Kanata\Interfaces\KanataPluginInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+class SamplePlugin implements KanataPluginInterface
+{
+    public function start()
+    {
+        add_filter('routes', function($app) {
+            $app->get('/my-route', function (Request $request, Response $response) {
+                $response->getBody()->write('My Route Content');
+                return $response->withStatus(200);
+            });
+            return $app;
+        });
+    }
+}
+```
+
+This plugin adds the route `GET /my-route` to your application.
+
 ##### Views
 
 To return a view, you can use the helper `view()`. Without the helper is also possible, following is presented both ways:
@@ -550,6 +700,7 @@ To return a view, you can use the helper `view()`. Without the helper is also po
 The way to present a view at enpoint is as follows:
 
 ```php
+// ...
 add_filter('routes', function($app) {
     $app->get('/', function(Request $request, Response $response){
         $view = 'core::home';
@@ -560,6 +711,7 @@ add_filter('routes', function($app) {
     });
     return $app;
 });
+// ...
 ```
 
 The short version with the helper is as follows:
@@ -580,16 +732,24 @@ To return JSON data as an API response, the helper `json_response` is available.
 ```php
 add_filter('routes', function($app) {
     $app->get('/users', function(Request $request, Response $response){
-        return json_encode($response, '', 200, null, null, [
-            'success' => true,
-            'data'=> json_encode([
-                [
-                    'id' => 1,
-                    'name' => 'Hari Seldom',
-                    'email' => 'hari@kanataphp.com',
-                ],
-            ]),
-        ]);
+        return json_response(
+            $response, // Response instance
+            '', // status text
+            200, // status code
+            null, // message text
+            null, // errors text or array of texts
+            // data formatted to overwrite the whole response
+            [
+              'success' => true,
+              'data'=> json_encode([
+                  [
+                      'id' => 1,
+                      'name' => 'Hari Seldom',
+                      'email' => 'hari@kanataphp.com',
+                  ],
+              ]),
+          ]
+        );
     });
     return $app;
 });
