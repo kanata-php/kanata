@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24b078e303faa0d6eee8518c1de61a8c",
+    "content-hash": "1443b806ce5604cbd12e8dd252947117",
     "packages": [
         {
             "name": "aura/autoload",
@@ -1476,16 +1476,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.4.2",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "c1af45e6a4096ae8d6865ab7678ecff44caf0505"
+                "reference": "a3c02be5d8a8a8ae0e4cd5f8ada967c4e2938051"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/c1af45e6a4096ae8d6865ab7678ecff44caf0505",
-                "reference": "c1af45e6a4096ae8d6865ab7678ecff44caf0505",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/a3c02be5d8a8a8ae0e4cd5f8ada967c4e2938051",
+                "reference": "a3c02be5d8a8a8ae0e4cd5f8ada967c4e2938051",
                 "shasum": ""
             },
             "require": {
@@ -1553,9 +1553,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.4.2"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.5.0"
             },
-            "time": "2022-05-08T02:04:26+00:00"
+            "time": "2022-05-13T04:20:08+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
