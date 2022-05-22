@@ -173,27 +173,32 @@ WS_SSL_KEY=/path/to/key
 > This will broadcast the message "Hello Team!" on the "team-1" channel. If you skip the "channel" the
 > message will be broadcasted to all available connections.
 
-#### Server Events
+### Events
 
-For Websocket and HTTP servers events can be dispatched. To use it, you need to register events, and then dispatch events with the given keys. If you dispatch a not-registered event (or with unmatched keys) nothing will happen.
+Events can be dispatched sync and async with Kanata. To use it, you just need to create Event classes implementing `Kanata\Interfaces\EventInterface`, and then dispatch events with the given Event class instance. We can dispatch events async and sync. 
 
-To register event, or add further handlers to existent events, use this helper:
-
-```php
-/** @var callable $callback E.g. function(){} or 'functionName' or [$instance, 'method'] */
-register_event('event-name', $callback);
-```
-
-To dispatch an event, another helper can be used:
+To dispatch an event, a helper can be used:
 
 ```php
-/** @var string $data E.g.: json_encode([]) */
-dispatch_event('event-name', $data);
-```
+use Kanata\Interfaces\EventInterface;
 
-> The events dispatched this way will be caught asynchronously according to the next timer tick timeout,
-> customizable by the environment variable `EVENT_TICK_INTERVAL` (e.g.: `EVENT_TICK_INTERVAL=1000` for
-> 1sec interval).
+class EventSample implements EventInterface
+{
+    public function handle(): void
+    {
+        // do something here
+    }
+}
+
+/** @var EventInterface $event */
+$event = new EventSample;
+
+dispatch_event($event); // this is dispatched async
+// or \Kanata\Services\Events::dispatch($event)
+
+dispatch_event($event, true); // this is dispatched sync
+// or \Kanata\Services\Events::dispatchNow($event)
+```
 
 ### Queues
 
