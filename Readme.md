@@ -15,7 +15,7 @@ Built for PHP8.0+.
     + [WebSocket](#websocket)
       - [Middleware](#middleware-1)
       - [SSL](#ssl-1)
-  * [Server Events](#server-events)
+- [Events](#events)
 - [Queues](#queues)
 - [Docker](#docker)
 - [Plugins](#plugins)
