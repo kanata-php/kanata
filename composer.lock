@@ -1485,12 +1485,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "40cb6e87ab0807aebd6dda939221655a58b5a2d3"
+                "reference": "8534ad80b6be23ab9020e1853c1a957287e7bed7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/40cb6e87ab0807aebd6dda939221655a58b5a2d3",
-                "reference": "40cb6e87ab0807aebd6dda939221655a58b5a2d3",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/8534ad80b6be23ab9020e1853c1a957287e7bed7",
+                "reference": "8534ad80b6be23ab9020e1853c1a957287e7bed7",
                 "shasum": ""
             },
             "require": {
@@ -1560,7 +1560,7 @@
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
                 "source": "https://github.com/kanata-php/kanata-core/tree/0.6.0"
             },
-            "time": "2022-05-22T02:11:23+00:00"
+            "time": "2022-05-22T07:39:45+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",

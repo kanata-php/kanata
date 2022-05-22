@@ -175,7 +175,7 @@ WS_SSL_KEY=/path/to/key
 
 ### Events
 
-Events can be dispatched sync and async with Kanata. To use it, you just need to create Event classes implementing `Kanata\Interfaces\EventInterface`, and then dispatch events with the given Event class instance. We can dispatch events async and sync. 
+Events can be dispatched sync and async with Kanata. To use it, you just need to create Event classes implementing `Kanata\Interfaces\EventInterface`, add callable listeners, and then dispatch events with the given Event class instance. We can dispatch events async and sync. Multiple listeners can be added to events. 
 
 To dispatch an event, a helper can be used:
 
@@ -183,15 +183,15 @@ To dispatch an event, a helper can be used:
 use Kanata\Interfaces\EventInterface;
 
 class EventSample implements EventInterface
-{
-    public function handle(): void
-    {
-        // do something here
-    }
-}
+{}
 
 /** @var EventInterface $event */
 $event = new EventSample;
+
+add_event_listener(EventSample::class, function (EventSample $event) {
+    // do something with this event
+});
+// or \Kanata\Services\Events::addEventListener($event, $callback)
 
 dispatch_event($event); // this is dispatched async
 // or \Kanata\Services\Events::dispatch($event)
