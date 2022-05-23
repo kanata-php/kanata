@@ -1481,16 +1481,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.6.0",
+            "version": "0.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "8534ad80b6be23ab9020e1853c1a957287e7bed7"
+                "reference": "14619a7c7ec4763109f23bd3cacadba8c498977c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/8534ad80b6be23ab9020e1853c1a957287e7bed7",
-                "reference": "8534ad80b6be23ab9020e1853c1a957287e7bed7",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/14619a7c7ec4763109f23bd3cacadba8c498977c",
+                "reference": "14619a7c7ec4763109f23bd3cacadba8c498977c",
                 "shasum": ""
             },
             "require": {
@@ -1558,9 +1558,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.6.0"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.6.2"
             },
-            "time": "2022-05-22T07:39:45+00:00"
+            "time": "2022-05-23T17:41:41+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
@@ -1998,25 +1998,30 @@
         },
         {
             "name": "lotharthesavior/chocookies",
-            "version": "0.0.3",
+            "version": "0.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotharthesavior/chocookies.git",
-                "reference": "a3cf6630afbae904a39ce7746ef8780398ea4a14"
+                "reference": "d8ff68c88caf5fd167fb9731f3578e06f2a6cffc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotharthesavior/chocookies/zipball/a3cf6630afbae904a39ce7746ef8780398ea4a14",
-                "reference": "a3cf6630afbae904a39ce7746ef8780398ea4a14",
+                "url": "https://api.github.com/repos/lotharthesavior/chocookies/zipball/d8ff68c88caf5fd167fb9731f3578e06f2a6cffc",
+                "reference": "d8ff68c88caf5fd167fb9731f3578e06f2a6cffc",
                 "shasum": ""
             },
             "require": {
                 "nesbot/carbon": "^2.57",
                 "psr/http-message": "^1.0"
             },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.4",
+                "phpunit/phpunit": "^9.2"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "Tests\\": "tests/",
                     "Chocookies\\": "src/"
                 }
             },
@@ -2027,9 +2032,9 @@
             "description": "Simple package for Cookies management on Psr7 objects.",
             "support": {
                 "issues": "https://github.com/lotharthesavior/chocookies/issues",
-                "source": "https://github.com/lotharthesavior/chocookies/tree/0.0.3"
+                "source": "https://github.com/lotharthesavior/chocookies/tree/0.0.4"
             },
-            "time": "2022-04-03T06:27:14+00:00"
+            "time": "2022-05-23T08:33:14+00:00"
         },
         {
             "name": "monolog/monolog",
