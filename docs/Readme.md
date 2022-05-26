@@ -1,7 +1,7 @@
 
-<div style="text-align: center; margin-bottom: 20px;">
+<p align="center" style="margin-bottom: 20px;">
   <img src="kanata.png">
-</div>
+</p>
 
 # Kanata
 
