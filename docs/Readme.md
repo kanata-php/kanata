@@ -12,6 +12,8 @@ Built for PHP8.0+.
 
 ### Installation
 
+> This version of Kanata requires MySQL available. To configure that update you `.env` variables to configure  the database. The dockerized environment that comes out of the box can help set that up. 
+
 Start running:
 
 ```shell
@@ -25,8 +27,6 @@ php kanata
 ```
 
 The environment will give coordinates to execute kanata via docker-compose, but here you'll find how to run as bare metal as well. Because of that it will prompt a question about the name of your app container.
-
-> The base version uses filesystem to persist data. For that to work right out of the box with the existent example model you just need to create the directory at the root of the project: `./data/`.
 
 ### Servers (HTTP, WebSocket)
 
