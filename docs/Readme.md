@@ -1,6 +1,6 @@
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <img src="kanata.png" style="max-width: 150px;">
+  <img src="kanata.png">
 </div>
 
 # Kanata
