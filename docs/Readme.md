@@ -1,53 +1,14 @@
+
+<div style="text-align: center; margin-bottom: 20px;">
+  <img src="kanata.png" style="max-width: 150px;">
+</div>
+
 # Kanata
 
-his application is a Starting point for advanced and easy to maintain apps. Based on Slim4 and OpenSwoole, it serves at this point HTTP, WebSocket, AMQP and Cli interfaces. It is extensible via plugins that can change basically every single aspect of this application, and can also work together to build more complex things. It can also route WebSocket Messages just like HTTP Requests, for this [Socket Conveyor](https://github.com/kanata-php/socket-conveyor) is used.
+This application is a Starting point for advanced and easy to maintain apps. Based on Slim4 and OpenSwoole, it serves at this point HTTP, WebSocket, AMQP and Cli interfaces. It is extensible via plugins that can change basically every single aspect of this application, and can also work together to build more complex things. It can also route WebSocket Messages just like HTTP Requests, for this [Socket Conveyor](https://github.com/kanata-php/socket-conveyor) is used.
 
 Built for PHP8.0+.
 
-# Table of contents
-
-- [Installation](#installation)
-- [Servers (HTTP, WebSocket)](#servers--http--websocket-)
-  * [Servers](#servers)
-    + [HTTP](#http)
-      - [Middleware](#middleware)
-      - [SSL](#ssl)
-    + [WebSocket](#websocket)
-      - [Middleware](#middleware-1)
-      - [SSL](#ssl-1)
-- [Events](#events)
-- [Queues](#queues)
-- [Docker](#docker)
-- [Plugins](#plugins)
-- [Hooks](#hooks)
-  * [Filters](#filters)
-    + [routes](#routes)
-    + [socket_actions](#socket_actions)
-    + [websocket_mode](#websocket_mode)
-    + [websocket_settings](#websocket_settings)
-    + [http_mode](#http_mode)
-    + [http_settings](#http_settings)
-    + [commands](#commands)
-    + [view_folders](#view_folders)
-  * [Actions](#actions)
-    + [migrations](#migrations)
-- [AOP](#aop)
-  * [Registering instances with Interceptors](#registering-instances-with-interceptors)
-- [Commands](#commands)
-  * [info](#info)
-  * [plugin activate](#plugin-activate)
-  * [plugin deactivate](#plugin-deactivate)
-  * [plugin create](#plugin-create)
-  * [plugin publish](#plugin-publish)
-  * [command create](#command-create)
-  * [debug](#debug)
-  * [PsyShell](#psyshell)
-- [How To](#how-to)
-  * [New Routes](#new-routes)
-    + [Views](#views)
-    + [API](#api)
-  * [Custom Views locations](#custom-views-locations)
-  
 
 ### Installation
 
@@ -100,7 +61,7 @@ npm install && npx mix
 
 ###### Middleware
 
-At Kanara it is possible to use 2 types of middlewares. The first is an interceptor that intercepts the "tunnel" of the application workflow. The second is the [PSR-15](https://www.php-fig.org/psr/psr-15/) style of middleware, that takes works arount the HTTP request handler.
+At Kanara it is possible to use 2 types of middlewares. The first is an interceptor that intercepts the "tunnel" of the application workflow. The second is the [PSR-15](https://www.php-fig.org/psr/psr-15/) style of middleware, that works around the HTTP request handler.
 
 ###### SSL
 
