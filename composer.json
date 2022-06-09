@@ -27,7 +27,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "kanata-php/kanata-core": "^0.6"
+        "kanata-php/kanata-core": "^0.7"
     },
     "autoload": {
         "psr-4": {

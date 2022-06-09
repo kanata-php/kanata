@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'kanata-monitor'
+scrape_configs:
+  - job_name: 'kanata'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['php:8001']
