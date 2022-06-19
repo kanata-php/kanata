@@ -31,8 +31,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tests\\": "tests",
-            "Kanata\\": "packages/kanata-core/src/Kanata"
+            "Tests\\": "tests"
         }
     },
     "require-dev": {

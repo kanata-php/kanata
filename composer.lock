@@ -1425,16 +1425,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.7.1",
+            "version": "0.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "247e5d4a5f5d9ea88e060f5d36d3d81dbaf2d86e"
+                "reference": "10bb40b195f2d721740d9f5a6dad3cf9ee5daf04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/247e5d4a5f5d9ea88e060f5d36d3d81dbaf2d86e",
-                "reference": "247e5d4a5f5d9ea88e060f5d36d3d81dbaf2d86e",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/10bb40b195f2d721740d9f5a6dad3cf9ee5daf04",
+                "reference": "10bb40b195f2d721740d9f5a6dad3cf9ee5daf04",
                 "shasum": ""
             },
             "require": {
@@ -1501,9 +1501,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.7.1"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.7.2"
             },
-            "time": "2022-06-18T23:39:09+00:00"
+            "time": "2022-06-19T23:34:50+00:00"
         },
         {
             "name": "kanata-php/socket-conveyor",
@@ -6759,16 +6759,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.20",
+            "version": "9.5.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "12bc8879fb65aef2138b26fc633cb1e3620cffba"
+                "reference": "0e32b76be457de00e83213528f6bb37e2a38fcb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/12bc8879fb65aef2138b26fc633cb1e3620cffba",
-                "reference": "12bc8879fb65aef2138b26fc633cb1e3620cffba",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0e32b76be457de00e83213528f6bb37e2a38fcb1",
+                "reference": "0e32b76be457de00e83213528f6bb37e2a38fcb1",
                 "shasum": ""
             },
             "require": {
@@ -6802,7 +6802,6 @@
                 "sebastian/version": "^3.0.2"
             },
             "require-dev": {
-                "ext-pdo": "*",
                 "phpspec/prophecy-phpunit": "^2.0.1"
             },
             "suggest": {
@@ -6846,7 +6845,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.20"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.21"
             },
             "funding": [
                 {
@@ -6858,7 +6857,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-01T12:37:26+00:00"
+            "time": "2022-06-19T12:14:25+00:00"
         },
         {
             "name": "sebastian/cli-parser",

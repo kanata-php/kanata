@@ -400,6 +400,10 @@ This is the same as the hook [websocket_mode](#websocket_mode), but for the HTTP
 
 This is the same as the hook [websocket_settings](#websocket_settings), but for the HTTP Server.
 
+##### error_template
+
+This hook allows customizing the error template.
+
 ##### commands
 
 Register commands to be executed with `kanata` command line.
