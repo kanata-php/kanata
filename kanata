@@ -7,4 +7,6 @@ require __DIR__.'/vendor/autoload.php';
 
 use Kanata\Services\Bootstrap;
 
+global $app, $application, $container;
+
 Bootstrap::startConsole();
