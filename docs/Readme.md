@@ -310,6 +310,30 @@ This example makes available 2 endpoints at your app:
 
 2 - GET `/api/todos` - this returns a json formatted output with todos found at the `todo.json` file.
 
+> **Important:** to avoid issues, it is recommended to wrap routes declarations with try/catch. In case the route already exists, you can remove the existent one with `$group->removeNamedRoute('my-route-name')` and add yours or skip it.
+
+##### request_workflow
+
+Register a new stage in the Request pipeline with this hook. This means that during the request pipeline, you can add specific functionalities to happen on your request object, analyzing it, adding data and/or returning exceptions when something wrong is found.
+
+Example:
+
+```php
+add_filter('request_workflow', function(array $stages) {
+    $stages['stage-one'] = function(ServerRequestInterface $request) {
+        if (method_exists($request, 'stageOne')) {
+            $request->stageOne();
+        }
+        return $request;
+    };
+    return $stages;
+});
+```
+At this example we verify if the request has the method `stageOne` and execute it if it has. This will be executed for all routes that expects a request object that has that method implemented.
+
+> Notice that you can customize the Request object by implementing a `Psr\Http\Message\ServerRequestInterface` or `Psr\Http\Message\RequestInterface`  or extending a request object that implement any of those 2 interfaces, and setting that class as a typehint in your controller or route callback.
+
+
 ##### socket_actions
 
 Register new WebSocket Actions. For the existent WebSocket server, you'll find that you can route specific patterns in the incoming messages to different actions.
