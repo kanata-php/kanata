@@ -646,6 +646,10 @@ php kanata plugin:publish MyPluginName config
 
 > `php kanata plugin:publish {plugin-name} {directory}`
 
+Available directories for this command at this moment are: `config` and `views`.
+
+After running config, the new config files will be published at the `./config` folder. Views will be published within `./resources/views/vendors/{plugin-folder}`. 
+
 #### command create
 
 This command generate a new command skeleton for your Kanata Plugin.

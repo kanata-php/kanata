@@ -27,7 +27,8 @@
     ],
     "require": {
         "php": "^8.1",
-        "kanata-php/kanata-core": "^0.7"
+        "kanata-php/kanata-core": "^0.7",
+        "ext-ssh2": "*"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +39,8 @@
         "symfony/var-dumper": "^5.2",
         "phpunit/phpunit": "^9.2",
         "mockery/mockery": "^1.4",
-        "codedungeon/phpunit-result-printer": "^0.30"
+        "codedungeon/phpunit-result-printer": "^0.30",
+        "nekofar/slim-test": "^2.0"
     },
     "scripts": {
         "test": [
