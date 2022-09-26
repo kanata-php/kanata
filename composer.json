@@ -47,7 +47,7 @@
             "vendor/bin/phpunit --testsuite Safe"
         ],
         "post-create-project-cmd": [
-            "@php kanata 10.10 kanata"
+            "cp .env.sample .env"
         ]
     },
     "extra": {
