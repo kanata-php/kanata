@@ -12,7 +12,7 @@ Built for PHP8.0+.
 
 ### Installation
 
-> This version of Kanata requires MySQL available. To configure that update you `.env` variables to configure  the database. The dockerized environment that comes out of the box can help set that up. 
+> This version of Kanata requires a Database available. Kanata accepts MySQL and Sqlite. To configure that update you `.env` variables to configure  the database. The dockerized environment that comes out of the box can help set that up. 
 
 Start running:
 
