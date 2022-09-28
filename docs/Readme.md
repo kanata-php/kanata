@@ -35,6 +35,15 @@ This app serves HTTP and WebSocket connections, and is also ready to interact wi
 The server listens to 2 ports, one for HTTP connections, another for WebSocket connections. This can be configured at the `.env` file or at the CLI interface used to start the app shown at "[To Start Server](#To Start Server)".
 
 
+#### FrontEnd
+
+This project uses Laravel Mix at this version. Due to that, before running the initial UI, you'll need to compile the assets running:
+
+```shell
+npm install && npx mix build
+```
+
+
 #### Servers
 
 ##### HTTP
@@ -42,22 +51,24 @@ The server listens to 2 ports, one for HTTP connections, another for WebSocket c
 Usage:
 
 ```shell
-php index.php
+php kanata http
 ```
 
 With custom port:
 
 ```shell
-php index.php --port=8003
+php kanata http --port=8003
 ```
 
 Access via http://localhost:8001 .
 
-For the assets to be available you'll need to isntall npm dependencies and build the assets. Larave mix is available, so the sequence of commands are like this:
-
-```shell
-npm install && npx mix
-```
+> **Remember**
+> 
+> (based on the FrontEnd section) For the assets to be available you'll need to install npm dependencies and build the assets. Laravel Mix is available, so the sequence of commands are like this:
+> 
+> ```shell
+> npm install && npx mix build
+> ```
 
 ###### Middleware
 
@@ -80,7 +91,7 @@ The WebSocket User Interface is based on [Socket Conveyor](https://github.com/ka
 Usage:
 
 ```shell
-php index.php --websocket
+php kanata ws
 ```
 
 Access via ws://localhost:8002 .
@@ -88,7 +99,7 @@ Access via ws://localhost:8002 .
 With custom port:
 
 ```shell
-php index.php --websocket --wsport=8004
+php kanata ws --wsport=8004
 ```
 
 ###### Middleware
@@ -169,7 +180,7 @@ The Queue System at Kanata is expected to be handled by an AMQP system at this p
 Usage:
 
 ```shell
-php index.php --queue --queue-name=default
+php kanata message --queue --queue-name=default
 ```
 
 This will start the services available for Queues.
