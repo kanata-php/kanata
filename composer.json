@@ -28,7 +28,7 @@
     "require": {
         "php": "^8.1",
         "kanata-php/kanata-core": "^0.7",
-        "ext-ssh2": "*"
+        "openswoole/ide-helper": "^4.11"
     },
     "autoload": {
         "psr-4": {
