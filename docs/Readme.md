@@ -523,6 +523,18 @@ This will allow views to be loaded using this:
 $html = container()->view->render('sample::home', []);
 ```
 
+##### error_template
+
+With this filter you can specify alternative template for the error page.
+
+Example:
+
+```php
+add_filter('error_template', function($template){
+    return 'my_namespace::error';
+});
+```
+
 #### Actions
 
 ##### migrations
@@ -692,6 +704,19 @@ Usage:
 ```shell
 php kanata shell
 ```
+
+### Parts
+
+#### Filesystem
+
+The system comes with [Flysystem](). This is a lib to make filesystem accessible through a simple interface. To use it in your plugin, just do this:
+
+```php
+/** @var \League\Flysystem\Filesystem $fs */
+$fs = container()->get('filesystem');
+```
+
+
 
 ### How To
 
