@@ -709,14 +709,31 @@ php kanata shell
 
 #### Filesystem
 
-The system comes with [Flysystem](). This is a lib to make filesystem accessible through a simple interface. To use it in your plugin, just do this:
+Kanata uses [Flysystem v1](https://flysystem.thephpleague.com/v1/docs/). This is a lib to make filesystem accessible through a simple interface. To use it in your plugin, just do this:
+
+> **Important:** the filesystem **MUST** use only the relative path to the project.
+
+API Doc: https://flysystem.thephpleague.com/v1/docs/usage/filesystem-api/
+
+##### Usage
 
 ```php
 /** @var \League\Flysystem\Filesystem $fs */
 $fs = container()->get('filesystem');
 ```
 
+#### Cache
 
+Katan uses [Symfony Cache](https://symfony.com/doc/current/components/cache.html). This lib follows PSR-6 for caching. Kanata at this moment uses only the filesystem adapter.
+
+Documentation: https://symfony.com/doc/current/components/cache.html
+
+##### Usage
+
+```php
+/** @var \Symfony\Component\Cache\Adapter\FilesystemAdapter $cache */
+$cache = container()->get('cache');
+```
 
 ### How To
 
@@ -852,3 +869,23 @@ With this in hand, for you to load the template `./content/plugins/my-plugin/vie
 ```php
 $html = container()->view->render('sample::home', []);
 ```
+
+### Helpers
+
+#### Path Helpers
+
+##### make_path_relative_to_project
+
+Make full path relative to project.
+
+E.g.:
+
+```php
+// project at /var/www
+echo make_path_relative_to_project('/var/www/storage/cache');
+// output: storage/cache
+```
+
+### Roadmap
+
+- upgrade flysystem (https://flysystem.thephpleague.com/v1/docs/) to v3.
