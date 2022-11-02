@@ -673,6 +673,48 @@ Available directories for this command at this moment are: `config` and `views`.
 
 After running config, the new config files will be published at the `./config` folder. Views will be published within `./resources/views/vendors/{plugin-folder}`. 
 
+#### plugin search
+
+This command search for plugins available on Kanata Plugin API.
+
+> **Comment:** This command doesn't reach all existent plugins for Kanata, only the ones registered for this purpose. 
+
+Usage:
+
+```shell
+php kanata plugin:search user
+```
+
+> `php kanata plugin:search {part of the slug string}`
+
+Response example:
+
+```
+...
+------------------------------------------------------
+    name: User Authorization
+    description: This plugin adds an authorization layer where it is configurable which routes will be protected, and a formal way of keeping Users.                            
+    repo: https://github.com/kanata-php/user-authorization-plugin.git
+    slug: user-authorization
+ -----------------------------------------------------
+```
+
+#### plugin install
+
+This command installs plugins available on Kanata Plugin API. (this is supposed to be used with plugin:search command)
+
+> **Comment:** This command doesn't reach all existent plugins for Kanata, only the ones registered for this purpose.
+
+Usage:
+
+```shell
+php kanata plugin:install user-authorization
+```
+
+> `php kanata plugin:install {plugin slug}`
+
+> **Important:** This command will install the plugin at the directory `content/plugins`.
+
 #### command create
 
 This command generate a new command skeleton for your Kanata Plugin.
