@@ -47,7 +47,9 @@
             "vendor/bin/phpunit --testsuite Safe"
         ],
         "post-create-project-cmd": [
-            "cp .env.sample .env"
+            "cp .env.sample .env",
+            "php kanata db:set-up sqlite",
+            "vendor/bin/start-kanata"
         ]
     },
     "extra": {
