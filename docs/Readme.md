@@ -722,10 +722,10 @@ This command generate a new command skeleton for your Kanata Plugin.
 Usage:
 
 ```shell
-php kanata command:create CommandName MyPluginName
+php kanata command:create CommandName --plugin=MyPluginName
 ```
 
-> `php kanata command:create {command-name} {plugin-name}`
+> `php kanata command:create {command-name} --plugin={plugin-name}`
 
 #### debug
 
