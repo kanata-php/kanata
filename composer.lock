@@ -1428,16 +1428,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.8.4",
+            "version": "0.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "18e62dc00a0688b6ed65854e2a7701c699524002"
+                "reference": "c41079cd80020dfc29468c59e2ed086a082b288e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/18e62dc00a0688b6ed65854e2a7701c699524002",
-                "reference": "18e62dc00a0688b6ed65854e2a7701c699524002",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/c41079cd80020dfc29468c59e2ed086a082b288e",
+                "reference": "c41079cd80020dfc29468c59e2ed086a082b288e",
                 "shasum": ""
             },
             "require": {
@@ -1507,9 +1507,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.8.4"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.8.5"
             },
-            "time": "2022-12-27T01:18:10+00:00"
+            "time": "2022-12-27T17:49:08+00:00"
         },
         {
             "name": "kanata-php/kanata-plugin-sdk",
@@ -1620,16 +1620,16 @@
         },
         {
             "name": "kanata-php/socket-conveyor",
-            "version": "1.1.8",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/socket-conveyor.git",
-                "reference": "1eb785d5ab74ba59a2d2dc0c1e21f7dd7e90baf1"
+                "reference": "fccb404b52b05da1c7521ee6aa16d628965a0a1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/1eb785d5ab74ba59a2d2dc0c1e21f7dd7e90baf1",
-                "reference": "1eb785d5ab74ba59a2d2dc0c1e21f7dd7e90baf1",
+                "url": "https://api.github.com/repos/kanata-php/socket-conveyor/zipball/fccb404b52b05da1c7521ee6aa16d628965a0a1f",
+                "reference": "fccb404b52b05da1c7521ee6aa16d628965a0a1f",
                 "shasum": ""
             },
             "require": {
@@ -1659,7 +1659,7 @@
             "description": "A WebSocket/Socket message Router",
             "support": {
                 "issues": "https://github.com/kanata-php/socket-conveyor/issues",
-                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.1.8"
+                "source": "https://github.com/kanata-php/socket-conveyor/tree/1.1.9"
             },
             "funding": [
                 {
@@ -1667,7 +1667,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-10-02T21:45:48+00:00"
+            "time": "2022-12-27T17:46:12+00:00"
         },
         {
             "name": "koriym/attributes",
