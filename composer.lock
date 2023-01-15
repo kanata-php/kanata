@@ -1428,16 +1428,16 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.8.10",
+            "version": "0.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "2495e1efd8d2267879b5be521f7f09a72c9e8f8c"
+                "reference": "77698efd0514f3c2511e61b521605f5520bf395d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/2495e1efd8d2267879b5be521f7f09a72c9e8f8c",
-                "reference": "2495e1efd8d2267879b5be521f7f09a72c9e8f8c",
+                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/77698efd0514f3c2511e61b521605f5520bf395d",
+                "reference": "77698efd0514f3c2511e61b521605f5520bf395d",
                 "shasum": ""
             },
             "require": {
@@ -1483,12 +1483,12 @@
                 "codedungeon/phpunit-result-printer": "^0.30",
                 "fakerphp/faker": "^1.19",
                 "mockery/mockery": "^1.5",
+                "openswoole/ide-helper": "^22.0",
                 "phpunit/phpunit": "^9.2",
                 "symfony/var-dumper": "^5.2"
             },
             "suggest": {
-                "ext-openswoole": "This package requires at least one of Open Swoole or Swoole",
-                "ext-swoole": "This package requires at least one of Open Swoole or Swoole"
+                "ext-openswoole": "This package requires at least one of Open Swoole or Swoole"
             },
             "bin": [
                 "start-kanata"
@@ -1507,9 +1507,9 @@
             "description": "Kanata App Starter Core",
             "support": {
                 "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.8.10"
+                "source": "https://github.com/kanata-php/kanata-core/tree/0.8.11"
             },
-            "time": "2023-01-15T23:01:08+00:00"
+            "time": "2023-01-15T23:32:08+00:00"
         },
         {
             "name": "kanata-php/kanata-plugin-sdk",
