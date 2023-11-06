@@ -43,10 +43,10 @@ The server listens to 2 ports, one for HTTP connections, another for WebSocket c
 
 #### FrontEnd
 
-This project uses Laravel Mix at this version. Due to that, before running the initial UI, you'll need to compile the assets running:
+This project uses [Vite](https://vite.dev) at this version. Due to that, before running the initial UI, you'll need to compile the assets running:
 
 ```shell
-npm install && npx mix build
+npm install && npm run dev
 ```
 
 
@@ -150,7 +150,7 @@ WS_SSL_KEY=/path/to/key
 > ```
 > 
 > This will broadcast the message "Hello Team!" on the "team-1" channel. If you skip the "channel" the
-> message will be broadcasted to all available connections.
+> message will broadcast to all available connections (fanout).
 
 ### Events
 

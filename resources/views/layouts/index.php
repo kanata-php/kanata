@@ -10,8 +10,6 @@
     <meta name="description" content="">
 
     <link rel="icon" href="/imgs/favicon.ico"/>
-
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="text-gray-900 leading-normal font-sans bg-gray-100">
@@ -24,6 +22,6 @@
     </div>
 </div>
 
-<script src="/js/app.js"></script>
+<script type="module" src="/js/app.js"></script>
 </body>
 </html>
