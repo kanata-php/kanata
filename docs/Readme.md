@@ -140,8 +140,8 @@ WS_SSL_KEY=/path/to/key
 
 > **Helper**: `socket_communication()`
 > This helper is useful for broadcasting messages asynchronously. Imagine that you need to broadcast a
-> message form a place where you have no access to the WebSocket context, e.g.: from a queue handler. This
-> returns an instance of a `\Swoole\Table` class that is consumed by the WebSocket Server "tick". In the
+> message from a place where you have no access to the WebSocket context, e.g.: from a queue handler. This
+> returns an instance of an Eloquent Model class that is consumed by the WebSocket Server "tick". In the
 > next second (interval customizable by the environment variable `WS_TICK_INTERVAL`) the information added
 > to it will be consumed in the other side. This is how you use it:
 > 

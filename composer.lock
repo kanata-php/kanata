@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5410f8c573476aa3470b51ccfd600ba8",
+    "content-hash": "145000c6e6f121cf121d7f7d565fe2df",
     "packages": [
         {
             "name": "aura/autoload",
@@ -1429,17 +1429,11 @@
         },
         {
             "name": "kanata-php/kanata-core",
-            "version": "0.8.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kanata-php/kanata-core.git",
-                "reference": "6f314c18f92216ee5a8d201e5e9a1938c8fab173"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kanata-php/kanata-core/zipball/6f314c18f92216ee5a8d201e5e9a1938c8fab173",
-                "reference": "6f314c18f92216ee5a8d201e5e9a1938c8fab173",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/kanata-core",
+                "reference": "6f314c18f92216ee5a8d201e5e9a1938c8fab173"
             },
             "require": {
                 "aura/autoload": "^2.0",
@@ -1497,20 +1491,22 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Tests\\": "tests",
-                    "Kanata\\": "src/Kanata"
+                    "Kanata\\": "src/Kanata",
+                    "Tests\\": "tests"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "test": [
+                    "./vendor/bin/phpunit"
+                ]
+            },
             "license": [
                 "MIT"
             ],
             "description": "Kanata App Starter Core",
-            "support": {
-                "issues": "https://github.com/kanata-php/kanata-core/issues",
-                "source": "https://github.com/kanata-php/kanata-core/tree/0.8.12"
-            },
-            "time": "2023-08-07T00:32:02+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "kanata-php/kanata-plugin-sdk",
@@ -8381,7 +8377,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kanata-php/kanata-core": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

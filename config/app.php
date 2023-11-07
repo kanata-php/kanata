@@ -14,6 +14,7 @@ return [
     // Session
     // ------------------------------------------------------------------
 
+    'session-driver' => env('SESSION_DRIVER', 'file'),
     'session-key' => env('SESSION_PREFIX', 'eyJpZCI6IjU0'),
 
     // ------------------------------------------------------------------
